@@ -1,0 +1,102 @@
+整体思路：用内容制造欲望 → 用测试锁定需求 → 用产品承接体验 → 用App实现复购
+用户多为欧美，移动端
+
+新访问到独立站，首次必定会在落地页先看到年龄确认弹窗
+弹窗（移动端）设计为，大致1/3屏幕大小，居中
+弹窗内容为
+“你年满18岁了吗”
+“是的，我已年满18岁” 
+“结束” 
+必须点击 “是的，我已年满18岁”  ，才能让弹窗关闭，看清弹窗下的页面
+在弹窗为关闭状态，清弹窗下的页面大概只有原来的60%左右清晰度
+
+
+首页设计
+第一屏：
+顶部Hiro视频
+一个器具图片（first-flutter：双蘑菇头）
+接下来
+播放小故事音频演示器具震动
+
+第一屏置顶bar，左边是个产品图标，点击回到首页首屏
+然后置顶bar右侧分别有搜索栏，个人栏，和导航栏（三横标识）
+导航栏点击后可以选择打开 首页，社区，剧场，商品，女性专栏，应用，购物车，订阅 
+
+第二屏开始
+然后是性癖探索
+有3行不停滚动的性癖标签
+
+然后往下是
+一排小视频，展示Ai场景的信息，主要是男主角图片，声音，对白
+点击某个视频会跳转到 剧情播放页
+
+然后往下是
+5个产品的产品图和价格
+
+然后往下是
+女性科普简介（配滚动图）
+
+然后往下是
+器具（硬件）+AI联动的App使用指导（4张图）
+
+然后往下是 App下载指南
+
+然后往下是 （留下邮箱）订阅勾选
+
+最下面是一些支付方式，关方平台信息
+
+
+其他页面有：
+社区（community） ，scenarios（剧情），女性专栏（multisensory）,
+商品列表（ai-sex-toys），商品详情（ai-sex-toys/xxxx-xxxx）
+ 
+  
+浏览帖子
+community/post-4499-total-sensory-deprivation-paired-with-synchronized-audio-will
+帖子下面2个按钮  
+1个是 可以跳到 产品详情页
+1个是 可以跳到 剧情播放页
+
+帖子旁边有个测试欲望人格按钮（性癖测试）
+Test your desire personality
+  性癖测试完成后 测试结果下面有进入 关联 剧情播放页
+  性癖测试完成后 测试结果下面有进入 关联 商品详情页
+
+
+
+剧情播放页面
+scenarios/1747-forbidden-fruit-cunnilingus-first-time-cream-pie-virgin-kissing
+
+播放完成后 提示登录才能继续体验
+
+登录后 提示购买才能继续体验
+
+
+剧情
+scenarios/1747-forbidden-fruit-cunnilingus-first-time-cream-pie-virgin-kissing
+旁边有直接购买的关联商品窄图
+
+剧情下方有欲望测试页（24问题）
+https://www.creviatech.com/zh/desire-test
+测试完成后推荐2个相关场景，一款器具，以及下面再次测试和分享功能
+https://www.creviatech.com/zh/desire-result?desireResult=1&desireCategory=powerDominance
+
+
+
+女性专栏
+multisensory/womens-sexual-health/1697-why-can-t-you-get-erection-when-you-want-to-women-s-sexual-health?page=1
+最下方有3个商品连接，点击进入商品详情
+
+
+
+社区帖子
+community/post-2055-placebo-pill-question
+
+
+商品详情页里
+有个器具类型匹配测试（8个问题）
+https://www.creviatech.com/zh/test
+测试完成后推荐一款器具
+https://www.creviatech.com/zh/test/recommendations
+点击推荐款式后又跳转到商品详情
+https://www.creviatech.com/zh/ai-sex-toys/1181025-product
