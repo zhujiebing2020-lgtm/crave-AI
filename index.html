@@ -930,10 +930,10 @@ GROUP BY t.task_name
     <div class="meta"><span class="tag" style="background:rgba(167,139,250,.2);color:#a78bfa;">投手专区</span> 记录你发现的规律、踩过的坑、值得沉淀的经验</div>
   </div>
 
-  <div class="module-intro"><p>这里是投手自己写的经验库。不用写论文，写一句"XXX落地页在某类素材上CTR高30%"就够了。积累到一定量后运营统筹会整理进对应模块。</p></div>
+  <div class="module-intro"><p>填完表单点"生成投稿"，把生成的文字复制发给运营统筹（微信/飞书）即可。不需要账号，不需要登录，手机也能用。</p></div>
 
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:28px;">
-    <h3 style="margin-top:0;margin-bottom:16px;">提交新记录</h3>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;">
+    <h3 style="margin-top:0;margin-bottom:16px;">填写投稿内容</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
       <div>
         <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px;">投手代号</label>
@@ -958,27 +958,28 @@ GROUP BY t.task_name
         </select>
       </div>
     </div>
-    <div style="margin-bottom:12px;">
+    <div style="margin-bottom:16px;">
       <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px;">内容（一两句话就够）</label>
-      <textarea id="c-content" rows="3" placeholder="例：组5用横版图片比竖版CTR高了约40%，CPHQ从$3.2降到$2.1，建议后续文章详情页优先横版图片..."
+      <textarea id="c-content" rows="4" placeholder="例：组5用横版图片比竖版CTR高了约40%，CPHQ从$3.2降到$2.1，建议后续文章详情页优先横版图片..."
         style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;resize:vertical;font-family:inherit;"></textarea>
     </div>
-    <div style="display:flex;gap:10px;align-items:center;">
-      <button onclick="submitContrib()" style="background:var(--accent);color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">提交</button>
-      <span id="c-msg" style="font-size:12px;color:var(--green);display:none;">✓ 已保存</span>
+    <button onclick="generateContrib()" style="background:var(--accent);color:#fff;border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">生成投稿文本</button>
+  </div>
+
+  <!-- 生成结果区 -->
+  <div id="c-result" style="display:none;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:20px;margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div style="font-size:13px;font-weight:600;color:var(--green);">✓ 投稿文本已生成 — 复制后发给运营统筹</div>
+      <button onclick="copyContrib()" id="c-copy-btn" style="background:var(--green);color:#fff;border:none;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">复制</button>
     </div>
+    <div id="c-output" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;font-family:inherit;"></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:10px;">复制后直接发到微信/飞书群，运营统筹会整理进对应知识模块。</div>
   </div>
 
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-    <h2 style="margin:0;border:none;padding:0;">历史记录 <span id="c-count" style="font-size:13px;color:var(--muted);font-weight:400;"></span></h2>
-    <button onclick="exportContribs()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;">导出全部（复制）</button>
-  </div>
-
-  <div id="c-list"></div>
-
-  <div class="callout tip" style="margin-top:24px;">
-    <div class="callout-title">说明</div>
-    记录保存在<strong>本地浏览器</strong>（localStorage），换了设备不会同步。运营统筹每周汇总一次，将有价值的内容整理进对应知识模块。
+  <div class="callout tip">
+    <div class="callout-title">流程说明</div>
+    投稿 → 复制文本 → 发给运营统筹 → 统筹审核后更新知识库并同步 GitHub Pages。<br>
+    不限次数，随时投稿。有价值的经验都值得记录。
   </div>
 </div>
 
@@ -994,73 +995,29 @@ function show(id) {
 }
 
 // ---- Contribution system ----
-function getContribs() {
-  try { return JSON.parse(localStorage.getItem('crave_contribs') || '[]'); } catch(e) { return []; }
-}
-function saveContribs(list) {
-  localStorage.setItem('crave_contribs', JSON.stringify(list));
-}
-function renderContribs() {
-  const list = getContribs();
-  const el = document.getElementById('c-list');
-  const cnt = document.getElementById('c-count');
-  cnt.textContent = list.length ? `(${list.length} 条)` : '';
-  if (!list.length) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:20px 0;">还没有记录。你来第一个 👇</div>';
-    return;
-  }
-  const typeColors = {
-    '素材经验': 'var(--blue)', '落地页发现': 'var(--green)',
-    '账号/风控': 'var(--orange)', '数据洞察': 'var(--accent-light)', '其他': 'var(--muted)'
-  };
-  el.innerHTML = [...list].reverse().map((c, i) => `
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:10px;position:relative;">
-      <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
-        <span style="background:rgba(99,102,241,.2);color:var(--accent-light);border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;">${c.person}</span>
-        <span style="border-radius:4px;padding:2px 7px;font-size:11px;font-weight:600;border:1px solid;color:${typeColors[c.type]||'var(--muted)'};border-color:${typeColors[c.type]||'var(--border)'};">${c.type}</span>
-        <span style="font-size:11px;color:var(--muted);margin-left:auto;">${c.date}</span>
-        <button onclick="deleteContrib(${list.length-1-i})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:0 4px;" title="删除">✕</button>
-      </div>
-      <div style="font-size:13.5px;line-height:1.7;color:var(--text);">${c.content.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
-    </div>
-  `).join('');
-}
-function submitContrib() {
+function generateContrib() {
   const person = document.getElementById('c-person').value;
   const type = document.getElementById('c-type').value;
   const content = document.getElementById('c-content').value.trim();
   if (!person || !type || !content) { alert('请填写代号、类型和内容'); return; }
-  const list = getContribs();
-  list.push({ person, type, content, date: new Date().toLocaleDateString('zh-CN') });
-  saveContribs(list);
-  document.getElementById('c-person').value = '';
-  document.getElementById('c-type').value = '';
-  document.getElementById('c-content').value = '';
-  const msg = document.getElementById('c-msg');
-  msg.style.display = 'inline';
-  setTimeout(() => msg.style.display = 'none', 2000);
-  renderContribs();
+  const date = new Date().toLocaleDateString('zh-CN');
+  const text = `【Crave AI 知识库投稿】\n投手：${person}\n类型：${type}\n日期：${date}\n\n${content}`;
+  document.getElementById('c-output').textContent = text;
+  document.getElementById('c-result').style.display = 'block';
+  document.getElementById('c-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
-function deleteContrib(idx) {
-  if (!confirm('确认删除这条记录？')) return;
-  const list = getContribs();
-  list.splice(idx, 1);
-  saveContribs(list);
-  renderContribs();
-}
-function exportContribs() {
-  const list = getContribs();
-  if (!list.length) { alert('还没有记录'); return; }
-  const text = list.map(c => `[${c.date}] ${c.person} · ${c.type}\n${c.content}`).join('\n\n---\n\n');
-  navigator.clipboard.writeText(text).then(() => alert('已复制到剪贴板 ✓')).catch(() => {
+function copyContrib() {
+  const text = document.getElementById('c-output').textContent;
+  const btn = document.getElementById('c-copy-btn');
+  navigator.clipboard.writeText(text).catch(() => {
     const ta = document.createElement('textarea');
     ta.value = text; document.body.appendChild(ta); ta.select();
     document.execCommand('copy'); document.body.removeChild(ta);
-    alert('已复制到剪贴板 ✓');
   });
+  btn.textContent = '已复制 ✓';
+  btn.style.background = 'var(--muted)';
+  setTimeout(() => { btn.textContent = '复制'; btn.style.background = 'var(--green)'; }, 2500);
 }
-// Init on page load
-renderContribs();
 </script>
 </body>
 </html>
