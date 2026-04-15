@@ -175,6 +175,7 @@
     <a class="nav-item" onclick="show('s4')"><span class="num">04</span>学习期管理</a>
     <a class="nav-item" onclick="show('s5')"><span class="num">05</span>落地页类型选择</a>
     <a class="nav-item" onclick="show('s6')"><span class="num">06</span>素材策略与合规</a>
+    <a class="nav-item" onclick="show('s15')"><span class="num">15</span>预算·止损·素材决策</a>
   </div>
 
   <div class="sidebar-section">
@@ -920,6 +921,176 @@ GROUP BY t.task_name
     <div class="callout-title">更新这份文件的方式</div>
     这个 HTML 文件存放在桌面，可以用任何文本编辑器（VS Code / 记事本）直接编辑。知识更新就是在对应表格里加一行。<br><br>
     如果需要新增整个模块（如Google Ads上线后），在侧边栏增加导航项，在HTML末尾增加对应 section 即可。
+  </div>
+</div>
+
+<!-- ===== S15: 预算·止损·素材决策 ===== -->
+<div id="s15" class="section">
+  <div class="page-header">
+    <h1>15 · 预算·止损·素材决策</h1>
+    <div class="meta"><span class="tag tag-crave">操作框架</span> 三个模块联动，不能拆开看</div>
+  </div>
+
+  <div class="module-intro"><p>预算决定把钱压到哪里，止损决定在哪里切断错误，素材决定系统有没有新鲜信号。判断链：<strong>先看广告组阶段 → 再看 CPHQ 信号是否稳定 → 再决定加预算、维持还是止损。</strong></p></div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程的问题：用 CPA/ROAS 驱动所有决策</div>
+    通用框架把 CPA、ROAS 放在核心。Crave AI 当前购买转化为0，这两个指标对我们没有操作意义。<br>
+    我们的核心判断层是：<strong>交付层（能不能出量）→ 点击层（CTR）→ 站内层（HVU / CPHQ）</strong>。结果层（CPA/ROAS）等漏斗打通后再接入。
+  </div>
+
+  <h2>指标四层：只有第三层是我们当前优化目标</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标层</th><th>代表指标</th><th>回答的问题</th><th>当前状态</th></tr>
+    <tr><td>交付层</td><td>Spend、CPM、Frequency</td><td>广告有没有正常投出去</td><td>正常，BM-A 日消耗 ~$140</td></tr>
+    <tr><td>点击层</td><td>CTR、CPC</td><td>素材是否拿到注意力</td><td>目标 CTR ≥ 2%</td></tr>
+    <tr><td class="td-good"><strong>站内层 ← 核心</strong></td><td><strong>HVU、CPHQ</strong></td><td>点进来的是不是真实有兴趣用户</td><td class="td-good">当前唯一优化层</td></tr>
+    <tr><td class="td-bad">结果层（暂不可用）</td><td class="td-bad">Purchase、CPA、ROAS</td><td>广告最终有没有赚到钱</td><td class="td-bad">漏斗卡点，4/17 观测</td></tr>
+  </table></div>
+
+  <hr>
+
+  <h2>预算判断：三阶段标准</h2>
+  <div class="table-wrap"><table>
+    <tr><th>阶段</th><th>进入条件</th><th>CPHQ 目标</th><th>操作原则</th></tr>
+    <tr>
+      <td><span class="badge badge-learn">学习期</span> $0~$30</td>
+      <td>新广告组上线起</td>
+      <td>$5~$15 可接受，不作判断</td>
+      <td><strong>绝对不动预算，不换素材</strong></td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-scale">跑量期</span> $30后</td>
+      <td>跑满 $30 且有信号</td>
+      <td>新账号 ≤$5，成熟账号 ≤$2</td>
+      <td>每次调整 ≤20%，等2天再加下一次</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-decay">衰退期</span></td>
+      <td>CTR 连续3天低于峰值70%</td>
+      <td>维持，关注 CPA ≤$77</td>
+      <td>48小时内换素材，不停计划不重建</td>
+    </tr>
+  </table></div>
+
+  <div class="callout rule">
+    <div class="callout-title">加预算的四个前提（都要满足）</div>
+    1. <strong>结果前提</strong>：CPHQ 连续2天 ≤ $3<br>
+    2. <strong>样本前提</strong>：花费已过 $30<br>
+    3. <strong>稳定前提</strong>：CPHQ 趋势在收敛/改善，不是今天好明天爆<br>
+    4. <strong>承接前提</strong>：落地页和支付无技术断点
+  </div>
+
+  <h3>加量后必须观察的边际变化</h3>
+  <div class="table-wrap"><table>
+    <tr><th>观察指标</th><th>变好 → 继续</th><th>变差 → 暂缓</th></tr>
+    <tr><td>CPHQ 是否随花费上升而恶化</td><td>没恶化</td><td>明显恶化，说明扩量已挤压效率</td></tr>
+    <tr><td>CPM 是否显著升高</td><td>稳定</td><td>快速抬升，进入更贵竞价池</td></tr>
+    <tr><td>CTR 是否下降</td><td>稳定</td><td>下滑，素材覆盖到更不精准人群</td></tr>
+  </table></div>
+
+  <hr>
+
+  <h2>止损判断：三类止损方式</h2>
+
+  <div class="callout warn">
+    <div class="callout-title">学习期内（花费 &lt; $30）不止损</div>
+    除非：落地页报错 / 连续2天有花费但 HVU = 0。其他情况一律观察，不做止损动作。
+  </div>
+
+  <div class="table-wrap"><table>
+    <tr><th>止损类型</th><th>触发条件</th><th>操作</th></tr>
+    <tr><td class="td-bad">空耗止损</td><td>有花费但 HVU = 0，连续2天</td><td>先查落地页是否报错，再查素材是否被降权，暂停广告组</td></tr>
+    <tr><td class="td-warn">成本止损</td><td>CPHQ 连续2天 &gt; $5（跑量期后）</td><td>暂停，不立刻重建，换素材方向后新建</td></tr>
+    <tr><td class="td-bad">趋势止损</td><td>CPHQ 持续恶化 + CTR 低于峰值70%</td><td>关停，在同落地页方向上新建广告组</td></tr>
+  </table></div>
+
+  <h3>止损后的下一步（止损不是结束）</h3>
+  <div class="table-wrap"><table>
+    <tr><th>止损原因</th><th>后续动作</th></tr>
+    <tr><td>素材 CTR 弱</td><td>换钩子/换首屏方向，新建广告组</td></tr>
+    <tr><td>有 CTR 但 HVU = 0</td><td>查落地页承接，检查广告承诺与首屏是否一致</td></tr>
+    <tr><td>剧情体验页 CPHQ 持续 &gt; $7</td><td>迁移到文章详情页方向（已验证更优，差3倍）</td></tr>
+    <tr><td>老组趋势衰退</td><td>保留落地页方向，换素材后新建</td></tr>
+  </table></div>
+
+  <hr>
+
+  <h2>素材判断：文章详情页 vs 剧情体验页，已有明确结论</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-color:var(--green)">
+      <div class="kpi-label" style="color:var(--green)">文章详情页（CHJ方向）</div>
+      <div class="kpi-value" style="color:var(--green);font-size:22px;">CPHQ $2~3</div>
+      <div class="kpi-desc">组5 $2.32 / 组4 $2.55 / 组17 $4.01<br>✅ 主力方向，持续加量</div>
+    </div>
+    <div class="kpi-card" style="border-color:var(--red)">
+      <div class="kpi-label" style="color:var(--red)">剧情体验页（HNN旧方向）</div>
+      <div class="kpi-value" style="color:var(--red);font-size:22px;">CPHQ $7~9</div>
+      <div class="kpi-desc">组6/8/9/12 全部偏贵<br>🔴 关停，HNN迁移到文章方向</div>
+    </div>
+  </div>
+
+  <h3>素材健康度五个维度</h3>
+  <div class="table-wrap"><table>
+    <tr><th>维度</th><th>代表指标</th><th>对我们的意义</th></tr>
+    <tr><td>抓取能力</td><td>CTR（目标 ≥ 2%）</td><td>素材是否能让目标用户停下来</td></tr>
+    <tr><td>点击质量</td><td>HVU 率（HVU / 总 Sessions）</td><td>点进来的是不是真实有兴趣用户</td></tr>
+    <tr><td>落地页匹配</td><td>跳出率 / CPHQ</td><td>广告承诺与落地页首屏是否一致</td></tr>
+    <tr><td>生命周期</td><td>CPHQ 趋势（看板横向观察）</td><td>是否进入衰退（连续下滑）</td></tr>
+    <tr><td>合规风险</td><td>拒审率</td><td>拒审率 &gt; 30% 立即换素材</td></tr>
+  </table></div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：高 CTR ≠ 好素材</div>
+    在 Crave AI，我们见过 CTR 高但 HVU = 0 的广告组（用户点进来就跳出）。<br>
+    <strong>好素材的定义是：能帮系统找到 page_count &gt; 1 的真实有兴趣用户，而不只是吸引好奇点击。</strong>
+  </div>
+
+  <hr>
+
+  <h2>日常巡检决策链（5步）</h2>
+  <div class="decision">
+    <div class="decision-step">
+      <div class="q">第一步</div>
+      <div class="a">花费 &lt; $30？→ <span class="badge badge-learn">学习期</span> 不动任何东西，继续观察</div>
+    </div>
+    <div class="decision-step go">
+      <div class="q">花费 ≥ $30，CPHQ ≤ $3</div>
+      <div class="a">✅ 加量：每次 ≤20%，等2天确认稳定再加下一次</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">花费 ≥ $30，CPHQ $3~$5</div>
+      <div class="a">⏸ 保留观察：看趋势，连续改善则加量，连续恶化则暂停</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">CPHQ &gt; $5</div>
+      <div class="a">⚠️ 观察一天：连续2天 &gt; $5 → 暂停；单天偶发 → 继续观察</div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">有花费 / HVU = 0，连续2天</div>
+      <div class="a">🔴 立即暂停：先查落地页是否报错，再查素材是否被降权</div>
+    </div>
+  </div>
+
+  <h3>异常情况快速判断</h3>
+  <div class="table-wrap"><table>
+    <tr><th>现象</th><th>先查什么</th><th>可能原因</th><th>动作</th></tr>
+    <tr><td>CPHQ 突然升高</td><td>CTR 是否同步下降</td><td>素材疲劳 或 CPM 上升</td><td>CTR 跌→换素材；CTR 稳→等3天</td></tr>
+    <tr><td>有花费 HVU = 0</td><td>落地页能否正常打开</td><td>页面报错 或 承接断层</td><td>报错→立即暂停并切备用落地页</td></tr>
+    <tr><td>新组首日 CPHQ &gt; $10</td><td>花费是否 &lt; $30</td><td>学习期正常波动</td><td>不操作，等跑满 $30</td></tr>
+    <tr><td>CPHQ 忽高忽低</td><td>花费是否 &lt; $30</td><td>学习期未稳定</td><td>继续观察，不换素材不改预算</td></tr>
+    <tr><td>CTR 正常但 HVU = 0</td><td>AdClaw page_count 分布</td><td>落地页首屏与广告承诺不一致</td><td>换落地页或换素材方向</td></tr>
+  </table></div>
+
+  <div class="callout rule">
+    <div class="callout-title">三条总规则</div>
+    <strong>规则一：预算是证据分配机制，不是奖励机制。</strong><br>
+    谁拿到更多预算，是因为它提供了"继续投更可能带来 CPHQ ≤$3 结果"的证据，不是因为"今天感觉不错"。<br><br>
+    <strong>规则二：止损是样本判断动作，不是情绪动作。</strong><br>
+    学习期内不止损，跑量期看连续2天数据再决定。过早止损和拖延止损都是浪费。<br><br>
+    <strong>规则三：素材不是单条资产，是方向供给。</strong><br>
+    现在的问题不是"有没有好素材"，而是"文章详情页方向的素材供给速度，能不能跟上预算消耗速度"。
   </div>
 </div>
 
