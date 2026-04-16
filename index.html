@@ -175,7 +175,9 @@
     <a class="nav-item" onclick="show('s4')"><span class="num">04</span>学习期管理</a>
     <a class="nav-item" onclick="show('s5')"><span class="num">05</span>落地页类型选择</a>
     <a class="nav-item" onclick="show('s6')"><span class="num">06</span>素材策略与合规</a>
-    <a class="nav-item" onclick="show('s15')"><span class="num">15</span>预算·止损·素材决策</a>
+    <a class="nav-item" onclick="show('s15')"><span class="num">15</span>预算决策</a>
+    <a class="nav-item" onclick="show('s16')"><span class="num">16</span>止损决策</a>
+    <a class="nav-item" onclick="show('s17')"><span class="num">17</span>素材决策</a>
   </div>
 
   <div class="sidebar-section">
@@ -926,14 +928,14 @@ GROUP BY t.task_name
   </div>
 </div>
 
-<!-- ===== S15: 预算·止损·素材决策 ===== -->
+<!-- ===== S15: 预算决策 ===== -->
 <div id="s15" class="section">
   <div class="page-header">
-    <h1>15 · 预算·止损·素材决策</h1>
-    <div class="meta"><span class="tag tag-crave">操作框架</span> 三个模块联动，不能拆开看</div>
+    <h1>15 · 预算决策</h1>
+    <div class="meta"><span class="tag tag-crave">操作框架</span> 预算是证据分配机制</div>
   </div>
 
-  <div class="module-intro"><p>预算决定把钱压到哪里，止损决定在哪里切断错误，素材决定系统有没有新鲜信号。判断链：<strong>先看广告组阶段 → 再看 CPHQ 信号是否稳定 → 再决定加预算、维持还是止损。</strong></p></div>
+  <div class="module-intro"><p>预算决定把钱压到哪里。判断链：<strong>先看广告组阶段 → 再看 CPHQ 信号是否稳定 → 再决定加预算、维持还是观察。</strong></p></div>
 
   <div class="callout rebuke">
     <div class="callout-title">通用课程的问题：用 CPA/ROAS 驱动所有决策</div>
@@ -950,9 +952,7 @@ GROUP BY t.task_name
     <tr><td class="td-bad">结果层（暂不可用）</td><td class="td-bad">Purchase、CPA、ROAS</td><td>广告最终有没有赚到钱</td><td class="td-bad">漏斗卡点，4/17 观测</td></tr>
   </table></div>
 
-  <hr>
-
-  <h2>预算判断：三阶段标准</h2>
+  <h2>三阶段标准</h2>
   <div class="table-wrap"><table>
     <tr><th>阶段</th><th>进入条件</th><th>CPHQ 目标</th><th>操作原则</th></tr>
     <tr>
@@ -991,6 +991,21 @@ GROUP BY t.task_name
     <tr><td>CTR 是否下降</td><td>稳定</td><td>下滑，素材覆盖到更不精准人群</td></tr>
   </table></div>
 
+  <div class="callout rule">
+    <div class="callout-title">总规则：预算是证据分配机制，不是奖励机制</div>
+    谁拿到更多预算，是因为它提供了"继续投更可能带来 CPHQ ≤$3 结果"的证据，不是因为"今天感觉不错"。
+  </div>
+</div>
+
+<!-- ===== S16: 止损决策 ===== -->
+<div id="s16" class="section">
+  <div class="page-header">
+    <h1>16 · 止损决策</h1>
+    <div class="meta"><span class="tag tag-warn">风险控制</span> 止损是样本判断动作</div>
+  </div>
+
+  <div class="module-intro"><p>止损决定在哪里切断错误。判断链：<strong>先看是否在学习期 → 再看连续2天数据 → 再决定暂停还是继续观察。</strong></p></div>
+
   <hr>
 
   <h2>止损判断：三类止损方式</h2>
@@ -1015,6 +1030,21 @@ GROUP BY t.task_name
     <tr><td>剧情体验页 CPHQ 持续 &gt; $7</td><td>迁移到文章详情页方向（已验证更优，差3倍）</td></tr>
     <tr><td>老组趋势衰退</td><td>保留落地页方向，换素材后新建</td></tr>
   </table></div>
+
+  <div class="callout rule">
+    <div class="callout-title">总规则：止损是样本判断动作，不是情绪动作</div>
+    学习期内不止损，跑量期看连续2天数据再决定。过早止损和拖延止损都是浪费。
+  </div>
+</div>
+
+<!-- ===== S17: 素材决策 ===== -->
+<div id="s17" class="section">
+  <div class="page-header">
+    <h1>17 · 素材决策</h1>
+    <div class="meta"><span class="tag tag-crave">内容策略</span> 素材是方向供给</div>
+  </div>
+
+  <div class="module-intro"><p>素材决定系统有没有新鲜信号。判断链：<strong>先看落地页类型 → 再看素材健康度 → 再决定继续用还是换方向。</strong></p></div>
 
   <hr>
 
@@ -1047,6 +1077,11 @@ GROUP BY t.task_name
     <div class="callout-title">反驳：高 CTR ≠ 好素材</div>
     在 Crave AI，我们见过 CTR 高但 HVU = 0 的广告组（用户点进来就跳出）。<br>
     <strong>好素材的定义是：能帮系统找到 page_count &gt; 1 的真实有兴趣用户，而不只是吸引好奇点击。</strong>
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">总规则：素材不是单条资产，是方向供给</div>
+    现在的问题不是"有没有好素材"，而是"文章详情页方向的素材供给速度，能不能跟上预算消耗速度"。
   </div>
 
   <hr>
@@ -1084,16 +1119,6 @@ GROUP BY t.task_name
     <tr><td>CPHQ 忽高忽低</td><td>花费是否 &lt; $30</td><td>学习期未稳定</td><td>继续观察，不换素材不改预算</td></tr>
     <tr><td>CTR 正常但 HVU = 0</td><td>AdClaw page_count 分布</td><td>落地页首屏与广告承诺不一致</td><td>换落地页或换素材方向</td></tr>
   </table></div>
-
-  <div class="callout rule">
-    <div class="callout-title">三条总规则</div>
-    <strong>规则一：预算是证据分配机制，不是奖励机制。</strong><br>
-    谁拿到更多预算，是因为它提供了"继续投更可能带来 CPHQ ≤$3 结果"的证据，不是因为"今天感觉不错"。<br><br>
-    <strong>规则二：止损是样本判断动作，不是情绪动作。</strong><br>
-    学习期内不止损，跑量期看连续2天数据再决定。过早止损和拖延止损都是浪费。<br><br>
-    <strong>规则三：素材不是单条资产，是方向供给。</strong><br>
-    现在的问题不是"有没有好素材"，而是"文章详情页方向的素材供给速度，能不能跟上预算消耗速度"。
-  </div>
 </div>
 
 <!-- ===== S14: 投手投稿 ===== -->
