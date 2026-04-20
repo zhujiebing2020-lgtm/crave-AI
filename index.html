@@ -201,7 +201,7 @@
   </div>
 
   <div style="padding: 20px 20px 12px; margin-top: auto; border-top: 1px solid var(--border);">
-    <div style="font-size: 11px; color: var(--muted);">最后更新：2026-04-15</div>
+    <div style="font-size: 11px; color: var(--muted);">最后更新：2026-04-20</div>
     <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">数据基准：BM-A · W15</div>
     <div style="font-size: 11px; color: var(--muted); margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px;">
       📁 存放于桌面，发给投手请将文件<br>放入 <strong style="color:var(--text)">iCloud云盘共享文件夹</strong>
@@ -652,6 +652,7 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     <h1>07 · 广告组决策标准</h1>
     <div class="meta"><span class="tag tag-crave">操作规范</span> 加量 / 保留 / 暂停 / 关停的判断依据</div>
   </div>
+  <div class="data-status-banner"></div>
 
   <h2>决策树</h2>
   <div class="decision">
@@ -681,26 +682,29 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     </div>
   </div>
 
-  <h2>4/14 各广告组当前状态</h2>
+  <h2 id="s7-date-header">4/19 各广告组当前状态</h2>
   <div class="table-wrap">
   <table>
-    <tr><th>广告组</th><th>投手</th><th>综合CPHQ</th><th>4/14表现</th><th>建议操作</th></tr>
-    <tr><td>组5 30 Positions</td><td>CHJ</td><td class="td-good">$2.32</td><td class="td-good">$14.36/7HVU/$2.05</td><td class="td-good">加量</td></tr>
-    <tr><td>组4 Viennese Oyster</td><td>CHJ</td><td class="td-good">$2.55</td><td class="td-warn">$16.22/5HVU/$3.24</td><td class="td-good">加量</td></tr>
-    <tr><td>组19 Top Predator's</td><td>HZM</td><td>—</td><td class="td-good">$7.64/3HVU/$2.55（首日）</td><td class="td-warn">学习期，继续观察</td></tr>
-    <tr><td>组18 红玫瑰</td><td>HNN</td><td>—</td><td class="td-warn">$9.79/4HVU/$2.45（首日）</td><td class="td-warn">学习期，继续观察</td></tr>
-    <tr><td>组17 18 Sensual</td><td>CHJ</td><td class="td-warn">$4.01</td><td class="td-good">$10.91/4HVU/$2.73</td><td class="td-warn">保留，趋势改善中</td></tr>
-    <tr><td>组7 The best intimacy</td><td>CHJ</td><td class="td-warn">$3.36</td><td class="td-warn">$10.95/2HVU/$5.48</td><td class="td-warn">观察，4/14偏贵</td></tr>
-    <tr><td>组1 Library</td><td>HZM</td><td class="td-warn">$3.98</td><td class="td-warn">$8.68/2HVU/$4.34</td><td class="td-warn">观察，近期不稳定</td></tr>
-    <tr><td>组2 Tonight</td><td>HZM</td><td class="td-bad">$5.10</td><td>$2.30/6HVU/$0.38（异常）</td><td class="td-warn">数据异常待核实</td></tr>
-    <tr><td>组15 Power Shift</td><td>HZM</td><td>—</td><td class="td-bad">$6.97/0HVU/—</td><td class="td-warn">学习期，连续观察</td></tr>
-    <tr><td>组6 冰块</td><td>HNN</td><td class="td-bad">$7.47</td><td class="td-bad">$8.16/1HVU/$8.16</td><td class="td-bad">建议关停</td></tr>
-    <tr><td>组8 山间</td><td>HNN</td><td class="td-bad">$9.15</td><td class="td-warn">$4.56/1HVU/$4.56</td><td class="td-bad">建议关停</td></tr>
-    <tr><td>组9 金项圈</td><td>HNN</td><td class="td-bad">$6.69</td><td class="td-bad">$9.80/0HVU/—</td><td class="td-bad">建议关停</td></tr>
-    <tr><td>组12 浴室</td><td>HNN</td><td class="td-bad">$7.79</td><td class="td-warn">$8.48/2HVU/$4.24</td><td class="td-bad">建议关停</td></tr>
-    <tr><td>组14 女性专栏</td><td>HNN</td><td>—</td><td class="td-bad">$9.92/0HVU/—</td><td class="td-warn">文章方向测试中，再给2天</td></tr>
-    <tr><td>组16 敲门</td><td>HNN</td><td>—</td><td class="td-bad">$7.73/0HVU/—</td><td class="td-warn">学习期，继续观察</td></tr>
-    <tr><td>组20 A Softer</td><td>CHJ</td><td>—</td><td class="td-warn">$7.32/2HVU/$3.66（首日）</td><td class="td-warn">学习期，继续观察</td></tr>
+    <tr><th>广告组</th><th>投手</th><th>4/19 花费 / HVU / CPHQ</th><th>建议操作</th></tr>
+    <!-- 优秀 CPHQ ≤ $3 -->
+    <tr><td>组17 18 Sensual</td><td>CHJ</td><td class="td-good">$9.84 / 12HVU / $0.82</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组4 Viennese Oyster</td><td>CHJ</td><td class="td-good">$10.08 / 9HVU / $1.12</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组32 confidence</td><td>CHJ</td><td class="td-good">$13.66 / 8HVU / $1.71</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组5 30 Positions</td><td>CHJ</td><td class="td-good">$9.38 / 5HVU / $1.88</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组28 牛角</td><td>HNN</td><td class="td-good">$8.81 / 4HVU / $2.20</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组20 A Softer</td><td>CHJ</td><td class="td-good">$18.84 / 7HVU / $2.69</td><td class="td-good">加量≤20%</td></tr>
+    <!-- 观察 $3~$5 -->
+    <tr><td>组21 职场</td><td>HNN</td><td class="td-warn">$6.29 / 2HVU / $3.15</td><td class="td-warn">保留观察</td></tr>
+    <tr><td>组23 工作室</td><td>HNN</td><td class="td-warn">$6.54 / 2HVU / $3.27</td><td class="td-warn">保留观察</td></tr>
+    <!-- 偏贵 >$5 -->
+    <tr><td>组29 性爱疗愈</td><td>HZM</td><td class="td-bad">$12.87 / 2HVU / $6.43</td><td class="td-warn">连续>$5→暂停</td></tr>
+    <tr><td>组31 天使</td><td>HZM</td><td class="td-bad">$13.49 / 2HVU / $6.75</td><td class="td-warn">连续>$5→暂停</td></tr>
+    <!-- 0 HVU - CHJ -->
+    <tr><td>组7 best intimacy / 组24 Dom / 组27 performance</td><td>CHJ</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">先查落地页LCP，再决策</td></tr>
+    <!-- 0 HVU - HNN -->
+    <tr><td>组8 山间 / 组9 金项圈 / 组16 敲门 / 组18 红玫瑰 / 组25 强迫休息 / 组30 流汗男</td><td>HNN</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">查LCP（>2500ms通知研发），暂停花费</td></tr>
+    <!-- 0 HVU - HZM -->
+    <tr><td>组15 Power Shift / 组19 Top Predator's / 组26 Surrender</td><td>HZM</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">建议暂停，集中预算到有产出方向</td></tr>
   </table>
   </div>
 </div>
@@ -1218,6 +1222,7 @@ GROUP BY t.task_name
       <span class="tag">$210.83 · 53 HVU · CPHQ $3.98</span>
     </div>
   </div>
+  <div class="data-status-banner"></div>
 
   <!-- 总览 -->
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
@@ -1374,6 +1379,32 @@ GROUP BY t.task_name
 </main>
 
 <script>
+// ---- 数据新鲜度 ----
+// 每天录完数据后只需改这一行日期
+const DATA_DATE = '2026-04-19';
+
+function renderDataBanners() {
+  const today = new Date().toISOString().split('T')[0];
+  const daysDiff = Math.floor((new Date(today) - new Date(DATA_DATE)) / 86400000);
+  const nowTime = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  let html, style;
+  if (daysDiff === 0) {
+    html = `⏳ <strong>今日（${DATA_DATE}）数据积累中</strong>，当前 ${nowTime} — 下方数据<strong>不完整</strong>，今日决策请参考前一日完整数据`;
+    style = 'background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);color:#fcd34d;';
+  } else if (daysDiff === 1) {
+    html = `✅ <strong>数据截止 ${DATA_DATE}（完整）</strong> — 今日（${today}）数据待录入`;
+    style = 'background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:#6ee7b7;';
+  } else if (daysDiff > 1) {
+    html = `🔴 <strong>数据已过期 ${daysDiff} 天！</strong>最后录入：${DATA_DATE}，请立即更新至 ${today}`;
+    style = 'background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.35);color:#fca5a5;';
+  }
+  document.querySelectorAll('.data-status-banner').forEach(el => {
+    el.innerHTML = html;
+    el.style.cssText = style + 'border-radius:8px;padding:10px 16px;font-size:12.5px;line-height:1.7;margin-bottom:20px;';
+  });
+}
+document.addEventListener('DOMContentLoaded', renderDataBanners);
+
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
