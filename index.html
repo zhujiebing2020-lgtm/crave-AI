@@ -1353,86 +1353,177 @@ function kbGenerate() {
   const date = document.getElementById('kb-date').value.trim() || '当日';
   localStorage.setItem('kb_date', date);
 
-  // 按投手分组
-  const byPerson = {};
-  PERSONS.forEach(p => byPerson[p] = {groups:[], totalSpend:0, totalHvu:0});
+  const PNAME = {CHJ:'陈洪骏', HNN:'黄楠楠', HZM:'黄梓铭'};
+  const PCOLOR = {CHJ:'#3b82f6', HNN:'#10b981', HZM:'#f59e0b'};
 
+  // 处理所有组数据
+  const allGroups = [];
   KB_GROUPS.forEach(g => {
     const d = data[g.id] || {};
     const spend = d.spend || 0;
     const hvu = d.hvu || 0;
-    if (spend === 0 && hvu === 0) return; // 无投放跳过
-    const p = g.person;
-    byPerson[p].groups.push({...g, spend, hvu});
-    byPerson[p].totalSpend += spend;
-    byPerson[p].totalHvu += hvu;
+    if (spend === 0 && hvu === 0) return;
+    const cphq = hvu > 0 ? spend / hvu : null;
+    allGroups.push({...g, spend, hvu, cphq});
   });
 
-  const PNAME = {CHJ:'CHJ · 陈洪骏', HNN:'HNN · 黄楠楠', HZM:'HZM · 黄梓铭'};
-  const PCOLOR = {CHJ:'#3b82f6', HNN:'#10b981', HZM:'#f59e0b'};
+  if (allGroups.length === 0) {
+    document.getElementById('kb-output').innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;">请先在上方录入数据，点击生成看板</div>';
+    return;
+  }
 
-  // 顶部总览
-  let topCards = PERSONS.map(p => {
-    const {totalSpend, totalHvu} = byPerson[p];
-    const cphq = totalHvu > 0 ? (totalSpend/totalHvu).toFixed(2) : '—';
-    const color = totalHvu===0&&totalSpend>0?'#ef4444': totalHvu===0?'var(--muted)': parseFloat(cphq)<=3?'#10b981': parseFloat(cphq)<=5?'#f59e0b':'#ef4444';
-    return `<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">${p} ${date}</div>
-      <div style="font-size:20px;font-weight:700;color:${color};">${totalHvu>0?'$'+cphq:'—'}</div>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px;">$${totalSpend.toFixed(2)} / ${totalHvu} HVU</div>
-    </div>`;
-  }).join('');
+  // 按投手汇总
+  const byPerson = {};
+  PERSONS.forEach(p => byPerson[p] = {groups:[], totalSpend:0, totalHvu:0});
+  allGroups.forEach(g => {
+    byPerson[g.person].groups.push(g);
+    byPerson[g.person].totalSpend += g.spend;
+    byPerson[g.person].totalHvu += g.hvu;
+  });
 
-  // 每个投手的卡片
-  let cards = PERSONS.map(p => {
-    const {groups, totalSpend, totalHvu} = byPerson[p];
-    if (groups.length === 0) return '';
-    const cphq = totalHvu>0 ? totalSpend/totalHvu : null;
-    const cphqStr = cphq ? '$'+cphq.toFixed(2) : '—';
-    let badgeColor, badgeText;
-    if (!cphq && totalSpend>0) { badgeColor='#FFC7CE;color:#5a1a1a'; badgeText='0 HVU 严重浪费'; }
-    else if (!cphq) { badgeColor='#e0e0e0;color:#444'; badgeText='无数据'; }
-    else if (cphq<=3) { badgeColor='#C6EFCE;color:#1a3d2b'; badgeText=`CPHQ ${cphqStr} ✓ 优质`; }
-    else if (cphq<=5) { badgeColor='#FFEB9C;color:#4a3800'; badgeText=`CPHQ ${cphqStr} 正常`; }
-    else { badgeColor='#FFCC99;color:#4a2800'; badgeText=`CPHQ ${cphqStr} ⚠ 偏贵`; }
+  // 全局汇总
+  const totalSpend = allGroups.reduce((s,g) => s+g.spend, 0);
+  const totalHvu   = allGroups.reduce((s,g) => s+g.hvu, 0);
+  const totalCphq  = totalHvu > 0 ? totalSpend/totalHvu : null;
 
-    // 组排序：有HVU的按CPHQ升序，0HVU的排后
-    const sorted = [...groups].sort((a,b) => {
-      const ca = a.hvu>0 ? a.spend/a.hvu : 9999;
-      const cb = b.hvu>0 ? b.spend/b.hvu : 9999;
+  // 颜色
+  function cphqStyle(cphq, spend, hvu) {
+    if (spend > 0 && hvu === 0) return {c:'#ef4444', label:'0 HVU'};
+    if (!cphq) return {c:'var(--muted)', label:'—'};
+    if (cphq <= 3) return {c:'#10b981', label:'优质'};
+    if (cphq <= 5) return {c:'#f59e0b', label:'观察'};
+    return {c:'#f97316', label:'偏贵'};
+  }
+
+  // 投手建议
+  function personTip(p) {
+    const {groups, totalSpend:ps, totalHvu:ph} = byPerson[p];
+    const zeroHvu = groups.filter(g => g.spend > 0 && g.hvu === 0);
+    const pc = ph > 0 ? ps/ph : null;
+    if (zeroHvu.length > 0) {
+      const names = zeroHvu.map(g=>g.name.replace(/^组\d+\s*/,'')).join('、');
+      return `${names} 0HVU → 先查落地页LCP，>2500ms通知研发`;
+    }
+    if (!pc && ps === 0) return '今日无投放';
+    if (!pc) return '有花费但0 HVU，全线排查落地页';
+    if (pc <= 3) return '整体优质，可按最优组加量≤20%';
+    if (pc <= 5) return '整体正常，观察趋势，暂不加量';
+    return '整体偏贵，找出拖累组考虑暂停';
+  }
+
+  // 单组执行建议
+  function groupAction(g) {
+    if (g.spend > 0 && g.hvu === 0) return '立即暂停 · 先查LCP（>2500ms=技术问题，通知研发）';
+    if (!g.cphq) return '—';
+    if (g.cphq <= 3) return '加量 ≤20%，等2天稳定再加下一次';
+    if (g.cphq <= 5) return '保留观察，暂不加量';
+    return '连续2天 >$5 则暂停，检查素材疲劳度';
+  }
+
+  // 投手按CPHQ排名
+  const rankedPersons = [...PERSONS]
+    .filter(p => byPerson[p].groups.length > 0)
+    .sort((a,b) => {
+      const ca = byPerson[a].totalHvu>0 ? byPerson[a].totalSpend/byPerson[a].totalHvu : (byPerson[a].totalSpend>0?9999:99999);
+      const cb = byPerson[b].totalHvu>0 ? byPerson[b].totalSpend/byPerson[b].totalHvu : (byPerson[b].totalSpend>0?9999:99999);
       return ca - cb;
     });
 
-    const rows = sorted.map(g => {
-      const cphqG = g.hvu>0 ? g.spend/g.hvu : null;
-      const [fg, bg] = cphqColor(cphqG, g.hvu===0&&g.spend>0);
-      const valStr = g.hvu>0 ? `$${g.spend.toFixed(2)} / ${g.hvu} / <span style="color:${cphqG<=3?'#10b981':cphqG<=5?'#f59e0b':'#f97316'};">$${cphqG.toFixed(2)}</span>` : `$${g.spend.toFixed(2)} / 0 / <span style="color:#ef4444;">—</span>`;
-      const textColor = g.hvu===0 ? 'var(--muted)' : 'var(--text)';
-      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:${bg}44;border-radius:6px;margin-bottom:5px;">
-        <span style="color:${textColor};">${g.name}</span>
-        <span style="font-weight:600;font-size:13px;">${valStr}</span>
-      </div>`;
-    }).join('');
+  // 分类
+  const topGroups   = allGroups.filter(g => g.cphq && g.cphq<=3).sort((a,b)=>a.cphq-b.cphq);
+  const alertGroups = allGroups.filter(g => (g.spend>0&&g.hvu===0)||(g.cphq&&g.cphq>5))
+                               .sort((a,b)=>(b.hvu===0?9999:b.cphq)-(a.hvu===0?9999:a.cphq));
+  const watchGroups = allGroups.filter(g => g.cphq&&g.cphq>3&&g.cphq<=5).sort((a,b)=>a.cphq-b.cphq);
 
-    return `<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <div style="font-size:15px;font-weight:700;">${PNAME[p]}</div>
-        <span style="background:${badgeColor};padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">${badgeText}</span>
+  const totalColor = totalCphq ? (totalCphq<=3?'#10b981':totalCphq<=5?'#f59e0b':'#f97316') : '#ef4444';
+  const medals = ['🥇','🥈','🥉'];
+
+  let html = '';
+
+  // ── 总览一行 ──
+  html += `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
+    <span style="font-size:12px;color:var(--muted);">${date}</span>
+    <span style="color:var(--border);">|</span>
+    <span style="font-size:13px;">总花费 <strong>$${totalSpend.toFixed(2)}</strong></span>
+    <span style="font-size:13px;">总HVU <strong>${totalHvu}</strong></span>
+    <span style="font-size:13px;">平均CPHQ <strong style="color:${totalColor};">${totalCphq?'$'+totalCphq.toFixed(2):'—'}</strong></span>
+  </div>`;
+
+  // ── 投手排名 ──
+  html += `<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">👥 投手排名</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">`;
+  rankedPersons.forEach((p, idx) => {
+    const {totalSpend:ps, totalHvu:ph} = byPerson[p];
+    const pc = ph>0 ? ps/ph : null;
+    const st = cphqStyle(pc, ps, ph);
+    html += `<div style="background:var(--card);border:1px solid ${PCOLOR[p]}44;border-left:3px solid ${PCOLOR[p]};border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:${PCOLOR[p]};">${medals[idx]||''} ${p} · ${PNAME[p]}</div>
+        <div style="font-size:17px;font-weight:700;color:${st.c};">${pc?'$'+pc.toFixed(2):ph===0&&ps>0?'0 HVU':'—'}</div>
       </div>
-      ${rows}
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$${ps.toFixed(2)} / ${ph} HVU</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">${personTip(p)}</div>
     </div>`;
-  }).join('');
+  });
+  html += `</div>`;
 
-  document.getElementById('kb-output').innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">${topCards}</div>
-    ${cards}
-    <div class="callout tip" style="margin-top:4px;">
-      <div class="callout-title">数据说明</div>
-      日期：${date}。花费来源：FB导出；HVU：AdClaw（page_count &gt; 1）。<br>
-      数据已保存在本设备，刷新后自动恢复。
-    </div>`;
+  // ── 优秀广告组 ──
+  if (topGroups.length > 0) {
+    html += `<div style="font-size:14px;font-weight:700;color:#10b981;margin-bottom:12px;">🏆 优秀广告组（CPHQ ≤ $3）</div>
+    <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">`;
+    topGroups.forEach((g,i) => {
+      const border = i>0?'border-top:1px solid rgba(16,185,129,.12);':'';
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;${border}">
+        <div><span style="font-size:13px;font-weight:600;color:var(--text);">${g.name}</span><span style="font-size:11px;color:${PCOLOR[g.person]};margin-left:8px;">${g.person}</span></div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-size:12px;color:var(--muted);">$${g.spend.toFixed(2)} / ${g.hvu} HVU</span>
+          <span style="font-size:14px;font-weight:700;color:#10b981;">$${g.cphq.toFixed(2)}</span>
+          <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
 
-  document.getElementById('kb-date-tag').innerHTML = `<span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">${date} 数据</span><span class="tag">$${(byPerson.CHJ.totalSpend+byPerson.HNN.totalSpend+byPerson.HZM.totalSpend).toFixed(2)} 总花费</span>`;
+  // ── 需关注 ──
+  if (alertGroups.length > 0) {
+    html += `<div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:12px;">🔴 需立即关注</div>
+    <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">`;
+    alertGroups.forEach((g,i) => {
+      const isZero = g.spend>0&&g.hvu===0;
+      const valColor = isZero?'#ef4444':'#f97316';
+      const valStr = isZero?`$${g.spend.toFixed(2)} / 0 HVU`:`$${g.spend.toFixed(2)} / ${g.hvu} / $${g.cphq.toFixed(2)}`;
+      const border = i>0?'border-top:1px solid rgba(239,68,68,.12);':'';
+      html += `<div style="padding:11px 16px;${border}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+          <div><span style="font-size:13px;font-weight:600;color:var(--text);">${g.name}</span><span style="font-size:11px;color:${PCOLOR[g.person]};margin-left:8px;">${g.person}</span></div>
+          <span style="font-size:13px;font-weight:600;color:${valColor};">${valStr}</span>
+        </div>
+        <div style="font-size:12px;color:#fca5a5;">${groupAction(g)}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // ── 观察中 ──
+  if (watchGroups.length > 0) {
+    html += `<div style="font-size:14px;font-weight:700;color:#f59e0b;margin-bottom:12px;">⏸ 观察中（$3~$5）</div>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">`;
+    watchGroups.forEach((g,i) => {
+      const border = i>0?'border-top:1px solid rgba(245,158,11,.12);':'';
+      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;${border}">
+        <div><span style="font-size:13px;color:var(--text);">${g.name}</span><span style="font-size:11px;color:${PCOLOR[g.person]};margin-left:8px;">${g.person}</span></div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-size:12px;color:var(--muted);">$${g.spend.toFixed(2)} / ${g.hvu} HVU</span>
+          <span style="font-size:13px;font-weight:600;color:#f59e0b;">$${g.cphq.toFixed(2)}</span>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  document.getElementById('kb-output').innerHTML = html;
+  document.getElementById('kb-date-tag').innerHTML = `<span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">${date}</span><span class="tag">$${totalSpend.toFixed(2)} · ${totalHvu} HVU · CPHQ ${totalCphq?'$'+totalCphq.toFixed(2):'—'}</span>`;
 }
 
 function kbReset() {
