@@ -1213,351 +1213,163 @@ GROUP BY t.task_name
 <div id="s16" class="section">
   <div class="page-header">
     <h1>广告数据看板</h1>
-    <div class="meta" id="kb-date-tag">
-      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">在线更新</span>
-      <span class="tag">填写数据 → 自动生成看板</span>
+    <div class="meta">
+      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">4/19</span>
+      <span class="tag">$210.83 · 53 HVU · CPHQ $3.98</span>
     </div>
   </div>
 
-  <!-- 数据录入区 -->
-  <div id="kb-input-area" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-      <h3 style="margin:0;font-size:14px;">录入当日数据</h3>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <label style="font-size:12px;color:var(--muted);">日期</label>
-        <input id="kb-date" type="text" placeholder="如 4/20" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:6px;font-size:13px;width:70px;">
+  <!-- 总览 -->
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
+    <span style="font-size:12px;color:var(--muted);">4/19</span>
+    <span style="color:var(--border);">|</span>
+    <span style="font-size:13px;">总花费 <strong>$210.83</strong></span>
+    <span style="font-size:13px;">总HVU <strong>53</strong></span>
+    <span style="font-size:13px;">平均CPHQ <strong style="color:#f59e0b;">$3.98</strong></span>
+  </div>
+
+  <!-- 投手排名 -->
+  <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">👥 投手排名</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">
+
+    <div style="background:var(--card);border:1px solid #3b82f644;border-left:3px solid #3b82f6;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#3b82f6;">🥇 CHJ · 陈洪骏</div>
+        <div style="font-size:17px;font-weight:700;color:#10b981;">$2.22</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$91.20 / 41 HVU</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">整体优质，组17/4/32/5/20 可按最优组加量≤20%。组7/24/27 0HVU，先查LCP再判断</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid #10b98144;border-left:3px solid #10b981;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#10b981;">🥈 HNN · 黄楠楠</div>
+        <div style="font-size:17px;font-weight:700;color:#f97316;">$7.97</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$63.75 / 8 HVU</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组8/9/16/18/25/30 持续0HVU → 先查落地页LCP（>2500ms通知研发），组28表现最好保留</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid #f59e0b44;border-left:3px solid #f59e0b;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">🥉 HZM · 黄梓铭</div>
+        <div style="font-size:17px;font-weight:700;color:#ef4444;">$13.97</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$55.88 / 4 HVU</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组15/19/26 全0HVU，组29/31 CPHQ $6+，建议全面暂停排查，集中资源到有产出的方向</div>
+    </div>
+  </div>
+
+  <!-- 优秀广告组 -->
+  <div style="font-size:14px;font-weight:700;color:#10b981;margin-bottom:12px;">🏆 优秀广告组（CPHQ ≤ $3）</div>
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;">
+      <div><span style="font-size:13px;font-weight:600;color:var(--text);">组17 18 Sensual</span><span style="font-size:11px;color:#3b82f6;margin-left:8px;">CHJ</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$9.84 / 12 HVU</span>
+        <span style="font-size:14px;font-weight:700;color:#10b981;">$0.82</span>
+        <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
       </div>
     </div>
-
-    <!-- 录入表格 -->
-    <div style="overflow-x:auto;">
-    <table id="kb-input-table" style="width:100%;border-collapse:collapse;font-size:13px;">
-      <thead>
-        <tr style="background:var(--bg);">
-          <th style="padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);">广告组</th>
-          <th style="padding:7px 6px;text-align:center;border-bottom:1px solid var(--border);width:44px;">投手</th>
-          <th style="padding:7px 6px;text-align:center;border-bottom:1px solid var(--border);width:90px;">花费 $</th>
-          <th style="padding:7px 6px;text-align:center;border-bottom:1px solid var(--border);width:70px;">HVU</th>
-        </tr>
-      </thead>
-      <tbody id="kb-rows"></tbody>
-    </table>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(16,185,129,.12);">
+      <div><span style="font-size:13px;font-weight:600;color:var(--text);">组4 Viennese Oyster</span><span style="font-size:11px;color:#3b82f6;margin-left:8px;">CHJ</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$10.08 / 9 HVU</span>
+        <span style="font-size:14px;font-weight:700;color:#10b981;">$1.12</span>
+        <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
+      </div>
     </div>
-
-    <div style="display:flex;gap:10px;margin-top:16px;">
-      <button onclick="kbGenerate()" style="background:var(--accent);color:#fff;border:none;padding:9px 24px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">生成看板</button>
-      <button onclick="kbReset()" style="background:var(--bg);color:var(--muted);border:1px solid var(--border);padding:9px 16px;border-radius:6px;font-size:13px;cursor:pointer;">重置</button>
-      <button onclick="kbToggleInput()" id="kb-toggle-btn" style="background:var(--bg);color:var(--muted);border:1px solid var(--border);padding:9px 16px;border-radius:6px;font-size:13px;cursor:pointer;">收起录入区</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(16,185,129,.12);">
+      <div><span style="font-size:13px;font-weight:600;color:var(--text);">组32 confidence</span><span style="font-size:11px;color:#3b82f6;margin-left:8px;">CHJ</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$13.66 / 8 HVU</span>
+        <span style="font-size:14px;font-weight:700;color:#10b981;">$1.71</span>
+        <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(16,185,129,.12);">
+      <div><span style="font-size:13px;font-weight:600;color:var(--text);">组5 30 Positions</span><span style="font-size:11px;color:#3b82f6;margin-left:8px;">CHJ</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$9.38 / 5 HVU</span>
+        <span style="font-size:14px;font-weight:700;color:#10b981;">$1.88</span>
+        <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(16,185,129,.12);">
+      <div><span style="font-size:13px;font-weight:600;color:var(--text);">组28 牛角</span><span style="font-size:11px;color:#10b981;margin-left:8px;">HNN</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$8.81 / 4 HVU</span>
+        <span style="font-size:14px;font-weight:700;color:#10b981;">$2.20</span>
+        <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(16,185,129,.12);">
+      <div><span style="font-size:13px;font-weight:600;color:var(--text);">组20 A Softer</span><span style="font-size:11px;color:#3b82f6;margin-left:8px;">CHJ</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$18.84 / 7 HVU</span>
+        <span style="font-size:14px;font-weight:700;color:#10b981;">$2.69</span>
+        <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
+      </div>
     </div>
   </div>
 
-  <!-- 看板输出区 -->
-  <div id="kb-output"></div>
+  <!-- 需关注 -->
+  <div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:12px;">🔴 需立即关注（0 HVU）</div>
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">
+    <div style="padding:11px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div><span style="font-size:13px;font-weight:600;color:var(--text);">组8 山间 / 组9 金项圈 / 组16 敲门 / 组18 红玫瑰 / 组25 强迫休息 / 组30 流汗男</span><span style="font-size:11px;color:#10b981;margin-left:8px;">HNN</span></div>
+      </div>
+      <div style="font-size:12px;color:#fca5a5;">持续0HVU → 先查落地页LCP（>2500ms = 技术问题，通知研发），LCP未修复前暂停花费</div>
+    </div>
+    <div style="padding:11px 16px;border-top:1px solid rgba(239,68,68,.12);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div><span style="font-size:13px;font-weight:600;color:var(--text);">组15 Power Shift / 组19 Top Predator's / 组26 Surrender</span><span style="font-size:11px;color:#f59e0b;margin-left:8px;">HZM</span></div>
+      </div>
+      <div style="font-size:12px;color:#fca5a5;">0HVU → 建议暂停，集中预算到组29/31方向验证</div>
+    </div>
+    <div style="padding:11px 16px;border-top:1px solid rgba(239,68,68,.12);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div><span style="font-size:13px;font-weight:600;color:var(--text);">组7 The best intimacy / 组24 Dom / 组27 performance</span><span style="font-size:11px;color:#3b82f6;margin-left:8px;">CHJ</span></div>
+      </div>
+      <div style="font-size:12px;color:#fca5a5;">0HVU，与组17/4/32同属CHJ但表现差距大 → 检查落地页或素材方向是否偏离</div>
+    </div>
+  </div>
+
+  <!-- 观察中 -->
+  <div style="font-size:14px;font-weight:700;color:#f59e0b;margin-bottom:12px;">⏸ 观察中（$3~$5）</div>
+  <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;">
+      <div><span style="font-size:13px;color:var(--text);">组21 职场</span><span style="font-size:11px;color:#10b981;margin-left:8px;">HNN</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$6.29 / 2 HVU</span>
+        <span style="font-size:13px;font-weight:600;color:#f59e0b;">$3.15</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(245,158,11,.12);">
+      <div><span style="font-size:13px;color:var(--text);">组23 工作室</span><span style="font-size:11px;color:#10b981;margin-left:8px;">HNN</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$6.54 / 2 HVU</span>
+        <span style="font-size:13px;font-weight:600;color:#f59e0b;">$3.27</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(245,158,11,.12);">
+      <div><span style="font-size:13px;color:var(--text);">组29 性爱疗愈</span><span style="font-size:11px;color:#f59e0b;margin-left:8px;">HZM</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$12.87 / 2 HVU</span>
+        <span style="font-size:13px;font-weight:600;color:#f97316;">$6.43</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-top:1px solid rgba(245,158,11,.12);">
+      <div><span style="font-size:13px;color:var(--text);">组31 天使</span><span style="font-size:11px;color:#f59e0b;margin-left:8px;">HZM</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-size:12px;color:var(--muted);">$13.49 / 2 HVU</span>
+        <span style="font-size:13px;font-weight:600;color:#f97316;">$6.75</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script>
-// ── 广告组定义 ────────────────────────────────────────────
-const KB_GROUPS = [
-  {id:1,  name:'组1 Library',           person:'HZM'},
-  {id:4,  name:'组4 Viennese Oyster',   person:'CHJ'},
-  {id:5,  name:'组5 30 Positions',      person:'CHJ'},
-  {id:7,  name:'组7 The best intimacy', person:'CHJ'},
-  {id:8,  name:'组8 山间',               person:'HNN'},
-  {id:9,  name:'组9 金项圈',             person:'HNN'},
-  {id:15, name:'组15 Power Shift',      person:'HZM'},
-  {id:16, name:'组16 敲门',              person:'HNN'},
-  {id:17, name:'组17 18 Sensual',       person:'CHJ'},
-  {id:18, name:'组18 红玫瑰',            person:'HNN'},
-  {id:19, name:"组19 Top Predator's",   person:'HZM'},
-  {id:20, name:'组20 A Softer',         person:'CHJ'},
-  {id:21, name:'组21 职场',              person:'HNN'},
-  {id:23, name:'组23 工作室',            person:'HNN'},
-  {id:24, name:'组24 Dom',              person:'CHJ'},
-  {id:25, name:'组25 强迫休息',          person:'HNN'},
-  {id:26, name:'组26 Surrender',        person:'HZM'},
-  {id:27, name:'组27 performance',      person:'CHJ'},
-  {id:28, name:'组28 牛角',              person:'HNN'},
-  {id:29, name:'组29 性爱疗愈',          person:'HZM'},
-  {id:30, name:'组30 流汗男',            person:'HNN'},
-  {id:31, name:'组31 天使',              person:'HZM'},
-  {id:32, name:'组32 confidence',       person:'CHJ'},
-];
-
-const PERSONS = ['CHJ','HNN','HZM'];
-
-function kbGetSaved() {
-  try { return JSON.parse(localStorage.getItem('kb_data') || '{}'); } catch(e) { return {}; }
-}
-
-function kbSave(data) {
-  localStorage.setItem('kb_data', JSON.stringify(data));
-}
-
-function kbBuildRows() {
-  const saved = kbGetSaved();
-  const tbody = document.getElementById('kb-rows');
-  tbody.innerHTML = '';
-  KB_GROUPS.forEach(g => {
-    const s = saved[g.id] || {};
-    const pColor = g.person==='CHJ'?'#3b82f6':g.person==='HNN'?'#10b981':'#f59e0b';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td style="padding:5px 10px;border-bottom:1px solid var(--border);white-space:nowrap;">${g.name}</td>
-      <td style="padding:5px 6px;border-bottom:1px solid var(--border);text-align:center;">
-        <span style="background:${pColor}22;color:${pColor};padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;">${g.person}</span>
-      </td>
-      <td style="padding:5px 6px;border-bottom:1px solid var(--border);">
-        <input type="number" step="0.01" min="0" data-id="${g.id}" data-field="spend"
-          value="${s.spend||''}" placeholder="0.00"
-          style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px;text-align:right;">
-      </td>
-      <td style="padding:5px 6px;border-bottom:1px solid var(--border);">
-        <input type="number" step="1" min="0" data-id="${g.id}" data-field="hvu"
-          value="${s.hvu||''}" placeholder="0"
-          style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px;text-align:right;">
-      </td>`;
-    tbody.appendChild(tr);
-  });
-  // 自动保存
-  tbody.querySelectorAll('input').forEach(inp => {
-    inp.addEventListener('change', () => {
-      const d = kbGetSaved();
-      const id = inp.dataset.id;
-      if (!d[id]) d[id] = {};
-      d[id][inp.dataset.field] = parseFloat(inp.value)||0;
-      kbSave(d);
-    });
-  });
-}
-
-function kbGetData() {
-  const data = {};
-  document.querySelectorAll('#kb-rows input').forEach(inp => {
-    const id = inp.dataset.id;
-    if (!data[id]) data[id] = {};
-    data[id][inp.dataset.field] = parseFloat(inp.value)||0;
-  });
-  kbSave(data);
-  return data;
-}
-
-function cphqColor(cphq, noHvu) {
-  if (noHvu) return ['#5a1a1a','#FFC7CE'];
-  if (cphq <= 3) return ['#1a3d2b','#C6EFCE'];
-  if (cphq <= 5) return ['#4a3800','#FFEB9C'];
-  return ['#4a2800','#FFCC99'];
-}
-
-function kbGenerate() {
-  const data = kbGetData();
-  const date = document.getElementById('kb-date').value.trim() || '当日';
-  localStorage.setItem('kb_date', date);
-
-  const PNAME = {CHJ:'陈洪骏', HNN:'黄楠楠', HZM:'黄梓铭'};
-  const PCOLOR = {CHJ:'#3b82f6', HNN:'#10b981', HZM:'#f59e0b'};
-
-  // 处理所有组数据
-  const allGroups = [];
-  KB_GROUPS.forEach(g => {
-    const d = data[g.id] || {};
-    const spend = d.spend || 0;
-    const hvu = d.hvu || 0;
-    if (spend === 0 && hvu === 0) return;
-    const cphq = hvu > 0 ? spend / hvu : null;
-    allGroups.push({...g, spend, hvu, cphq});
-  });
-
-  if (allGroups.length === 0) {
-    document.getElementById('kb-output').innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center;">请先在上方录入数据，点击生成看板</div>';
-    return;
-  }
-
-  // 按投手汇总
-  const byPerson = {};
-  PERSONS.forEach(p => byPerson[p] = {groups:[], totalSpend:0, totalHvu:0});
-  allGroups.forEach(g => {
-    byPerson[g.person].groups.push(g);
-    byPerson[g.person].totalSpend += g.spend;
-    byPerson[g.person].totalHvu += g.hvu;
-  });
-
-  // 全局汇总
-  const totalSpend = allGroups.reduce((s,g) => s+g.spend, 0);
-  const totalHvu   = allGroups.reduce((s,g) => s+g.hvu, 0);
-  const totalCphq  = totalHvu > 0 ? totalSpend/totalHvu : null;
-
-  // 颜色
-  function cphqStyle(cphq, spend, hvu) {
-    if (spend > 0 && hvu === 0) return {c:'#ef4444', label:'0 HVU'};
-    if (!cphq) return {c:'var(--muted)', label:'—'};
-    if (cphq <= 3) return {c:'#10b981', label:'优质'};
-    if (cphq <= 5) return {c:'#f59e0b', label:'观察'};
-    return {c:'#f97316', label:'偏贵'};
-  }
-
-  // 投手建议
-  function personTip(p) {
-    const {groups, totalSpend:ps, totalHvu:ph} = byPerson[p];
-    const zeroHvu = groups.filter(g => g.spend > 0 && g.hvu === 0);
-    const pc = ph > 0 ? ps/ph : null;
-    if (zeroHvu.length > 0) {
-      const names = zeroHvu.map(g=>g.name.replace(/^组\d+\s*/,'')).join('、');
-      return `${names} 0HVU → 先查落地页LCP，>2500ms通知研发`;
-    }
-    if (!pc && ps === 0) return '今日无投放';
-    if (!pc) return '有花费但0 HVU，全线排查落地页';
-    if (pc <= 3) return '整体优质，可按最优组加量≤20%';
-    if (pc <= 5) return '整体正常，观察趋势，暂不加量';
-    return '整体偏贵，找出拖累组考虑暂停';
-  }
-
-  // 单组执行建议
-  function groupAction(g) {
-    if (g.spend > 0 && g.hvu === 0) return '立即暂停 · 先查LCP（>2500ms=技术问题，通知研发）';
-    if (!g.cphq) return '—';
-    if (g.cphq <= 3) return '加量 ≤20%，等2天稳定再加下一次';
-    if (g.cphq <= 5) return '保留观察，暂不加量';
-    return '连续2天 >$5 则暂停，检查素材疲劳度';
-  }
-
-  // 投手按CPHQ排名
-  const rankedPersons = [...PERSONS]
-    .filter(p => byPerson[p].groups.length > 0)
-    .sort((a,b) => {
-      const ca = byPerson[a].totalHvu>0 ? byPerson[a].totalSpend/byPerson[a].totalHvu : (byPerson[a].totalSpend>0?9999:99999);
-      const cb = byPerson[b].totalHvu>0 ? byPerson[b].totalSpend/byPerson[b].totalHvu : (byPerson[b].totalSpend>0?9999:99999);
-      return ca - cb;
-    });
-
-  // 分类
-  const topGroups   = allGroups.filter(g => g.cphq && g.cphq<=3).sort((a,b)=>a.cphq-b.cphq);
-  const alertGroups = allGroups.filter(g => (g.spend>0&&g.hvu===0)||(g.cphq&&g.cphq>5))
-                               .sort((a,b)=>(b.hvu===0?9999:b.cphq)-(a.hvu===0?9999:a.cphq));
-  const watchGroups = allGroups.filter(g => g.cphq&&g.cphq>3&&g.cphq<=5).sort((a,b)=>a.cphq-b.cphq);
-
-  const totalColor = totalCphq ? (totalCphq<=3?'#10b981':totalCphq<=5?'#f59e0b':'#f97316') : '#ef4444';
-  const medals = ['🥇','🥈','🥉'];
-
-  let html = '';
-
-  // ── 总览一行 ──
-  html += `<div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
-    <span style="font-size:12px;color:var(--muted);">${date}</span>
-    <span style="color:var(--border);">|</span>
-    <span style="font-size:13px;">总花费 <strong>$${totalSpend.toFixed(2)}</strong></span>
-    <span style="font-size:13px;">总HVU <strong>${totalHvu}</strong></span>
-    <span style="font-size:13px;">平均CPHQ <strong style="color:${totalColor};">${totalCphq?'$'+totalCphq.toFixed(2):'—'}</strong></span>
-  </div>`;
-
-  // ── 投手排名 ──
-  html += `<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">👥 投手排名</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">`;
-  rankedPersons.forEach((p, idx) => {
-    const {totalSpend:ps, totalHvu:ph} = byPerson[p];
-    const pc = ph>0 ? ps/ph : null;
-    const st = cphqStyle(pc, ps, ph);
-    html += `<div style="background:var(--card);border:1px solid ${PCOLOR[p]}44;border-left:3px solid ${PCOLOR[p]};border-radius:8px;padding:14px 16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <div style="font-size:13px;font-weight:700;color:${PCOLOR[p]};">${medals[idx]||''} ${p} · ${PNAME[p]}</div>
-        <div style="font-size:17px;font-weight:700;color:${st.c};">${pc?'$'+pc.toFixed(2):ph===0&&ps>0?'0 HVU':'—'}</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$${ps.toFixed(2)} / ${ph} HVU</div>
-      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">${personTip(p)}</div>
-    </div>`;
-  });
-  html += `</div>`;
-
-  // ── 优秀广告组 ──
-  if (topGroups.length > 0) {
-    html += `<div style="font-size:14px;font-weight:700;color:#10b981;margin-bottom:12px;">🏆 优秀广告组（CPHQ ≤ $3）</div>
-    <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">`;
-    topGroups.forEach((g,i) => {
-      const border = i>0?'border-top:1px solid rgba(16,185,129,.12);':'';
-      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;${border}">
-        <div><span style="font-size:13px;font-weight:600;color:var(--text);">${g.name}</span><span style="font-size:11px;color:${PCOLOR[g.person]};margin-left:8px;">${g.person}</span></div>
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="font-size:12px;color:var(--muted);">$${g.spend.toFixed(2)} / ${g.hvu} HVU</span>
-          <span style="font-size:14px;font-weight:700;color:#10b981;">$${g.cphq.toFixed(2)}</span>
-          <span style="font-size:11px;background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;">加量≤20%</span>
-        </div>
-      </div>`;
-    });
-    html += `</div>`;
-  }
-
-  // ── 需关注 ──
-  if (alertGroups.length > 0) {
-    html += `<div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:12px;">🔴 需立即关注</div>
-    <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">`;
-    alertGroups.forEach((g,i) => {
-      const isZero = g.spend>0&&g.hvu===0;
-      const valColor = isZero?'#ef4444':'#f97316';
-      const valStr = isZero?`$${g.spend.toFixed(2)} / 0 HVU`:`$${g.spend.toFixed(2)} / ${g.hvu} / $${g.cphq.toFixed(2)}`;
-      const border = i>0?'border-top:1px solid rgba(239,68,68,.12);':'';
-      html += `<div style="padding:11px 16px;${border}">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-          <div><span style="font-size:13px;font-weight:600;color:var(--text);">${g.name}</span><span style="font-size:11px;color:${PCOLOR[g.person]};margin-left:8px;">${g.person}</span></div>
-          <span style="font-size:13px;font-weight:600;color:${valColor};">${valStr}</span>
-        </div>
-        <div style="font-size:12px;color:#fca5a5;">${groupAction(g)}</div>
-      </div>`;
-    });
-    html += `</div>`;
-  }
-
-  // ── 观察中 ──
-  if (watchGroups.length > 0) {
-    html += `<div style="font-size:14px;font-weight:700;color:#f59e0b;margin-bottom:12px;">⏸ 观察中（$3~$5）</div>
-    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;margin-bottom:24px;overflow:hidden;">`;
-    watchGroups.forEach((g,i) => {
-      const border = i>0?'border-top:1px solid rgba(245,158,11,.12);':'';
-      html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 16px;${border}">
-        <div><span style="font-size:13px;color:var(--text);">${g.name}</span><span style="font-size:11px;color:${PCOLOR[g.person]};margin-left:8px;">${g.person}</span></div>
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span style="font-size:12px;color:var(--muted);">$${g.spend.toFixed(2)} / ${g.hvu} HVU</span>
-          <span style="font-size:13px;font-weight:600;color:#f59e0b;">$${g.cphq.toFixed(2)}</span>
-        </div>
-      </div>`;
-    });
-    html += `</div>`;
-  }
-
-  document.getElementById('kb-output').innerHTML = html;
-  document.getElementById('kb-date-tag').innerHTML = `<span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">${date}</span><span class="tag">$${totalSpend.toFixed(2)} · ${totalHvu} HVU · CPHQ ${totalCphq?'$'+totalCphq.toFixed(2):'—'}</span>`;
-}
-
-function kbReset() {
-  if (!confirm('清空本日所有已录入数据？')) return;
-  localStorage.removeItem('kb_data');
-  kbBuildRows();
-  document.getElementById('kb-output').innerHTML = '';
-}
-
-function kbToggleInput() {
-  const area = document.getElementById('kb-input-area');
-  const btn = document.getElementById('kb-toggle-btn');
-  const table = area.querySelector('table');
-  const label = area.querySelector('label');
-  const dateInput = area.querySelector('input[type=text]');
-  if (table.style.display === 'none') {
-    table.style.display = '';
-    btn.textContent = '收起录入区';
-  } else {
-    table.style.display = 'none';
-    btn.textContent = '展开录入区';
-  }
-}
-
-// 初始化
-(function() {
-  kbBuildRows();
-  const savedDate = localStorage.getItem('kb_date');
-  if (savedDate) document.getElementById('kb-date').value = savedDate;
-  // 如果有保存数据，自动生成看板
-  const saved = kbGetSaved();
-  if (Object.keys(saved).length > 0) kbGenerate();
-})();
-</script>
 
 </main>
 
