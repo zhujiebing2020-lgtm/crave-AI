@@ -536,59 +536,63 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
 <div id="s5" class="section">
   <div class="page-header">
     <h1>05 · 落地页类型选择</h1>
-    <div class="meta"><span class="tag tag-crave">已验证结论</span> 剧情体验页 vs 文章详情页，数据已给出明确答案</div>
+    <div class="meta"><span class="tag tag-crave">已验证结论</span> 文章页胜率更高；剧情页非必输，LCP+素材力双达标可突破 · 4/19 更新</div>
   </div>
 
-  <h2>两种落地页的性能对比（4/5~4/14，BM-A实测）</h2>
+  <h2>两种落地页的性能对比（4/5~4/19，BM-A实测，29个广告组）</h2>
   <div class="table-wrap">
   <table>
     <tr><th>维度</th><th>文章详情页</th><th>剧情体验页</th></tr>
-    <tr><td>代表广告组</td><td>组4/5/7/17/20（CHJ）</td><td>组1/2/6/8/9/11/12（HZM/HNN）</td></tr>
-    <tr><td>综合CPHQ</td><td class="td-good">$2~$3</td><td class="td-bad">$7~$9</td></tr>
-    <tr><td>最优单日表现</td><td class="td-good">$1.16（组4 · 4/11）</td><td class="td-warn">$1.70（组1 · 4/11）</td></tr>
-    <tr><td>稳定性</td><td class="td-good">较稳定，多天绿色</td><td class="td-bad">波动大，常有0HVU日</td></tr>
-    <tr><td>0HVU频率</td><td class="td-good">低</td><td class="td-bad">高（HNN组尤其明显）</td></tr>
+    <tr><td>代表广告组（优秀）</td><td>组4/5/17/20/32（CHJ）</td><td>组28 牛角（HNN）</td></tr>
+    <tr><td>综合CPHQ（优秀组）</td><td class="td-good">$0.82~$2.69</td><td class="td-good">$2.20（4/19单日）</td></tr>
+    <tr><td>整体分布</td><td class="td-good">多数绿色，偶有橙色</td><td class="td-bad">多数0HVU，少数突破</td></tr>
+    <tr><td>稳定性</td><td class="td-good">高，可预期</td><td class="td-warn">依赖素材力，波动大</td></tr>
+    <tr><td>0HVU原因</td><td class="td-warn">素材方向与页面内容不匹配</td><td class="td-bad">LCP慢（>2500ms）+ 素材力不足</td></tr>
   </table>
   </div>
 
   <div class="callout rule">
-    <div class="callout-title">当前结论（2026-04-14 更新）</div>
-    <strong>文章详情页在效率上明显优于剧情体验页，差距约3倍。</strong><br><br>
-    推测原因：文章详情页提供了明确的内容锚点（具体的性爱技巧/知识），用户目的性更强，页面承接更自然；剧情体验页是沉浸式交互，对设备性能/网速要求高，移动端跳出率更高。<br><br>
-    <strong>HNN 的新方向</strong>：组14女性专栏（文章详情页）是HNN首次试水文章方向，4/13首日$6.66（橙色），4/14首日$9.92/0HVU（红色），继续观察。
+    <div class="callout-title">当前结论（2026-04-19 更新）</div>
+    <strong>文章详情页整体效率仍优于剧情体验页，但结论比4/14更复杂：</strong><br><br>
+    ① <strong>剧情页也能跑出好成绩</strong>——组28 牛角（HNN）4/19 CPHQ $2.20，说明剧情页并非必输，素材力强时可以突破 LCP 限制。<br>
+    ② <strong>文章页出现 0HVU</strong>——组7/24/27（CHJ）LCP 均在 1400~1800ms（技术正常），但 0HVU，根因是素材主题与落地页内容方向不匹配，不是技术问题。<br><br>
+    → 落地页类型只是一个变量，<strong>素材与页面的内容匹配度</strong>才是首要因子。
   </div>
 
   <div class="callout warn">
-    <div class="callout-title">⚠️ 4月实战新发现（4/5~4/19，23个广告组）：LCP 是剧情页成败的第一变量</div>
-    通过对全部广告组的落地页性能数据（AdClaw web_vitals）分析，发现 <strong>LCP（最大内容渲染时间）与剧情页HVU率高度相关</strong>，文章页几乎不受影响：<br><br>
+    <div class="callout-title">⚠️ LCP 数据实证（AdClaw web_vitals，4/15~4/19）</div>
     <div class="table-wrap" style="margin:12px 0;">
     <table>
-      <tr><th>广告组</th><th>落地页类型</th><th>LCP p50</th><th>差率</th><th>HVU率</th><th>结论</th></tr>
-      <tr><td>组16 敲门</td><td>剧情页</td><td class="td-bad">4503ms</td><td class="td-bad">53.8%</td><td class="td-bad">10.5%</td><td>花费$51，仅2HVU</td></tr>
-      <tr><td>组6 冰块</td><td>剧情页</td><td class="td-bad">3813ms</td><td class="td-bad">43.8%</td><td class="td-bad">26.3%</td><td>CPHQ $7+，浪费</td></tr>
-      <tr><td>组28 牛角</td><td>剧情页</td><td class="td-bad">3140ms</td><td class="td-bad">42.9%</td><td class="td-bad">10.3%</td><td>花费$29，仅3HVU</td></tr>
-      <tr><td>组3</td><td>剧情页</td><td class="td-bad">2832ms</td><td class="td-bad">45.5%</td><td class="td-bad">9.1%</td><td>技术瓶颈明显</td></tr>
-      <tr><td>组4 Viennese</td><td>文章页</td><td class="td-good">1612ms</td><td class="td-good">8.8%</td><td class="td-good">27.5%</td><td>CPHQ $2.45</td></tr>
-      <tr><td>组20 A Softer</td><td>文章页</td><td class="td-good">1433ms</td><td class="td-good">6.5%</td><td class="td-good">25.3%</td><td>CPHQ $2.30</td></tr>
+      <tr><th>广告组</th><th>类型</th><th>LCP p50</th><th>LCP差率</th><th>4/19表现</th><th>结论</th></tr>
+      <tr><td>组27 performance</td><td>文章页</td><td class="td-good">1356ms</td><td class="td-good">8.3%</td><td class="td-bad">0HVU</td><td>LCP没问题→素材方向偏了</td></tr>
+      <tr><td>组32 confidence</td><td>文章页</td><td class="td-good">1432ms</td><td class="td-good">6.1%</td><td class="td-good">CPHQ $1.71</td><td>LCP好+方向对=稳定优秀</td></tr>
+      <tr><td>组4 Viennese</td><td>文章页</td><td class="td-good">1512ms</td><td class="td-good">9.1%</td><td class="td-good">CPHQ $1.12</td><td>LCP好+方向对=稳定优秀</td></tr>
+      <tr><td>组17 18 Sensual</td><td>文章页</td><td class="td-good">1569ms</td><td class="td-good">7.9%</td><td class="td-good">CPHQ $0.82</td><td>最优组，LCP+方向双优</td></tr>
+      <tr><td>组24 Dom</td><td>文章页</td><td class="td-good">1592ms</td><td class="td-good">11.5%</td><td class="td-bad">0HVU</td><td>LCP没问题→素材方向偏了</td></tr>
+      <tr><td>组7 best intimacy</td><td>文章页</td><td class="td-good">1782ms</td><td class="td-warn">11.7%</td><td class="td-bad">0HVU</td><td>LCP稍慢但不是根因</td></tr>
+      <tr><td>组28 牛角</td><td>剧情页</td><td class="td-bad">2998ms</td><td class="td-bad">37.5%</td><td class="td-good">CPHQ $2.20</td><td>LCP超阈值仍跑出，素材力强</td></tr>
+      <tr><td>组6/8/9/16（HNN）</td><td>剧情页</td><td class="td-bad">&gt;3800ms</td><td class="td-bad">&gt;43%</td><td class="td-bad">持续0HVU</td><td>LCP技术瓶颈+素材力弱，双杀</td></tr>
     </table>
     </div>
-    <strong>阈值规则（已验证）</strong>：剧情页 LCP &gt;2500ms → HVU率稳定低于12%，这是技术瓶颈，不是素材问题。<br>
-    → 遇到剧情页持续0HVU，先查LCP，再换素材。LCP未修复前，换素材无效。
+    <strong>修正后的 LCP 规则：</strong><br>
+    · 剧情页 LCP &gt;2500ms → <strong>高风险</strong>，先修技术；但素材力极强时可短期突破（见组28）<br>
+    · 文章页 LCP &gt;2500ms → 查技术；LCP 正常但 0HVU → <strong>查素材方向，不是技术问题</strong><br>
+    · 遇到 0HVU 的排查顺序：① 查 LCP → ② 查素材与落地页内容匹配度 → ③ 再考虑换素材
   </div>
 
-  <h2>选择落地页类型的决策逻辑</h2>
+  <h2>选择落地页类型的决策逻辑（4/19 版）</h2>
   <div class="decision">
     <div class="decision-step go">
-      <div class="q">优先选择</div>
-      <div class="a">文章详情页（/multisensory/...）：适合图片素材，内容型，承接自然</div>
+      <div class="q">默认选择：文章详情页</div>
+      <div class="a">胜率高、稳定性强、LCP天然优于剧情页。<strong>图片素材首选</strong>，视频素材也可用。关键：素材主题必须与文章内容方向匹配（性爱技巧/知识类）</div>
     </div>
     <div class="decision-step wait">
-      <div class="q">谨慎使用</div>
-      <div class="a">剧情体验页（/exp-app/scene/...）：适合强叙事视频素材，但承接风险高</div>
+      <div class="q">谨慎使用：剧情体验页</div>
+      <div class="a">适合<strong>叙事感极强的视频素材</strong>。前提：① 确认 LCP &lt;2500ms；② 素材与剧情场景强匹配。不满足任意一条，切换到文章页</div>
     </div>
     <div class="decision-step stop">
-      <div class="q">目前待验证</div>
-      <div class="a">HNN用剧情体验页的旧组：建议逐步迁移到文章方向，观察是否能改善CPHQ</div>
+      <div class="q">0HVU 时的排查顺序</div>
+      <div class="a">① 查落地页 LCP（AdClaw → session_overview 按 utm_campaign 筛选）<br>② 若 LCP 正常（&lt;2500ms）→ 是素材方向问题，换内容角度，不换页面类型<br>③ 若 LCP 超标 → 通知研发，暂停花费，LCP 修复前换素材无效</div>
     </div>
   </div>
 </div>
