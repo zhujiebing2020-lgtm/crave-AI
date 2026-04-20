@@ -558,6 +558,24 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     <strong>HNN 的新方向</strong>：组14女性专栏（文章详情页）是HNN首次试水文章方向，4/13首日$6.66（橙色），4/14首日$9.92/0HVU（红色），继续观察。
   </div>
 
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 4月实战新发现（4/5~4/19，23个广告组）：LCP 是剧情页成败的第一变量</div>
+    通过对全部广告组的落地页性能数据（AdClaw web_vitals）分析，发现 <strong>LCP（最大内容渲染时间）与剧情页HVU率高度相关</strong>，文章页几乎不受影响：<br><br>
+    <div class="table-wrap" style="margin:12px 0;">
+    <table>
+      <tr><th>广告组</th><th>落地页类型</th><th>LCP p50</th><th>差率</th><th>HVU率</th><th>结论</th></tr>
+      <tr><td>组16 敲门</td><td>剧情页</td><td class="td-bad">4503ms</td><td class="td-bad">53.8%</td><td class="td-bad">10.5%</td><td>花费$51，仅2HVU</td></tr>
+      <tr><td>组6 冰块</td><td>剧情页</td><td class="td-bad">3813ms</td><td class="td-bad">43.8%</td><td class="td-bad">26.3%</td><td>CPHQ $7+，浪费</td></tr>
+      <tr><td>组28 牛角</td><td>剧情页</td><td class="td-bad">3140ms</td><td class="td-bad">42.9%</td><td class="td-bad">10.3%</td><td>花费$29，仅3HVU</td></tr>
+      <tr><td>组3</td><td>剧情页</td><td class="td-bad">2832ms</td><td class="td-bad">45.5%</td><td class="td-bad">9.1%</td><td>技术瓶颈明显</td></tr>
+      <tr><td>组4 Viennese</td><td>文章页</td><td class="td-good">1612ms</td><td class="td-good">8.8%</td><td class="td-good">27.5%</td><td>CPHQ $2.45</td></tr>
+      <tr><td>组20 A Softer</td><td>文章页</td><td class="td-good">1433ms</td><td class="td-good">6.5%</td><td class="td-good">25.3%</td><td>CPHQ $2.30</td></tr>
+    </table>
+    </div>
+    <strong>阈值规则（已验证）</strong>：剧情页 LCP &gt;2500ms → HVU率稳定低于12%，这是技术瓶颈，不是素材问题。<br>
+    → 遇到剧情页持续0HVU，先查LCP，再换素材。LCP未修复前，换素材无效。
+  </div>
+
   <h2>选择落地页类型的决策逻辑</h2>
   <div class="decision">
     <div class="decision-step go">
@@ -612,6 +630,19 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     <div class="callout-title">反驳：通用课程说"好素材=高CTR素材"</div>
     在Crave AI的业务里，高CTR≠好素材。我们见过CTR高但HVU=0的广告组（用户点进来就跳出），也见过CTR一般但CPHQ极低的广告组。<br><br>
     <strong>Crave AI的好素材定义</strong>：能帮系统找到真正有兴趣的用户（page_count&gt;1），而不是只能吸引好奇点击的用户。
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">4月验证结论（2026-04-20）：文章页 + 情感/知识型素材 = 唯一稳定可复制的公式</div>
+    4/5~4/19 期间，CHJ负责的文章页广告组（组4/5/17/20）累计表现：<br>
+    · 组17 18 Sensual：总花费 $85.86，HVU 76人，<strong>CPHQ $1.13（全场最优）</strong><br>
+    · 组20 A Softer：总花费 $112.64，HVU 49人，CPHQ $2.30<br>
+    · 组4 Viennese：总花费 $161.90，HVU 66人，CPHQ $2.45<br><br>
+    <strong>公式拆解</strong>：<br>
+    · 落地页：文章详情页（/multisensory/...），LCP &lt;1800ms，技术层面无瓶颈<br>
+    · 素材方向：情感型 / 知识型，满足用户明确的信息需求（具体体位、关系建议），不只是视觉刺激<br>
+    · 投放方式：FB ABO，让系统自动寻找匹配受众<br><br>
+    <strong>反例警示</strong>：组14女性专栏（HNN，文章页）LCP 1228ms，技术完全正常，但HVU率仅3.6%。说明"文章页"不是万能钥匙——<strong>素材方向与页面内容的匹配度同样关键</strong>，内容不对，快页面也白搭。
   </div>
 </div>
 
@@ -746,6 +777,20 @@ GROUP BY t.task_name
     3. 花费以 FB 投手导出截图为准<br>
     4. CPHQ = FB花费 ÷ AdClaw HVU（跨平台计算）
   </div>
+
+  <h2>两个常见误判陷阱（4月实战验证）</h2>
+  <div class="callout warn">
+    <div class="callout-title">陷阱1：跳出率高 ≠ 广告组差</div>
+    组17（18 Sensual）在 4/5~4/19 期间整体跳出率 84%，按通用课程标准早该关停。但实际 CPHQ $1.13，全场最优，76个HVU，是表现最好的广告组。<br><br>
+    <strong>原因</strong>：文章类落地页用户行为是"快速扫描，找到感兴趣的才继续"，大量跳出是正常的。只要留下来的人（page_count &gt;1）单价够低，广告组就是健康的。<br>
+    <strong>结论</strong>：<strong>不要看跳出率，只看HVU和CPHQ。</strong>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">陷阱2：剧情页HVU=0，先别换素材</div>
+    4月数据显示：组16（LCP 4503ms）花费$51，仅2HVU；组28（LCP 3140ms）花费$29，仅3HVU。这两组都曾被认为是"素材问题"，实际是落地页LCP过高导致移动端用户加载太慢直接关闭。<br><br>
+    <strong>排查顺序</strong>：剧情页0HVU → 先查LCP → LCP &gt;2500ms = 技术问题 → 通知研发 → 修复后再评估素材。
+  </div>
 </div>
 
 <!-- ===== S9: 诊断树 ===== -->
@@ -775,6 +820,14 @@ GROUP BY t.task_name
     <div class="decision-step wait"><div class="q">落地页正常打开</div><div class="a">检查AdClaw是否有session但page_count=1（大量跳出）</div></div>
     <div class="decision-step stop"><div class="q">有session，但全部page_count=1</div><div class="a">→ 首屏承接断层。广告承诺的内容与落地页首屏不一致，用户点进来立刻失望跳出。换落地页或换素材方向。</div></div>
     <div class="decision-step stop"><div class="q">AdClaw里完全没有session</div><div class="a">→ Pixel/UTM追踪问题，或广告虽然扣费但实际没有带来真实点击。联系运营统筹核查。</div></div>
+  </div>
+
+  <h2>剧情页持续 0 HVU（页面能打开，用户不翻页）</h2>
+  <div class="decision">
+    <div class="decision-step"><div class="q">第一步（2026-04-20新增）</div><div class="a">先查落地页LCP，不要急着换素材。在 Claude Code 里用 get_daily_summary（dim=overall）查看 web_vitals 字段中的 lcp_p50。</div></div>
+    <div class="decision-step stop"><div class="q">LCP &gt; 2500ms（差率 &gt;30%）</div><div class="a">🔴 <strong>技术问题，不是素材问题</strong>。立即通知研发优化剧情页加载速度。在修复之前，换素材无效。<br>实证：组16（LCP 4503ms，差率53.8%）花费$51，仅2HVU；组28（LCP 3140ms）花费$29，仅3HVU。</div></div>
+    <div class="decision-step wait"><div class="q">LCP &lt; 2000ms，有session但全部page_count=1</div><div class="a">→ 首屏内容承接断层。素材所承诺的内容与剧情页首屏不符，用户进来立刻失望跳出。考虑迁移到文章页，或重构剧情页首屏内容。</div></div>
+    <div class="decision-step go"><div class="q">LCP正常，内容方向对，HVU率仍低</div><div class="a">→ 素材问题。更换视觉钩子（前3帧画面/标题），让点击用户与剧情内容调性更匹配。</div></div>
   </div>
 
   <h2>CTR正常但转化为0</h2>
@@ -913,7 +966,8 @@ GROUP BY t.task_name
     <tr><th>日期</th><th>更新内容</th><th>负责人</th></tr>
     <tr><td>2026-04-15</td><td>初始版本建立，涵盖基础认知/投放操作/数据分析/风控增长全模块</td><td>运营统筹</td></tr>
     <tr><td>2026-04-15</td><td>补充4/14数据：新组18/19/20，CPHQ看板更新至0414版本</td><td>运营统筹</td></tr>
-    <tr><td></td><td></td><td></td></tr>
+    <tr><td>2026-04-20</td><td>同步4/16~4/19看板数据，新增组25~32（共32组），更新合计行。总花费$1,976 / 473 HVU / CPHQ $4.18。看板0419.xlsx已生成。</td><td>运营统筹</td></tr>
+    <tr><td>2026-04-20</td><td>落地页性能分析：LCP&gt;2500ms是剧情页0HVU根因（非素材），更新模块05/09。CHJ文章页公式（组4/5/17/20，CPHQ $1.13~$2.45）验证，更新模块06。跳出率对本业务无效，唯一指标是HVU+CPHQ，更新模块08。</td><td>运营统筹</td></tr>
     <tr><td></td><td></td><td></td></tr>
   </table>
   </div>
