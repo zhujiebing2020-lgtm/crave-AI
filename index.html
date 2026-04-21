@@ -175,6 +175,7 @@
     <a class="nav-item" onclick="show('s4')"><span class="num">04</span>学习期管理</a>
     <a class="nav-item" onclick="show('s5')"><span class="num">05</span>落地页类型选择</a>
     <a class="nav-item" onclick="show('s6')"><span class="num">06</span>素材策略与合规</a>
+    <a class="nav-item" onclick="show('s17')"><span class="num">07</span>投前检查清单</a>
     <a class="nav-item" onclick="show('s15')"><span class="num">15</span>预算·止损·素材决策</a>
   </div>
 
@@ -595,6 +596,151 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
       <div class="a">① 查落地页 LCP（AdClaw → session_overview 按 utm_campaign 筛选）<br>② 若 LCP 正常（&lt;2500ms）→ 是素材方向问题，换内容角度，不换页面类型<br>③ 若 LCP 超标 → 通知研发，暂停花费，LCP 修复前换素材无效</div>
     </div>
   </div>
+</div>
+
+<!-- ===== S17: 投前检查清单 ===== -->
+<div id="s17" class="section">
+  <div class="page-header">
+    <h1>投前检查清单</h1>
+    <div class="meta">
+      <span class="tag">新广告组上线前必过</span>
+      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">全部打勾才能发布</span>
+    </div>
+  </div>
+
+  <!-- 第一关：落地页 -->
+  <h2>① 落地页</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">检查项</th>
+          <th style="padding:9px 16px;">怎么查</th>
+          <th style="padding:9px 16px;">不通过怎么办</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">URL 手机端能正常打开</td>
+          <td style="padding:10px 16px;color:var(--muted);">手机浏览器直接访问，确认无报错/跳转异常</td>
+          <td style="padding:10px 16px;color:#ef4444;">通知研发，未修复前不上线</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">LCP 达标</td>
+          <td style="padding:10px 16px;color:var(--muted);">AdClaw → get_session_overview，按 utm_campaign 看 landing_lcp_ms；或用 Chrome DevTools Lighthouse 跑一次</td>
+          <td style="padding:10px 16px;color:#ef4444;">文章页 &gt;1800ms / 剧情页 &gt;2500ms → 通知研发，先不投</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">落地页主题与素材承诺一致</td>
+          <td style="padding:10px 16px;color:var(--muted);">素材钩子讲的是什么→落地页首屏讲的是什么，两者方向必须一致</td>
+          <td style="padding:10px 16px;color:#ef4444;">换素材或换落地页，不能强行配对（组27/24 的教训）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 第二关：素材合规 -->
+  <h2>② 素材合规</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">检查项</th>
+          <th style="padding:9px 16px;">红线（有一条即不通过）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">视觉无违规</td>
+          <td style="padding:10px 16px;color:#ef4444;">裸露 · 露骨性行为 · 生殖器官暗示 → 任何一条直接重新出图</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">文案无违规词</td>
+          <td style="padding:10px 16px;color:#ef4444;">直接性描述词 · 器官名称 · 性行为动作词 → 重写文案</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">整体调性：情感/健康/科技感</td>
+          <td style="padding:10px 16px;color:#ef4444;">露骨成人网站风格 → 重新制作</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 第三关：投放配置 -->
+  <h2>③ 投放配置</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">检查项</th>
+          <th style="padding:9px 16px;">怎么查 / 标准</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">AdClaw 任务已创建</td>
+          <td style="padding:10px 16px;color:var(--muted);">utm_campaign 已录入 AdClaw，确保上线后能追踪到数据</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">广告组命名规范</td>
+          <td style="padding:10px 16px;color:var(--muted);">格式：组X 素材名（如「组35 15 Ideas」）· 在数据看板同步新增一行</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">预算设置</td>
+          <td style="padding:10px 16px;color:var(--muted);">ABO · 新组初始 $10~15/天 · 学习期内（前 $30）不调整预算</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 上线后24h -->
+  <h2>④ 上线后 24h 确认（次日早上看）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">确认项</th>
+          <th style="padding:9px 16px;">异常处理</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">AdClaw 能看到 session 数据</td>
+          <td style="padding:10px 16px;color:#f59e0b;">无 session → UTM 参数配置有误，检查落地页链接</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">花费 ≥ $10 后开始看 HVU</td>
+          <td style="padding:10px 16px;color:var(--muted);">花费不足 $10 不下结论，系统还在学习</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;color:#ef4444;">连续 2 天有花费 / HVU = 0</td>
+          <td style="padding:10px 16px;color:#ef4444;">立即暂停 → 按顺序排查：① LCP → ② 素材与落地页匹配度</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 快速判断口诀 -->
+  <h2>一句话口诀</h2>
+  <div class="code">上线前：页面能开 · LCP 达标 · 素材不违规 · 主题要对齐
+上线后：有 session · 有 HVU · 2天没HVU立刻停</div>
+
 </div>
 
 <!-- ===== S6: 素材策略与合规 ===== -->
