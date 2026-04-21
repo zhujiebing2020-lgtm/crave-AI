@@ -604,7 +604,7 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
 <div id="s5" class="section">
   <div class="page-header">
     <h1>05 · 落地页类型选择</h1>
-    <div class="meta"><span class="tag tag-crave">已验证结论</span> 文章页胜率更高；剧情页非必输，LCP+素材力双达标可突破 · 4/19 更新</div>
+    <div class="meta"><span class="tag tag-crave">已验证结论</span> 文章页胜率更高；剧情页非必输，LCP+素材力双达标可突破 · 4/21 更新</div>
   </div>
 
   <h2>两种落地页的性能对比（4/5~4/19，BM-A实测，29个广告组）</h2>
@@ -662,6 +662,55 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
       <div class="q">0HVU 时的排查顺序</div>
       <div class="a">① 查落地页 LCP（AdClaw → session_overview 按 utm_campaign 筛选）<br>② 若 LCP 正常（&lt;2500ms）→ 是素材方向问题，换内容角度，不换页面类型<br>③ 若 LCP 超标 → 通知研发，暂停花费，LCP 修复前换素材无效</div>
     </div>
+  </div>
+
+  <h2>HVU 进站后的流失原因（4/21 人工 Clarity 回放，30 个典型 Session）</h2>
+  <div class="callout rule">
+    <div class="callout-title">核心发现：HVU 停留久、互动多，但 534 个 Session 成交 0</div>
+    高质量用户进站后的真实流失原因不是"没兴趣"，是<strong>内容与商品割裂 + 技术障碍 + 缺乏决策支持</strong>。
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>流失原因</th><th>占比</th><th>涉及落地页</th><th>对投手的指令</th></tr>
+    <tr>
+      <td><strong>内容沉迷型</strong>——广告吸引的是"读者"不是"买家"，全程不进商品页</td>
+      <td class="td-bad">40%</td>
+      <td>文章详情页（组5 30 Positions、组24 Dom）</td>
+      <td>素材钩子从「知识/姿势科普」→ 「欲望/感受」，目标人群要有购买意图</td>
+    </tr>
+    <tr>
+      <td><strong>商品研究后犹豫</strong>——看遍所有单品但无法做决策，最长停留 45 分钟未下单</td>
+      <td class="td-warn">23%</td>
+      <td>文章详情页（组4/7）</td>
+      <td>对曾浏览商品详情页 &gt;2min 的人群做<strong>再营销</strong>，落地页直打商品页+优惠，不走文章页</td>
+    </tr>
+    <tr>
+      <td><strong>Scene Room 替代购买</strong>——把网站当 AI 故事平台，从不进商品页</td>
+      <td class="td-warn">13%</td>
+      <td>剧情体验页（组2 Tonight、组8 山间）</td>
+      <td>Room 方向<strong>暂缓扩量</strong>，承接端加上硬件联动引导前不值得继续加预算</td>
+    </tr>
+    <tr>
+      <td><strong>技术/交互障碍</strong>——JS 报错、Dead Click、视频加载失败，数据看不出来</td>
+      <td class="td-bad">10%</td>
+      <td>剧情体验页（组6 冰块、组28）</td>
+      <td>已提技术需求单（P0），等研发修复；此类用户是真实高意向，不是素材问题</td>
+    </tr>
+    <tr>
+      <td><strong>购买流程卡点</strong>——结算页停留 5min 零挽留；登录墙阻断内容→购买路径</td>
+      <td class="td-warn">7%</td>
+      <td>所有落地页</td>
+      <td>承接端问题，已提给技术项目负责人，投手无需操作</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 技术问题待修复（P0，已提单）</div>
+    · 商品详情页→结算页 JS 脚本报错 + 死链（session 181261a7，高意向用户被逼走）<br>
+    · AI Room 多次 Dead Click，无效点击打断体验（session 56b224c9）<br>
+    · 视频无法加载（session 5f0a7ebb）
   </div>
 </div>
 
