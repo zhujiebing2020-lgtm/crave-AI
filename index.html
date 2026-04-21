@@ -163,6 +163,12 @@
       <span style="flex:1;">广告数据看板</span>
       <span style="font-size:10px;background:rgba(16,185,129,.15);color:#10b981;padding:1px 5px;border-radius:3px;">每日</span>
     </a>
+    <a class="nav-item" onclick="show('s22')" style="color:#f59e0b;font-weight:600;">
+      <span class="num" style="background:rgba(245,158,11,.2);color:#f59e0b;">⚠️</span>
+      <span style="flex:1;">HVU 流失原因</span>
+      <span style="font-size:10px;background:rgba(245,158,11,.15);color:#f59e0b;padding:1px 5px;border-radius:3px;">4/21</span>
+
+    </a>
   </div>
 
   <!-- 基础认知 -->
@@ -660,8 +666,21 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
       <div class="a">① 查落地页 LCP（AdClaw → session_overview 按 utm_campaign 筛选）<br>② 若 LCP 正常（&lt;2500ms）→ 是素材方向问题，换内容角度，不换页面类型<br>③ 若 LCP 超标 → 通知研发，暂停花费，LCP 修复前换素材无效</div>
     </div>
   </div>
+</div>
 
-  <h2>HVU 进站后的流失原因（4/21 人工 Clarity 回放，30 个典型 Session）</h2>
+
+
+
+<!-- ===== S22: HVU流失原因 ===== -->
+<div id="s22" class="section">
+  <div class="page-header">
+    <h1>高质量用户流失原因</h1>
+    <div class="meta">
+      <span class="tag tag-warn">4/21 Clarity人工回放</span>
+      <span class="tag">534个Session · 30个典型样本 · 成交0</span>
+    </div>
+  </div>
+
   <div class="callout rule">
     <div class="callout-title">核心发现：HVU 停留久、互动多，但 534 个 Session 成交 0</div>
     高质量用户进站后的真实流失原因不是"没兴趣"，是<strong>内容与商品割裂 + 技术障碍 + 缺乏决策支持</strong>。
@@ -710,7 +729,6 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     · 视频无法加载（session 5f0a7ebb）
   </div>
 </div>
-
 
 <!-- ===== S6: 素材策略与合规 ===== -->
 <div id="s6" class="section">
