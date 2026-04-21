@@ -158,7 +158,7 @@
   <!-- 速查：每日看板 + 决策标准 置顶 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">速查</div>
-    <a class="nav-item" onclick="show('s16')" style="color:#10b981;font-weight:600;border:1px solid rgba(16,185,129,.3);">
+    <a class="nav-item active" onclick="show('s16')" style="color:#10b981;font-weight:600;border:1px solid rgba(16,185,129,.3);">
       <span class="num" style="background:rgba(16,185,129,.2);color:#10b981;">📊</span>
       <span style="flex:1;">广告数据看板</span>
       <span style="font-size:10px;background:rgba(16,185,129,.15);color:#10b981;padding:1px 5px;border-radius:3px;">每日</span>
@@ -172,7 +172,7 @@
   <!-- 基础认知 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">基础认知</div>
-    <a class="nav-item active" onclick="show('s0')">
+    <a class="nav-item" onclick="show('s0')">
       <span class="num">01</span><span style="flex:1;">怎么用这份知识库</span>
     </a>
     <a class="nav-item" onclick="show('s1')">
@@ -279,7 +279,7 @@
 <main id="main">
 
 <!-- ===== S0: 怎么用 ===== -->
-<div id="s0" class="section active">
+<div id="s0" class="section">
   <div class="page-header">
     <h1>Crave AI 投手知识库</h1>
     <div class="meta">
@@ -712,37 +712,6 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
   </div>
 </div>
 
-  <hr style="border:none;border-top:1px solid var(--border);margin:32px 0;">
-  <h2>素材方向判断：文章详情页 vs 剧情体验页</h2>
-
-  <div class="kpi-grid">
-    <div class="kpi-card" style="border-color:var(--green)">
-      <div class="kpi-label" style="color:var(--green)">文章详情页（CHJ方向）</div>
-      <div class="kpi-value" style="color:var(--green);font-size:22px;">CPHQ $2~3</div>
-      <div class="kpi-desc">组5 $2.32 / 组4 $2.55 / 组17 $4.01<br>✅ 主力方向，持续加量</div>
-    </div>
-    <div class="kpi-card" style="border-color:var(--red)">
-      <div class="kpi-label" style="color:var(--red)">剧情体验页（HNN旧方向）</div>
-      <div class="kpi-value" style="color:var(--red);font-size:22px;">CPHQ $7~9</div>
-      <div class="kpi-desc">组6/8/9/12 全部偏贵<br>🔴 关停，HNN迁移到文章方向</div>
-    </div>
-  </div>
-
-  <h3>素材健康度五个维度</h3>
-  <div class="table-wrap"><table>
-    <tr><th>维度</th><th>代表指标</th><th>对我们的意义</th></tr>
-    <tr><td>抓取能力</td><td>CTR（目标 ≥ 2%）</td><td>素材是否能让目标用户停下来</td></tr>
-    <tr><td>点击质量</td><td>HVU 率（HVU / 总 Sessions）</td><td>点进来的是不是真实有兴趣用户</td></tr>
-    <tr><td>落地页匹配</td><td>跳出率 / CPHQ</td><td>广告承诺与落地页首屏是否一致</td></tr>
-    <tr><td>生命周期</td><td>CPHQ 趋势（看板横向观察）</td><td>是否进入衰退（连续下滑）</td></tr>
-    <tr><td>合规风险</td><td>拒审率</td><td>拒审率 &gt; 30% 立即换素材</td></tr>
-  </table></div>
-
-  <div class="callout rebuke">
-    <div class="callout-title">反驳：高 CTR ≠ 好素材</div>
-    在 Crave AI，我们见过 CTR 高但 HVU = 0 的广告组（用户点进来就跳出）。<br>
-    <strong>好素材的定义是：能帮系统找到 page_count &gt; 1 的真实有兴趣用户，而不只是吸引好奇点击。</strong>
-  </div>
 
 <!-- ===== S6: 素材策略与合规 ===== -->
 <div id="s6" class="section">
@@ -942,6 +911,37 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
 
 
 </div>
+  <hr style="border:none;border-top:1px solid var(--border);margin:32px 0;">
+  <h2>素材方向判断：文章详情页 vs 剧情体验页</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-color:var(--green)">
+      <div class="kpi-label" style="color:var(--green)">文章详情页（CHJ方向）</div>
+      <div class="kpi-value" style="color:var(--green);font-size:22px;">CPHQ $2~3</div>
+      <div class="kpi-desc">组5 $2.32 / 组4 $2.55 / 组17 $4.01<br>✅ 主力方向，持续加量</div>
+    </div>
+    <div class="kpi-card" style="border-color:var(--red)">
+      <div class="kpi-label" style="color:var(--red)">剧情体验页（HNN旧方向）</div>
+      <div class="kpi-value" style="color:var(--red);font-size:22px;">CPHQ $7~9</div>
+      <div class="kpi-desc">组6/8/9/12 全部偏贵<br>🔴 关停，HNN迁移到文章方向</div>
+    </div>
+  </div>
+
+  <h3>素材健康度五个维度</h3>
+  <div class="table-wrap"><table>
+    <tr><th>维度</th><th>代表指标</th><th>对我们的意义</th></tr>
+    <tr><td>抓取能力</td><td>CTR（目标 ≥ 2%）</td><td>素材是否能让目标用户停下来</td></tr>
+    <tr><td>点击质量</td><td>HVU 率（HVU / 总 Sessions）</td><td>点进来的是不是真实有兴趣用户</td></tr>
+    <tr><td>落地页匹配</td><td>跳出率 / CPHQ</td><td>广告承诺与落地页首屏是否一致</td></tr>
+    <tr><td>生命周期</td><td>CPHQ 趋势（看板横向观察）</td><td>是否进入衰退（连续下滑）</td></tr>
+    <tr><td>合规风险</td><td>拒审率</td><td>拒审率 &gt; 30% 立即换素材</td></tr>
+  </table></div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：高 CTR ≠ 好素材</div>
+    在 Crave AI，我们见过 CTR 高但 HVU = 0 的广告组（用户点进来就跳出）。<br>
+    <strong>好素材的定义是：能帮系统找到 page_count &gt; 1 的真实有兴趣用户，而不只是吸引好奇点击。</strong>
+  </div>
 
 <!-- ===== S7: 广告组决策标准 ===== -->
 <div id="s7" class="section">
@@ -1478,7 +1478,7 @@ GROUP BY t.task_name
 </div>
 
 <!-- ===== S16: 广告数据看板 ===== -->
-<div id="s16" class="section">
+<div id="s16" class="section active">
   <div class="page-header">
     <h1>广告数据看板</h1>
     <div class="meta">
