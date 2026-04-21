@@ -1714,26 +1714,173 @@ GROUP BY t.task_name
   </div>
 </div>
 
-<!-- ===== S18: Google Ads 占位 ===== -->
+<!-- ===== S18: Google Ads ===== -->
 <div id="s18" class="section">
   <div class="page-header">
     <h1>Google Ads</h1>
     <div class="meta">
-      <span class="tag" style="background:rgba(255,255,255,.06);color:var(--muted);">待建设</span>
+      <span class="tag" style="background:rgba(59,130,246,.15);color:#60a5fa;">搜索广告为主</span>
+      <span class="tag">FB先行 · Google补位高意向流量</span>
     </div>
   </div>
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;text-align:center;color:var(--muted);">
-    <div style="font-size:32px;margin-bottom:12px;">🔍</div>
-    <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;">Google Ads 模块待建设</div>
-    <div style="font-size:13px;line-height:1.8;">
-      后续计划录入内容：<br>
-      · 账户结构 &amp; 广告系列类型（搜索 / 展示 / P-Max）<br>
-      · 关键词策略 &amp; 否词管理<br>
-      · 素材规范（响应式搜索广告 / 展示广告尺寸）<br>
-      · HVU &amp; CPHQ 在 Google 端的追踪方式<br>
-      · 与 FB 投放协同策略
+
+  <!-- 核心定位 -->
+  <div style="background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.25);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.8;">
+    <strong>Google vs FB 分工</strong>：FB 负责"种草"（触达潜在用户、拉新），Google 负责"收割"（捕获已有购买意图的高意向搜索用户）。<br>
+    当前 creviatech.com 自然搜索流量 90%+ 来自内容页（知识/BDSM文化），产品页几乎无搜索流量——这是 Google Ads 的核心机会缺口。
+  </div>
+
+  <!-- 账户现状 -->
+  <h2>账户基本情况（开会确认）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:2;">
+    · 主体验证：无历史记录的主体均可，选关联性最强的主体，<strong>技术团队协助验证</strong><br>
+    · 账户数量：搜索广告只能有一个账户<br>
+    · 投放节奏：<strong>FB先行</strong>，稳定后再开 Google 作补充<br>
+    · 折扣价：<strong>30单以前不做折扣</strong>（避免影响机审和定价锚点）<br>
+    · AI肖像/网红素材：需确认与网络红人是否有冲突<br>
+    · 年龄限制：未成年确认页，年龄门槛写高<br>
+    · 信任资产：地址 + 邮箱 + 公司注册年份 + 支付条款 + 保密协议需完整
+  </div>
+
+  <!-- P0 硬性前置 -->
+  <h2>P0 投前硬性阻断项（未完成不能开投）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:28px;"></th>
+          <th style="padding:9px 16px;">项目</th>
+          <th style="padding:9px 16px;">具体操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">GA4 + GTM 全站安装</td>
+          <td style="padding:10px 16px;color:var(--muted);">确认 creviatech.com 全站已正确安装 GA4 和 GTM，这是所有追踪的基础</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">转化事件配置</td>
+          <td style="padding:10px 16px;color:var(--muted);">GTM 中配置：view_item · add_to_cart · begin_checkout · <strong>purchase（主转化）</strong> · test_completion（次转化）· sign_up</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">GA4 关联 Google Ads</td>
+          <td style="padding:10px 16px;color:var(--muted);">GA4 账户与 Google Ads 关联，导入 purchase 为主要转化，test_completion 为次要转化</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">产品落地页无 404</td>
+          <td style="padding:10px 16px;color:var(--muted);">修复 /products · /shop · /device 等关键页面的 404 错误，不能将付费流量引向死胡同</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 三驾马车方案 -->
+  <h2>广告系列结构：三驾马车</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:24px;">
+
+    <div style="background:var(--card);border:1px solid #3b82f644;border-left:3px solid #3b82f6;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#3b82f6;">① 品牌保护伞</div>
+        <div style="font-size:13px;font-weight:700;color:#60a5fa;">预算 15%</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：100% 捕获搜品牌的用户，防止竞品截流</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
+        关键词：crave ai · creviatech · crave ai app · crave ai toy<br>
+        匹配方式：精确匹配<br>
+        落地页：首页
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid #10b98144;border-left:3px solid #10b981;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#10b981;">② 核心产品收割机</div>
+        <div style="font-size:13px;font-weight:700;color:#10b981;">预算 50%</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：捕获有明确购买意图的高意向用户</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
+        AI/智能玩具：ai sex toy · smart vibrator · app controlled sex toy<br>
+        女性器具：sex toys for women · g-spot vibrator · clitoral stimulator<br>
+        具体产品：Twin Pact / Trembling Secret 等各建独立广告组<br>
+        落地页：对应产品详情页
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid #f59e0b44;border-left:3px solid #f59e0b;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">③ 场景欲望探索</div>
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">预算 35%</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：将内容流量变现——用产品承接场景需求</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
+        BDSM/权力：bdsm gear for beginners · femdom toys · submissive training tools<br>
+        角色扮演：roleplay sex toys · doctor patient scenario<br>
+        欲望测试：sexual personality test · what is my kink quiz<br>
+        落地页：/theater 或社区分类页
+      </div>
     </div>
   </div>
+
+  <!-- 出价策略 -->
+  <h2>出价策略（分阶段）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;">阶段</th><th style="padding:9px 16px;">条件</th><th style="padding:9px 16px;">出价策略</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;font-weight:600;">冷启动期</td>
+          <td style="padding:10px 16px;color:var(--muted);">转化数据 &lt; 30 个</td>
+          <td style="padding:10px 16px;">最大化点击次数（Maximize Clicks）· 积累数据</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;font-weight:600;">优化期</td>
+          <td style="padding:10px 16px;color:var(--muted);">累计转化 ≥ 30~50 个</td>
+          <td style="padding:10px 16px;">切换为最大化转化次数（Maximize Conversions）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 素材规范 RSA -->
+  <h2>响应式搜索广告（RSA）素材规范</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.9;">
+    <strong>标题（10~15条）方向：</strong><br>
+    · 含核心关键词：AI-Powered Sex Toy · Smart Vibrator<br>
+    · 突出卖点：AI Story-Synced · Voice Responsive · Dual Stimulation<br>
+    · 行动号召：Explore Now · Unlock Your Desires · Shop Today<br><br>
+    <strong>描述（4条）方向：</strong><br>
+    · 阐述产品如何解决痛点，强调 AI+故事联动的沉浸体验<br>
+    · 结尾含 CTA（Free Shipping · Limited Stock · Start Your Journey）<br><br>
+    <strong>附加信息（必配）：</strong><br>
+    · 附加链接：欲望测试页 · 社区 · 关于我们 · 各产品分类<br>
+    · 图片素材：高质量合规产品图<br>
+    · 价格素材：直接展示产品价格
+  </div>
+
+  <!-- 竞品截流 -->
+  <h2>竞品截流（谨慎单独建系列）</h2>
+  <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 16px;font-size:13px;margin-bottom:24px;line-height:1.8;">
+    目标词：lovense alternative · lelo vs · we-vibe alternative · satisfyer with ai<br>
+    文案核心：强调"不只是震动，而是 AI+故事的沉浸体验"——打差异化，不打价格战<br>
+    <span style="color:#f59e0b;">⚠️ 谨慎投放，避免引发竞品反截流</span>
+  </div>
+
+  <!-- 与FB协同 -->
+  <h2>与 Facebook 协同策略</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:13px;line-height:1.9;margin-bottom:16px;">
+    · FB 拉新种草 → Google 再营销收割（购物车放弃者、产品浏览者）<br>
+    · FB 跑出的高 HVU 受众数据，可用于 Google 受众定向参考<br>
+    · Google SEM 跑出的高转化关键词，反哺 FB 素材文案方向<br>
+    · 两端落地页保持一致（文章页/产品页），统一 UTM 追踪
+  </div>
+
 </div>
 
 <!-- ===== S20: Twitter / X Ads 占位 ===== -->
