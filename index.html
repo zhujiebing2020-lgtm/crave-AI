@@ -485,7 +485,7 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     <div class="callout-title">Crave AI 实际情况</div>
     成人内容有合规约束，<strong>不是所有素材变量都可以自由测试</strong>。<br>
     我们测试的核心变量是：<strong>落地页类型（剧情体验页 vs 文章详情页）</strong>。<br>
-    已有结论：文章详情页综合CPHQ $2-3，剧情体验页 $7-9，差距3倍。→ <a href="#" onclick="show('s5');return false;" style="color:#10b981;">详见模块05</a><br><br>
+    已有结论：文章详情页综合CPHQ $2-3，剧情体验页 $7-9，差距3倍。<br><br>
     下一步测试方向：<strong>HNN是否也能从剧情体验页切到文章详情页拿到同样改善</strong>（组14女性专栏是第一个测试样本）。
   </div>
 
@@ -556,6 +556,69 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     <tr><td>arena-vibe.com</td><td>影子站（风控备份）</td><td>与主站一致</td><td>主站被限时热备切换</td></tr>
     <tr><td>elysianu.com</td><td>低价站（A/B测试）</td><td>$99.99~$149.99</td><td>定价敏感性测试，BM-B独立Pixel</td></tr>
   </table>
+  </div>
+
+  <h2>新账号养号流程</h2>
+  <div class="callout rule">
+    <div class="callout-title">为什么要养号：成人向广告的额外合规门槛</div>
+    FB 对成人内容类广告账号审查更严格。新账号没有任何互动历史，直接投放成人向素材被封概率极高。养号的目的是让账号在 FB 眼中"看起来像正常运营的账户"，降低初期审核风险。
+  </div>
+
+  <div class="decision">
+    <div class="decision-step">
+      <div class="q">D1~D3 · 账号初始化</div>
+      <div class="a">
+        ✅ 完善主页信息（头像、简介、联系方式）<br>
+        ✅ 发布2~3条普通内容帖子（非成人向，可以是品牌故事、健康生活类）<br>
+        ✅ 在主页点几条同类帖子的赞/评论（模拟真实用户行为）<br>
+        ✅ 完成账号身份验证（有条件的话上传ID）<br>
+        ❌ 不要立即创建广告系列
+      </div>
+    </div>
+    <div class="decision-step">
+      <div class="q">D4~D7 · 小额广告试水</div>
+      <div class="a">
+        ✅ 创建第一条广告，用<strong>最低风险素材</strong>（不含身体接触/性暗示，纯文字/品牌Logo）<br>
+        ✅ 目标选"流量"或"互动"，不选"转化"<br>
+        ✅ 预算 <strong>$3~$5/天</strong>，跑2~3天观察审核通过率<br>
+        ✅ 确认能正常通过审核、正常消耗后，进入下一阶段<br>
+        ❌ 此阶段如果广告被拒，说明账号还没准备好，回到D1~D3补养
+      </div>
+    </div>
+    <div class="decision-step go">
+      <div class="q">D8~D14 · 正式预算爬坡</div>
+      <div class="a">
+        ✅ 切换为正式成人向素材（需已通过特殊类别授权）<br>
+        ✅ 预算从 <strong>$5 → $10 → $15/天</strong>，每2天提升一档，单次涨幅不超过20%<br>
+        ✅ 达到$10/天且连续3天无被拒后，视为养号完成<br>
+        ✅ 可以开始正常投放流程（进入学习期管理）
+      </div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">连续被拒2次 / 账号受限</div>
+      <div class="a">
+        立即停止操作，24小时内不做任何动作。<br>
+        检查：① 素材是否超出该账号当前权限 ② IP/设备环境是否有问题 ③ 主页内容是否触发内容政策<br>
+        若48小时后仍无法投放，联系统筹评估是否需要重新开号。
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>阶段</th><th>时间</th><th>日预算</th><th>目标</th><th>判断标准</th></tr>
+    <tr><td>账号初始化</td><td>D1~D3</td><td>$0</td><td>建立账号基础信誉</td><td>主页内容完整，无异常标记</td></tr>
+    <tr><td>试水广告</td><td>D4~D7</td><td>$3~$5</td><td>验证账号可正常审核通过</td><td>广告审核通过率100%，无被拒</td></tr>
+    <tr><td>预算爬坡</td><td>D8~D14</td><td>$5→$10→$15</td><td>建立消耗历史，过渡到正式投放</td><td>$10/天稳定跑3天无问题</td></tr>
+    <tr><td>正式投放</td><td>D15+</td><td>按正常计划</td><td>进入学习期，开始看CPHQ</td><td>参考学习期管理模块</td></tr>
+  </table>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">成人内容特殊授权：必须在投放前完成</div>
+    FB 投放成人向内容必须先申请"特殊类别广告"授权。<br>
+    路径：广告管理员 → 商务设置 → 广告授权 → 申请"成人产品"类别。<br>
+    <strong>此授权针对 BM，不针对单个账号。</strong>BM-A、BM-B 需分别申请。未获授权直接投放=必被拒，且多次被拒会拉高账号风险值。
   </div>
 </div>
 
@@ -927,10 +990,6 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
 
 
 </div>
-  <div class="callout rule" style="margin-top:24px;">
-    <div class="callout-title">素材方向已有明确结论</div>
-    文章详情页 CPHQ $2~3（主力），剧情体验页 $7~9（多数组已关停）。高 CTR ≠ 好素材，好素材 = 能带来 page_count &gt; 1 的用户。→ <a href="#" onclick="show('s5');return false;" style="color:#10b981;">完整对比数据见模块05</a>
-  </div>
 
 <!-- ===== S7: 广告组决策标准 ===== -->
 <div id="s7" class="section">
@@ -1108,7 +1167,7 @@ GROUP BY t.task_name
     <div class="decision-step"><div class="q">第一步</div><div class="a">检查落地页URL是否还能正常打开</div></div>
     <div class="decision-step stop"><div class="q">落地页报错/打不开</div><div class="a">🔴 立即通知研发，同时暂停该广告组，切换到备用落地页</div></div>
     <div class="decision-step wait"><div class="q">落地页正常打开</div><div class="a">检查AdClaw是否有session但page_count=1（大量跳出）</div></div>
-    <div class="decision-step stop"><div class="q">有session，但全部page_count=1</div><div class="a">→ 首屏承接断层。广告承诺的内容与落地页首屏不一致，用户点进来立刻失望跳出。换落地页或<a href="#" onclick="show('s5');return false;" style="color:#10b981;">换素材方向</a>。</div></div>
+    <div class="decision-step stop"><div class="q">有session，但全部page_count=1</div><div class="a">→ 首屏承接断层。广告承诺的内容与落地页首屏不一致，用户点进来立刻失望跳出。换落地页或换素材方向。</div></div>
     <div class="decision-step stop"><div class="q">AdClaw里完全没有session</div><div class="a">→ Pixel/UTM追踪问题，或广告虽然扣费但实际没有带来真实点击。联系运营统筹核查。</div></div>
   </div>
 
@@ -1355,7 +1414,7 @@ GROUP BY t.task_name
     <tr><th>止损原因</th><th>后续动作</th></tr>
     <tr><td>素材 CTR 弱</td><td>换钩子/换首屏方向，新建广告组</td></tr>
     <tr><td>有 CTR 但 HVU = 0</td><td>查落地页承接，检查广告承诺与首屏是否一致</td></tr>
-    <tr><td>剧情体验页 CPHQ 持续 &gt; $7</td><td>迁移到文章详情页方向（<a href="#" onclick="show('s5');return false;" style="color:#10b981;">已验证更优，差3倍</a>）</td></tr>
+    <tr><td>剧情体验页 CPHQ 持续 &gt; $7</td><td>迁移到文章详情页方向（已验证更优，差3倍）</td></tr>
     <tr><td>老组趋势衰退</td><td>保留落地页方向，换素材后新建</td></tr>
   </table></div>
 
