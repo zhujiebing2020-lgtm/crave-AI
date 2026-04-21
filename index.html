@@ -155,56 +155,112 @@
     <div class="sub">投手知识库 · 内部版</div>
   </div>
 
+  <!-- 速查：每日看板 + 决策标准 置顶 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">速查</div>
+    <a class="nav-item" onclick="show('s16')" style="color:#10b981;font-weight:600;border:1px solid rgba(16,185,129,.3);">
+      <span class="num" style="background:rgba(16,185,129,.2);color:#10b981;">📊</span>
+      <span style="flex:1;">广告数据看板</span>
+      <span style="font-size:10px;background:rgba(16,185,129,.15);color:#10b981;padding:1px 5px;border-radius:3px;">每日</span>
+    </a>
     <a class="nav-item" onclick="show('s7')" style="color:var(--accent-light);font-weight:600;border:1px solid rgba(99,102,241,.3);">
-      <span class="num" style="background:rgba(99,102,241,.3);color:var(--accent-light);">📌</span>广告组决策标准
+      <span class="num" style="background:rgba(99,102,241,.2);color:var(--accent-light);">📌</span>
+      <span style="flex:1;">广告组决策标准</span>
+      <span style="font-size:10px;background:rgba(99,102,241,.15);color:var(--accent-light);padding:1px 5px;border-radius:3px;">每日</span>
     </a>
   </div>
 
+  <!-- 基础认知 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">基础认知</div>
-    <a class="nav-item active" onclick="show('s0')"><span class="num">00</span>怎么用这份知识库</a>
-    <a class="nav-item" onclick="show('s1')"><span class="num">01</span>我们的核心指标体系</a>
-    <a class="nav-item" onclick="show('s2')"><span class="num">02</span>反驳通用FB课程</a>
+    <a class="nav-item active" onclick="show('s0')">
+      <span class="num">01</span><span style="flex:1;">怎么用这份知识库</span>
+    </a>
+    <a class="nav-item" onclick="show('s1')">
+      <span class="num">02</span><span style="flex:1;">核心指标体系</span>
+    </a>
+    <a class="nav-item" onclick="show('s2')">
+      <span class="num">03</span><span style="flex:1;">反驳通用FB课程</span>
+    </a>
   </div>
 
+  <!-- FB 投放操作 -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">投放操作</div>
-    <a class="nav-item" onclick="show('s3')"><span class="num">03</span>账户结构与风控</a>
-    <a class="nav-item" onclick="show('s4')"><span class="num">04</span>学习期管理</a>
-    <a class="nav-item" onclick="show('s5')"><span class="num">05</span>落地页类型选择</a>
-    <a class="nav-item" onclick="show('s6')"><span class="num">06</span>素材策略与合规</a>
-    <a class="nav-item" onclick="show('s17')"><span class="num">07</span>投前检查清单</a>
-    <a class="nav-item" onclick="show('s15')"><span class="num">15</span>预算·止损·素材决策</a>
+    <div class="sidebar-section-label">FB 投放操作</div>
+    <a class="nav-item" onclick="show('s3')">
+      <span class="num">04</span><span style="flex:1;">账户结构与风控</span>
+    </a>
+    <a class="nav-item" onclick="show('s4')">
+      <span class="num">05</span><span style="flex:1;">学习期管理</span>
+    </a>
+    <a class="nav-item" onclick="show('s5')">
+      <span class="num">06</span><span style="flex:1;">落地页类型选择</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
+    </a>
+    <a class="nav-item" onclick="show('s6')">
+      <span class="num">07</span><span style="flex:1;">素材策略与合规</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
+    </a>
+    <a class="nav-item" onclick="show('s17')">
+      <span class="num">08</span><span style="flex:1;">投前检查清单</span>
+    </a>
+    <a class="nav-item" onclick="show('s15')">
+      <span class="num">09</span><span style="flex:1;">预算·止损·决策</span>
+    </a>
   </div>
 
+  <!-- 数据与分析 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">数据与分析</div>
-    <a class="nav-item" onclick="show('s16')" style="color:#10b981;font-weight:600;border:1px solid rgba(16,185,129,.3);"><span class="num" style="background:rgba(16,185,129,.2);color:#10b981;">📊</span>广告数据看板</a>
-    <a class="nav-item" onclick="show('s8')"><span class="num">08</span>数据看板解读</a>
-    <a class="nav-item" onclick="show('s9')"><span class="num">09</span>诊断树：指标异常怎么查</a>
-    <a class="nav-item" onclick="show('s10')"><span class="num">10</span>竞品研究方法</a>
+    <a class="nav-item" onclick="show('s8')">
+      <span class="num">10</span><span style="flex:1;">数据看板解读</span>
+    </a>
+    <a class="nav-item" onclick="show('s9')">
+      <span class="num">11</span><span style="flex:1;">诊断树：指标异常</span>
+    </a>
+    <a class="nav-item" onclick="show('s10')">
+      <span class="num">12</span><span style="flex:1;">竞品研究方法</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">月更</span>
+    </a>
   </div>
 
+  <!-- 风控与增长 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">风控与增长</div>
-    <a class="nav-item" onclick="show('s11')"><span class="num">11</span>域名与账号风控</a>
-    <a class="nav-item" onclick="show('s12')"><span class="num">12</span>扩量节奏与判断节点</a>
-    <a class="nav-item" onclick="show('s13')"><span class="num">13</span>知识沉淀规范</a>
+    <a class="nav-item" onclick="show('s11')">
+      <span class="num">13</span><span style="flex:1;">域名与账号风控</span>
+    </a>
+    <a class="nav-item" onclick="show('s12')">
+      <span class="num">14</span><span style="flex:1;">扩量节奏与节点</span>
+    </a>
+    <a class="nav-item" onclick="show('s13')">
+      <span class="num">15</span><span style="flex:1;">知识沉淀规范</span>
+    </a>
   </div>
 
+  <!-- 其他渠道 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">其他渠道</div>
-    <a class="nav-item" onclick="show('s18')" style="color:var(--muted);"><span class="num">G</span>Google Ads <span style="font-size:10px;opacity:.5;">占位</span></a>
-    <a class="nav-item" onclick="show('s19')" style="color:var(--muted);"><span class="num">TK</span>TikTok Ads <span style="font-size:10px;opacity:.5;">占位</span></a>
-    <a class="nav-item" onclick="show('s20')" style="color:var(--muted);"><span class="num">𝕏</span>Twitter / X Ads <span style="font-size:10px;opacity:.5;">占位</span></a>
+    <a class="nav-item" onclick="show('s18')">
+      <span class="num">G</span><span style="flex:1;">Google Ads</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">建设中</span>
+    </a>
+    <a class="nav-item" onclick="show('s19')" style="color:var(--muted);">
+      <span class="num">TK</span><span style="flex:1;">TikTok Ads</span>
+      <span style="font-size:10px;padding:1px 5px;">占位</span>
+    </a>
+    <a class="nav-item" onclick="show('s20')" style="color:var(--muted);">
+      <span class="num">𝕏</span><span style="flex:1;">Twitter / X Ads</span>
+      <span style="font-size:10px;padding:1px 5px;">占位</span>
+    </a>
   </div>
 
+  <!-- 投手协作 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">投手协作</div>
     <a class="nav-item" onclick="show('s14')" style="color:#a78bfa;">
-      <span class="num" style="background:rgba(167,139,250,.2);color:#a78bfa;">✍</span>投手投稿
+      <span class="num" style="background:rgba(167,139,250,.2);color:#a78bfa;">✍</span>
+      <span style="flex:1;">投手投稿</span>
     </a>
   </div>
 
