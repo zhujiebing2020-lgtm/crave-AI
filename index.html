@@ -193,11 +193,8 @@
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
     </a>
     <a class="nav-item" onclick="show('s6')">
-      <span class="num">07</span><span style="flex:1;">素材策略与合规</span>
+      <span class="num">07</span><span style="flex:1;">素材策略 · 投前清单</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
-    </a>
-    <a class="nav-item" onclick="show('s17')">
-      <span class="num">08</span><span style="flex:1;">投前检查清单</span>
     </a>
     <a class="nav-item" onclick="show('s15')">
       <span class="num">09</span><span style="flex:1;">预算·止损·决策</span>
@@ -714,8 +711,61 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
   </div>
 </div>
 
-<!-- ===== S17: 投前检查清单 ===== -->
-<div id="s17" class="section">
+<!-- ===== S6: 素材策略与合规 ===== -->
+<div id="s6" class="section">
+  <div class="page-header">
+    <h1>06 · 素材策略与合规</h1>
+    <div class="meta"><span class="tag tag-warn">合规先行</span> 成人内容投放的红线与灰区</div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">成人内容FB投放的基本前提</div>
+    FB不允许直接推广露骨成人内容。Crave AI的所有素材必须在"暗示性/情感性"而非"显性"的边界内。超出边界=广告被拒+账号风险。
+  </div>
+
+  <h2>A级素材判断标准（可投放）</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>维度</th><th>允许</th><th>禁止</th></tr>
+    <tr><td>视觉内容</td><td>情感表达、亲密动作（暗示性）、健康/关系类画面</td><td>裸露、露骨性行为、生殖器官暗示</td></tr>
+    <tr><td>文案用词</td><td>intimate, connection, wellness, desire, pleasure（在语境中）</td><td>直接性描述词、器官名称、性行为动作词</td></tr>
+    <tr><td>落地页关联</td><td>落地页内容与素材主题一致</td><td>素材暗示A，落地页展示B（期望断层）</td></tr>
+    <tr><td>品牌呈现</td><td>科技/健康/情感品牌调性</td><td>露骨成人网站调性</td></tr>
+  </table>
+  </div>
+
+  <h2>素材生命周期管理</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>阶段</th><th>信号</th><th>动作</th></tr>
+    <tr><td>新鲜期</td><td>CTR稳定，CPHQ在目标内</td><td>保持，可小幅加量</td></tr>
+    <tr><td>疲劳期</td><td>CTR连续3天低于峰值70%</td><td>准备新素材，48小时内替换</td></tr>
+    <tr><td>报废期</td><td>换素材后仍无改善</td><td>检查落地页承接，可能不是素材问题</td></tr>
+  </table>
+  </div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：通用课程说"好素材=高CTR素材"</div>
+    在Crave AI的业务里，高CTR≠好素材。我们见过CTR高但HVU=0的广告组（用户点进来就跳出），也见过CTR一般但CPHQ极低的广告组。<br><br>
+    <strong>Crave AI的好素材定义</strong>：能帮系统找到真正有兴趣的用户（page_count&gt;1），而不是只能吸引好奇点击的用户。
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">4月验证结论（2026-04-20）：文章页 + 情感/知识型素材 = 唯一稳定可复制的公式</div>
+    4/5~4/19 期间，CHJ负责的文章页广告组（组4/5/17/20）累计表现：<br>
+    · 组17 18 Sensual：总花费 $85.86，HVU 76人，<strong>CPHQ $1.13（全场最优）</strong><br>
+    · 组20 A Softer：总花费 $112.64，HVU 49人，CPHQ $2.30<br>
+    · 组4 Viennese：总花费 $161.90，HVU 66人，CPHQ $2.45<br><br>
+    <strong>公式拆解</strong>：<br>
+    · 落地页：文章详情页（/multisensory/...），LCP &lt;1800ms，技术层面无瓶颈<br>
+    · 素材方向：情感型 / 知识型，满足用户明确的信息需求（具体体位、关系建议），不只是视觉刺激<br>
+    · 投放方式：FB ABO，让系统自动寻找匹配受众<br><br>
+    <strong>反例警示</strong>：组14女性专栏（HNN，文章页）LCP 1228ms，技术完全正常，但HVU率仅3.6%。说明"文章页"不是万能钥匙——<strong>素材方向与页面内容的匹配度同样关键</strong>，内容不对，快页面也白搭。
+  </div>
+
+
+  <hr style="border:none;border-top:1px solid var(--border);margin:32px 0;">
+
   <div class="page-header">
     <h1>投前检查清单</h1>
     <div class="meta">
@@ -857,59 +907,7 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
   <div class="code">上线前：页面能开 · LCP 达标 · 素材不违规 · 主题要对齐
 上线后：有 session · 有 HVU · 2天没HVU立刻停</div>
 
-</div>
 
-<!-- ===== S6: 素材策略与合规 ===== -->
-<div id="s6" class="section">
-  <div class="page-header">
-    <h1>06 · 素材策略与合规</h1>
-    <div class="meta"><span class="tag tag-warn">合规先行</span> 成人内容投放的红线与灰区</div>
-  </div>
-
-  <div class="callout warn">
-    <div class="callout-title">成人内容FB投放的基本前提</div>
-    FB不允许直接推广露骨成人内容。Crave AI的所有素材必须在"暗示性/情感性"而非"显性"的边界内。超出边界=广告被拒+账号风险。
-  </div>
-
-  <h2>A级素材判断标准（可投放）</h2>
-  <div class="table-wrap">
-  <table>
-    <tr><th>维度</th><th>允许</th><th>禁止</th></tr>
-    <tr><td>视觉内容</td><td>情感表达、亲密动作（暗示性）、健康/关系类画面</td><td>裸露、露骨性行为、生殖器官暗示</td></tr>
-    <tr><td>文案用词</td><td>intimate, connection, wellness, desire, pleasure（在语境中）</td><td>直接性描述词、器官名称、性行为动作词</td></tr>
-    <tr><td>落地页关联</td><td>落地页内容与素材主题一致</td><td>素材暗示A，落地页展示B（期望断层）</td></tr>
-    <tr><td>品牌呈现</td><td>科技/健康/情感品牌调性</td><td>露骨成人网站调性</td></tr>
-  </table>
-  </div>
-
-  <h2>素材生命周期管理</h2>
-  <div class="table-wrap">
-  <table>
-    <tr><th>阶段</th><th>信号</th><th>动作</th></tr>
-    <tr><td>新鲜期</td><td>CTR稳定，CPHQ在目标内</td><td>保持，可小幅加量</td></tr>
-    <tr><td>疲劳期</td><td>CTR连续3天低于峰值70%</td><td>准备新素材，48小时内替换</td></tr>
-    <tr><td>报废期</td><td>换素材后仍无改善</td><td>检查落地页承接，可能不是素材问题</td></tr>
-  </table>
-  </div>
-
-  <div class="callout rebuke">
-    <div class="callout-title">反驳：通用课程说"好素材=高CTR素材"</div>
-    在Crave AI的业务里，高CTR≠好素材。我们见过CTR高但HVU=0的广告组（用户点进来就跳出），也见过CTR一般但CPHQ极低的广告组。<br><br>
-    <strong>Crave AI的好素材定义</strong>：能帮系统找到真正有兴趣的用户（page_count&gt;1），而不是只能吸引好奇点击的用户。
-  </div>
-
-  <div class="callout rule">
-    <div class="callout-title">4月验证结论（2026-04-20）：文章页 + 情感/知识型素材 = 唯一稳定可复制的公式</div>
-    4/5~4/19 期间，CHJ负责的文章页广告组（组4/5/17/20）累计表现：<br>
-    · 组17 18 Sensual：总花费 $85.86，HVU 76人，<strong>CPHQ $1.13（全场最优）</strong><br>
-    · 组20 A Softer：总花费 $112.64，HVU 49人，CPHQ $2.30<br>
-    · 组4 Viennese：总花费 $161.90，HVU 66人，CPHQ $2.45<br><br>
-    <strong>公式拆解</strong>：<br>
-    · 落地页：文章详情页（/multisensory/...），LCP &lt;1800ms，技术层面无瓶颈<br>
-    · 素材方向：情感型 / 知识型，满足用户明确的信息需求（具体体位、关系建议），不只是视觉刺激<br>
-    · 投放方式：FB ABO，让系统自动寻找匹配受众<br><br>
-    <strong>反例警示</strong>：组14女性专栏（HNN，文章页）LCP 1228ms，技术完全正常，但HVU率仅3.6%。说明"文章页"不是万能钥匙——<strong>素材方向与页面内容的匹配度同样关键</strong>，内容不对，快页面也白搭。
-  </div>
 </div>
 
 <!-- ===== S7: 广告组决策标准 ===== -->
