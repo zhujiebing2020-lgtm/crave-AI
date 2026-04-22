@@ -1530,8 +1530,8 @@ GROUP BY t.task_name
   <div class="page-header">
     <h1>广告数据看板</h1>
     <div class="meta">
-      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">4/20 完整</span>
-      <span class="tag">总花费 $225.83 · 48 HVU · 平均CPHQ $4.71</span>
+      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">4/21 完整</span>
+      <span class="tag">总花费 $259.92 · 76 HVU · 平均CPHQ $3.42</span>
       <span class="tag" style="background:rgba(59,130,246,.1);color:#60a5fa;font-size:11px;">HVU = 浏览≥2页 且 停留≥30s</span>
     </div>
   </div>
@@ -1539,36 +1539,46 @@ GROUP BY t.task_name
 
   <!-- 总览 -->
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
-    <span style="font-size:12px;color:var(--muted);">4/20</span>
+    <span style="font-size:12px;color:var(--muted);">4/21</span>
     <span style="color:var(--border);">|</span>
-    <span style="font-size:13px;">总花费 <strong>$225.83</strong></span>
-    <span style="font-size:13px;">总HVU <strong>48</strong></span>
-    <span style="font-size:13px;">平均CPHQ <strong style="color:#f59e0b;">$4.71</strong></span>
+    <span style="font-size:13px;">总花费 <strong>$259.92</strong></span>
+    <span style="font-size:13px;">总HVU <strong>76</strong></span>
+    <span style="font-size:13px;">平均CPHQ <strong style="color:#10b981;">$3.42</strong></span>
     <span style="color:var(--border);">|</span>
-    <span style="font-size:12px;color:var(--muted);">CHJ $112.18 · HNN $61.06 · HZM $52.59</span>
+    <span style="font-size:12px;color:var(--muted);">CHJ $82.21 · HZM $97.17 · HNN $80.54</span>
   </div>
 
-  <!-- LCP预警 -->
-  <div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:12px;">🚨 LCP预警（需通知研发）</div>
+  <!-- 异常预警 -->
+  <div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:12px;">🚨 异常预警</div>
   <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.35);border-radius:8px;margin-bottom:24px;overflow:hidden;">
     <div style="padding:11px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
-          <span style="font-size:13px;font-weight:700;color:#ef4444;">组35 15 Ideas</span>
-          <span style="font-size:11px;color:#3b82f6;margin-left:6px;">CHJ</span>
-          <span style="font-size:11px;background:rgba(239,68,68,.2);color:#ef4444;padding:2px 6px;border-radius:4px;margin-left:6px;">4/20新上 $4.93</span>
+          <span style="font-size:13px;font-weight:700;color:#ef4444;">HNN 组34 银发男</span>
+          <span style="font-size:11px;color:#10b981;margin-left:6px;">HNN</span>
+          <span style="font-size:11px;background:rgba(239,68,68,.2);color:#ef4444;padding:2px 6px;border-radius:4px;margin-left:6px;">$9.94 花费</span>
         </div>
-        <span style="font-size:12px;color:#ef4444;font-weight:700;">LCP 4984ms · 跳出100% → 建议暂停待修复</span>
+        <span style="font-size:12px;color:#ef4444;font-weight:700;">83 Sessions · 1 HVU → 落地页承接严重问题</span>
       </div>
     </div>
     <div style="padding:11px 16px;border-top:1px solid rgba(239,68,68,.12);">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
-          <span style="font-size:13px;font-weight:700;color:#ef4444;">组25 强迫休息</span>
-          <span style="font-size:11px;color:#10b981;margin-left:6px;">HNN</span>
-          <span style="font-size:11px;background:rgba(245,158,11,.2);color:#f59e0b;padding:2px 6px;border-radius:4px;margin-left:6px;">持续烧钱 $9.97</span>
+          <span style="font-size:13px;font-weight:700;color:#ef4444;">HZM 大量0HVU组</span>
+          <span style="font-size:11px;color:#f59e0b;margin-left:6px;">HZM</span>
+          <span style="font-size:11px;background:rgba(245,158,11,.2);color:#f59e0b;padding:2px 6px;border-radius:4px;margin-left:6px;">$23.72 无效花费</span>
         </div>
-        <span style="font-size:12px;color:#ef4444;font-weight:700;">LCP 2574ms · 0HVU → 催研发最高优先级</span>
+        <span style="font-size:12px;color:#ef4444;font-weight:700;">组29/26 合计$23.72 → 0HVU，建议暂停</span>
+      </div>
+    </div>
+    <div style="padding:11px 16px;border-top:1px solid rgba(239,68,68,.12);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="font-size:13px;font-weight:700;color:#ef4444;">CHJ 组38/35 新组</span>
+          <span style="font-size:11px;color:#3b82f6;margin-left:6px;">CHJ</span>
+          <span style="font-size:11px;background:rgba(239,68,68,.2);color:#ef4444;padding:2px 6px;border-radius:4px;margin-left:6px;">$16.78</span>
+        </div>
+        <span style="font-size:12px;color:#f59e0b;font-weight:700;">首日上线 0HVU → 正常（学习期），持续观察</span>
       </div>
     </div>
   </div>
@@ -1579,31 +1589,31 @@ GROUP BY t.task_name
     <div style="background:var(--card);border:1px solid #3b82f644;border-left:3px solid #3b82f6;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#3b82f6;">🥇 CHJ · 陈洪骏</div>
-        <div style="font-size:17px;font-weight:700;color:#10b981;">$2.55</div>
+        <div style="font-size:17px;font-weight:700;color:#10b981;">$1.35</div>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$112.18 · 44 HVU · 8组</div>
-      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组17/5/4/20 CPHQ ≤$3，优秀。组7/27 偏贵需关注。组35 LCP异常建议暂停</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$82.21 · 61 HVU · 9组</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组17/4/20/5/32 全部绿灯。组38/35首日0HVU属学习期正常。整体表现出色</div>
     </div>
     <div style="background:var(--card);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#ef4444;">🥈 HNN · 黄楠楠</div>
-        <div style="font-size:17px;font-weight:700;color:#ef4444;">$20.35</div>
+        <div style="font-size:17px;font-weight:700;color:#ef4444;">$11.51</div>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$61.06 · 3 HVU · 9组</div>
-      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">仅组33有效（2HVU）。其余8组全部0HVU——剧情页LCP问题+素材力待提升</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$80.54 · 7 HVU · 9组</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组23/工作室有效（$4.90）。银发男83sessions仅1HVU需紧急排查。其余剧情组整体偏高</div>
     </div>
     <div style="background:var(--card);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#ef4444;">🥉 HZM · 黄梓铭</div>
-        <div style="font-size:17px;font-weight:700;color:#ef4444;">$52.59</div>
+        <div style="font-size:17px;font-weight:700;color:#ef4444;">$12.15</div>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$52.59 · 1 HVU · 4组活跃</div>
-      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">仅组29有1HVU，其余全部0HVU。整体效果差，需排查落地页与素材匹配度</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$97.17 · 8 HVU · 7组</div>
+      <div style="font-size:12px;color:#c8d3e0;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">新组36/37首日表现偏弱（CPHQ $7/$26）。老组性爱疗愈/Surrender 0HVU建议关停</div>
     </div>
   </div>
 
   <!-- 完整明细 -->
-  <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">📊 4/20 广告组完整明细</div>
+  <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">📊 4/21 广告组完整明细</div>
   <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:24px;overflow:hidden;">
     <table style="width:100%;border-collapse:collapse;font-size:12px;">
       <thead>
@@ -1612,262 +1622,285 @@ GROUP BY t.task_name
           <th style="padding:9px 14px;">人</th>
           <th style="padding:9px 14px;text-align:right;">花费</th>
           <th style="padding:9px 14px;text-align:right;">HVU</th>
-          <th style="padding:9px 14px;text-align:right;">LCP</th>
+          <th style="padding:9px 14px;text-align:right;">Sessions</th>
           <th style="padding:9px 14px;text-align:right;">CPHQ</th>
-          <th style="padding:9px 14px;text-align:right;">决策</th>
+          <th style="padding:9px 14px;text-align:right;">初步决策</th>
         </tr>
       </thead>
       <tbody>
         <!-- CHJ -->
-        <tr style="border-top:1px solid var(--border);background:rgba(16,185,129,.03);">
+        <tr style="border-top:1px solid var(--border);">
           <td style="padding:9px 14px;font-weight:600;color:var(--text);">组17 18 Sensual</td>
           <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$16.10</td>
-          <td style="padding:9px 14px;text-align:right;">11</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1574ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.46</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);">
-          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组20 A Softer</td>
-          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$18.58</td>
-          <td style="padding:9px 14px;text-align:right;">8</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1458ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.32</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);">
-          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组5 30 Positions</td>
-          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$17.69</td>
-          <td style="padding:9px 14px;text-align:right;">8</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1289ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.21</span></td>
+          <td style="padding:9px 14px;text-align:right;">$8.88</td>
+          <td style="padding:9px 14px;text-align:right;">17</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">116</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.52</span></td>
           <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);">
           <td style="padding:9px 14px;font-weight:600;color:var(--text);">组4 Viennese Oyster</td>
           <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$15.29</td>
-          <td style="padding:9px 14px;text-align:right;">7</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1409ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.18</span></td>
+          <td style="padding:9px 14px;text-align:right;">$9.94</td>
+          <td style="padding:9px 14px;text-align:right;">12</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">79</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.83</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组20 A Softer</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$10.00</td>
+          <td style="padding:9px 14px;text-align:right;">10</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">63</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.00</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组5 30 Positions</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$10.72</td>
+          <td style="padding:9px 14px;text-align:right;">9</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">66</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.19</span></td>
           <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);">
           <td style="padding:9px 14px;font-weight:600;color:var(--text);">组32 confidence</td>
           <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$13.81</td>
-          <td style="padding:9px 14px;text-align:right;">4</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1429ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(245,158,11,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;font-weight:700;">$3.45</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">保持观察</span></td>
+          <td style="padding:9px 14px;text-align:right;">$7.57</td>
+          <td style="padding:9px 14px;text-align:right;">5</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">62</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.51</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组7 The best intimacy</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$10.77</td>
+          <td style="padding:9px 14px;text-align:right;">5</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">41</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.15</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组27 performance</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$7.55</td>
+          <td style="padding:9px 14px;text-align:right;">3</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">28</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.52</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#ef4444;">组38 CRAVE AI 🆕</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$7.84</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">12</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">学习期·观察</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
           <td style="padding:9px 14px;font-weight:600;color:#ef4444;">组35 15 Ideas 🆕</td>
           <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$4.93</td>
-          <td style="padding:9px 14px;text-align:right;">2</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">4984ms ⚠️</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.15);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.47</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">暂停·待修LCP</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组27 performance</td>
-          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$11.09</td>
-          <td style="padding:9px 14px;text-align:right;">2</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1819ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$5.55</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">偏贵·考虑暂停</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组7 The best intimacy</td>
-          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
-          <td style="padding:9px 14px;text-align:right;">$14.69</td>
-          <td style="padding:9px 14px;text-align:right;">2</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1522ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$7.35</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">偏贵·暂停</span></td>
+          <td style="padding:9px 14px;text-align:right;">$8.94</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">18</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">学习期·观察</span></td>
         </tr>
         <!-- CHJ 小计 -->
         <tr style="border-top:2px solid rgba(59,130,246,.2);background:rgba(59,130,246,.04);">
           <td style="padding:8px 14px;font-size:11px;color:#3b82f6;" colspan="2">CHJ 小计</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#3b82f6;">$112.18</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#3b82f6;">44</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#3b82f6;">$82.21</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#3b82f6;">61</td>
           <td style="padding:8px 14px;"></td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#10b981;">$2.55</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#10b981;">$1.35</td>
           <td style="padding:8px 14px;"></td>
         </tr>
         <!-- HNN -->
         <tr style="border-top:1px solid var(--border);">
-          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组33 黑男 🆕</td>
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组23 工作室</td>
           <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$3.92</td>
+          <td style="padding:9px 14px;text-align:right;">$9.80</td>
           <td style="padding:9px 14px;text-align:right;">2</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.96</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">观察</span></td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">6</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(245,158,11,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;font-weight:700;">$4.90</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">观察</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);">
-          <td style="padding:9px 14px;color:var(--muted);">组23 工作室</td>
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组8 山间</td>
           <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">$0.34</td>
+          <td style="padding:9px 14px;text-align:right;">$4.64</td>
           <td style="padding:9px 14px;text-align:right;">1</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:var(--muted);">$0.34</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:var(--muted);">花费极小</span></td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">1</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(245,158,11,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;font-weight:700;">$4.64</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组39 解锁高潮 🆕</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$5.05</td>
+          <td style="padding:9px 14px;text-align:right;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">9</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(249,115,22,.2);color:#f97316;padding:2px 8px;border-radius:4px;font-weight:700;">$5.05</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">首日·观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组33 黑男</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$1.76</td>
+          <td style="padding:9px 14px;text-align:right;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">3</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.76</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:#ef4444;">组25 强迫休息</td>
+          <td style="padding:9px 14px;font-weight:600;color:#ef4444;">组25 强迫休息</td>
           <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$9.97</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">2574ms ⚠️</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">催修LCP</span></td>
+          <td style="padding:9px 14px;text-align:right;">$24.72</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">30</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$24.72</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">高烧·考虑暂停</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:var(--text);">组34 银发男</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$9.94</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">83 ⚠️</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$9.94</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查落地页</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
           <td style="padding:9px 14px;color:var(--text);">组30 流汗男</td>
           <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$10.63</td>
+          <td style="padding:9px 14px;text-align:right;">$13.46</td>
           <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
           <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">考虑暂停</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
           <td style="padding:9px 14px;color:var(--text);">组18 红玫瑰</td>
           <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$9.32</td>
+          <td style="padding:9px 14px;text-align:right;">$10.51</td>
           <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
           <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组8 山间</td>
-          <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$8.44</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">考虑暂停</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
           <td style="padding:9px 14px;color:var(--text);">组28 牛角</td>
           <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$8.38</td>
+          <td style="padding:9px 14px;text-align:right;">$0.66</td>
           <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">4</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组9 金项圈</td>
-          <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$8.29</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
-        </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组21 职场</td>
-          <td style="padding:9px 14px;color:#10b981;">HNN</td>
-          <td style="padding:9px 14px;text-align:right;">$1.77</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:var(--muted);">低花费·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:var(--muted);">花费极小·观察</span></td>
         </tr>
         <!-- HNN 小计 -->
         <tr style="border-top:2px solid rgba(16,185,129,.2);background:rgba(16,185,129,.04);">
           <td style="padding:8px 14px;font-size:11px;color:#10b981;" colspan="2">HNN 小计</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#10b981;">$61.06</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">3</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#10b981;">$80.54</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">7</td>
           <td style="padding:8px 14px;"></td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">$20.35</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">$11.51</td>
           <td style="padding:8px 14px;"></td>
         </tr>
         <!-- HZM -->
-        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组29 性爱疗愈</td>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组36 女性高潮 🆕</td>
           <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
-          <td style="padding:9px 14px;text-align:right;">$17.75</td>
-          <td style="padding:9px 14px;text-align:right;">1</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">2040ms</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$17.75</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">偏贵·暂停</span></td>
+          <td style="padding:9px 14px;text-align:right;">$21.65</td>
+          <td style="padding:9px 14px;text-align:right;">3</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">18</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(249,115,22,.2);color:#f97316;padding:2px 8px;border-radius:4px;font-weight:700;">$7.22</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">首日·观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#ef4444;">组37 胸部高潮 🆕</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$26.39</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">15</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$26.39</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">首日极高·观察</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
           <td style="padding:9px 14px;color:var(--text);">组22 Voyeurism</td>
           <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
-          <td style="padding:9px 14px;text-align:right;">$11.04</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;">$13.30</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">6</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$13.30</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">偏贵·暂停</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
           <td style="padding:9px 14px;color:var(--text);">组31 天使</td>
           <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
-          <td style="padding:9px 14px;text-align:right;">$13.83</td>
-          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:var(--muted);">—</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;">$10.96</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">1</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">3</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.2);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$10.96</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">偏贵·暂停</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
-          <td style="padding:9px 14px;color:var(--text);">组26 Surrender</td>
+          <td style="padding:9px 14px;color:#ef4444;">组29 性爱疗愈</td>
           <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
-          <td style="padding:9px 14px;text-align:right;">$9.27</td>
+          <td style="padding:9px 14px;text-align:right;">$16.86</td>
           <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
-          <td style="padding:9px 14px;text-align:right;color:#10b981;">1412ms</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">11</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">排查素材方向</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">建议暂停</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:#ef4444;">组26 Surrender</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$6.86</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
+          <td style="padding:9px 14px;text-align:right;color:var(--muted);">9</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">建议暂停</span></td>
         </tr>
         <!-- HZM 小计 -->
         <tr style="border-top:2px solid rgba(245,158,11,.2);background:rgba(245,158,11,.04);">
           <td style="padding:8px 14px;font-size:11px;color:#f59e0b;" colspan="2">HZM 小计</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">$52.59</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">1</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">$97.17</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">8</td>
           <td style="padding:8px 14px;"></td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">$52.59</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#ef4444;">$12.15</td>
           <td style="padding:8px 14px;"></td>
         </tr>
         <!-- 总计 -->
         <tr style="border-top:2px solid var(--border);background:rgba(255,255,255,.03);">
           <td style="padding:10px 14px;font-weight:700;color:var(--text);" colspan="2">合计</td>
-          <td style="padding:10px 14px;text-align:right;font-weight:700;">$225.83</td>
-          <td style="padding:10px 14px;text-align:right;font-weight:700;">48</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;">$259.92</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;">76</td>
           <td style="padding:10px 14px;"></td>
-          <td style="padding:10px 14px;text-align:right;font-weight:700;color:#f59e0b;">$4.71</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;color:#10b981;">$3.42</td>
           <td style="padding:10px 14px;"></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- 4/21 实时预览 -->
-  <div style="font-size:14px;font-weight:700;color:#f59e0b;margin-bottom:12px;">⏳ 4/21 今日实时（积累中）</div>
+  <!-- 决策待确认 -->
+  <div style="font-size:14px;font-weight:700;color:#f59e0b;margin-bottom:12px;">⏳ 等待统筹决策确认</div>
   <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:14px 16px;margin-bottom:24px;">
-    <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);">
-      <span>组17 <strong style="color:var(--text);">85</strong></span>
-      <span>组5 <strong style="color:var(--text);">35</strong></span>
-      <span>组20 <strong style="color:var(--text);">35</strong></span>
-      <span>组32 <strong style="color:var(--text);">32</strong></span>
-      <span>组4 <strong style="color:var(--text);">27</strong></span>
-      <span>组7 <strong style="color:var(--text);">17</strong></span>
-      <span>组27 <strong style="color:var(--text);">10</strong></span>
-      <span style="color:#ef4444;">组35 <strong>6</strong> ⚠️LCP</span>
-      <span style="color:#ef4444;">组25 <strong>18</strong> ⚠️LCP</span>
-      <span>组26 <strong style="color:var(--text);">7</strong></span>
+    <div style="font-size:12px;color:var(--muted);line-height:2.0;">
+      🟢 <strong>CHJ 7组（$1.35）</strong>→ 建议全部保持或加量20%<br>
+      🔴 <strong>HZM 组29 性爱疗愈、组26 Surrender</strong>→ 建议暂停（合计$23.72 · 0HVU）<br>
+      🔴 <strong>HNN 组34 银发男</strong>→ 落地页紧急排查（83 sessions · 仅1 HVU）<br>
+      🟠 <strong>HZM 组36/37 新组</strong>→ 首日数据，继续跑满$30再判断<br>
+      🟠 <strong>HNN 组25 强迫休息</strong>→ CPHQ $24.72，建议降预算或暂停
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-top:8px;">以上为 Sessions 数（实时，全天持续累加）· CHJ 247 · HNN 18 · HZM 7 · 共 296</div>
   </div>
 </div>
+
+
 
 <!-- ===== S18: Google Ads ===== -->
 <div id="s18" class="section">
