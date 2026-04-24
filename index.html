@@ -1020,7 +1020,6 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
     <h1>07 · 广告组决策标准</h1>
     <div class="meta"><span class="tag tag-crave">操作规范</span> 加量 / 保留 / 暂停 / 关停的判断依据</div>
   </div>
-  <div class="data-status-banner"></div>
 
   <h2>决策树</h2>
   <div class="decision">
@@ -1558,7 +1557,6 @@ GROUP BY t.task_name
       <span class="tag" style="background:rgba(240,112,80,.1);color:#4AABFF;font-size:11px;">HVU = 浏览≥2页 且 停留≥30s</span>
     </div>
   </div>
-  <div class="data-status-banner"></div>
 
   <!-- 总览 -->
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
@@ -2292,27 +2290,6 @@ GROUP BY t.task_name
 // 每天录完数据后只需改这一行日期
 const DATA_DATE = '2026-04-20';
 
-function renderDataBanners() {
-  const today = new Date().toISOString().split('T')[0];
-  const daysDiff = Math.floor((new Date(today) - new Date(DATA_DATE)) / 86400000);
-  const nowTime = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-  let html, style;
-  if (daysDiff === 0) {
-    html = `⏳ <strong>今日（${DATA_DATE}）数据积累中</strong>，当前 ${nowTime} — 下方数据<strong>不完整</strong>，今日决策请参考前一日完整数据`;
-    style = 'background:rgba(255,225,31,.1);border:1px solid rgba(255,225,31,.35);color:#FE8156;';
-  } else if (daysDiff === 1) {
-    html = `✅ <strong>数据截止 ${DATA_DATE}（完整）</strong> — 今日（${today}）数据待录入`;
-    style = 'background:rgba(15,200,32,.08);border:1px solid rgba(15,200,32,.25);color:#059669;';
-  } else if (daysDiff > 1) {
-    html = `🔴 <strong>数据已过期 ${daysDiff} 天！</strong>最后录入：${DATA_DATE}，请立即更新至 ${today}`;
-    style = 'background:rgba(191,21,22,.1);border:1px solid rgba(191,21,22,.40);color:#BF1516;';
-  }
-  document.querySelectorAll('.data-status-banner').forEach(el => {
-    el.innerHTML = html;
-    el.style.cssText = style + 'border-radius:8px;padding:10px 16px;font-size:12.5px;line-height:1.7;margin-bottom:20px;';
-  });
-}
-document.addEventListener('DOMContentLoaded', renderDataBanners);
 
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
