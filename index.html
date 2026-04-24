@@ -6,35 +6,34 @@
 <title>Crave AI · 投手知识库</title>
 <style>
   :root {
-  --bg-gradient: radial-gradient(ellipse at 15% 20%, #D4C4E0 0%, transparent 50%),
-                 radial-gradient(ellipse at 85% 10%, #E8C8D4 0%, transparent 45%),
-                 radial-gradient(ellipse at 60% 60%, #A8C8E0 0%, transparent 55%),
-                 linear-gradient(160deg, #E0D4EC 0%, #C8DCF0 50%, #D8EAF4 100%);
-  --bg: #D8E4F0;
-  --sidebar-gradient: linear-gradient(180deg, #CEC0DC 0%, #B8CDE0 100%);
-  --sidebar: #CEC0DC;
-  --card: rgba(248, 245, 252, 0.80);
-  --border: rgba(180, 160, 210, 0.28);
-  --text: #2A1E38;
-  --muted: #7A6A8A;
+  --bg: #0A0E1A;
+  --sidebar: #0D1220;
+  --card: rgba(15, 20, 40, 0.90);
+  --border: rgba(74, 171, 255, 0.20);
+  --text: #F0F4FF;
+  --muted: #8899BB;
+
+  /* 核心冲突色 */
   --accent: #F07050;
-  --accent-light: #F8B8A0;
-  --accent-gradient: linear-gradient(135deg, #F07050 0%, #F8A060 100%);
-  --green: #0FC820;
-  --red: #BF1516;
-  --orange: #FE8156;
+  --accent-gradient: linear-gradient(135deg, #FF5020 0%, #FF9040 100%);
+  --blue-strong: #4AABFF;
+  --blue-gradient: linear-gradient(135deg, #1A6FFF 0%, #4AABFF 100%);
+
+  /* 功能色 */
+  --green: #00E87A;
+  --red: #FF3030;
+  --orange: #FF8C00;
   --blue: #4AABFF;
   --purple: #B39DDB;
 }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg-gradient); background-attachment: fixed; color: var(--text); font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; display: flex; min-height: 100vh; }
+  body { background: #0A0E1A; color: var(--text); font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; display: flex; min-height: 100vh; }
 
   /* Sidebar */
   #sidebar {
     width: 260px; min-width: 260px;
-    background: var(--sidebar-gradient);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-right: 1px solid var(--border); height: 100vh;
+    background: linear-gradient(180deg, #0D1220 0%, #0A1828 100%);
+    border-right: 1px solid rgba(74, 171, 255, 0.15); height: 100vh;
     position: fixed; top: 0; left: 0; overflow-y: auto;
     display: flex; flex-direction: column;
   }
@@ -1607,7 +1606,7 @@ GROUP BY t.task_name
   <!-- 投手排名 -->
   <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">👥 投手排名</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">
-    <div style="background:var(--card);border:1px solid #F0705044;border-left:3px solid #F07050;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:2px solid #FF5020;box-shadow:0 0 20px rgba(255,80,32,0.3);border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#4AABFF;">🥇 CHJ · 陈洪骏</div>
         <div style="font-size:17px;font-weight:700;color:#0FC820;">$1.04</div>
@@ -1615,7 +1614,7 @@ GROUP BY t.task_name
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$102.03 · 98 HVU · 10组</div>
       <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">9组绿灯。组17/41/5/4/35/27强势($0.70-$0.90)。组7黄色，其余保持</div>
     </div>
-    <div style="background:var(--card);border:1px solid rgba(255,225,31,.3);border-left:3px solid #FE8156;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:2px solid #4AABFF;box-shadow:0 0 20px rgba(74,171,255,0.3);border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#FE8156;">🥈 HZM · 黄梓铭</div>
         <div style="font-size:17px;font-weight:700;color:#FE8156;">$3.70</div>
@@ -1623,7 +1622,7 @@ GROUP BY t.task_name
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$99.84 · 27 HVU · 7组</div>
       <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组36($0.29)/37($1.59)持续优秀。组29/Voyeurism/15/19跌回红区，$68.51浪费</div>
     </div>
-    <div style="background:var(--card);border:1px solid rgba(255,225,31,.3);border-left:3px solid #FE8156;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:2px solid #FF9040;box-shadow:0 0 16px rgba(255,144,64,0.2);border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#FE8156;">🥉 HNN · 黄楠楠</div>
         <div style="font-size:17px;font-weight:700;color:#FE8156;">~$3.57</div>
@@ -1953,7 +1952,7 @@ GROUP BY t.task_name
   <h2>广告系列结构：三驾马车</h2>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:24px;">
 
-    <div style="background:var(--card);border:1px solid #F0705044;border-left:3px solid #F07050;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:2px solid #FF5020;box-shadow:0 0 20px rgba(255,80,32,0.3);border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#4AABFF;">① 品牌保护伞</div>
         <div style="font-size:13px;font-weight:700;color:#4AABFF;">预算 15%</div>
