@@ -6,29 +6,26 @@
 <title>Crave AI · 投手知识库</title>
 <style>
   :root {
-    /* 品牌渐变主色 */
-    --bg-gradient: linear-gradient(135deg, #EDE8F5 0%, #D6EAF8 50%, #FAE5D3 100%);
-    --bg: #EDE8F5;
-    --sidebar-gradient: linear-gradient(180deg, #E8E0F0 0%, #D4E8F5 100%);
-    --sidebar: #E8E0F0;
-    --card: rgba(255, 255, 255, 0.75);
-    --card-blur: blur(12px);
-    --border: rgba(180, 160, 210, 0.35);
-    --text: #2D1F3D;
-    --muted: #8A7A9A;
-
-    /* 品牌强调色 */
-    --accent: #FF6B4A;
-    --accent-light: #FFB5A0;
-    --accent-gradient: linear-gradient(135deg, #FF6B4A, #FF9A3C);
-
-    /* 功能色 */
-    --green: #0FC820;
-    --red: #BF1516;
-    --orange: #D4820A;
-    --blue: #4AABFF;
-    --purple: #B39DDB;
-  }
+  --bg-gradient: radial-gradient(ellipse at 15% 20%, #D4C4E0 0%, transparent 50%),
+                 radial-gradient(ellipse at 85% 10%, #E8C8D4 0%, transparent 45%),
+                 radial-gradient(ellipse at 60% 60%, #A8C8E0 0%, transparent 55%),
+                 linear-gradient(160deg, #E0D4EC 0%, #C8DCF0 50%, #D8EAF4 100%);
+  --bg: #D8E4F0;
+  --sidebar-gradient: linear-gradient(180deg, #CEC0DC 0%, #B8CDE0 100%);
+  --sidebar: #CEC0DC;
+  --card: rgba(248, 245, 252, 0.80);
+  --border: rgba(180, 160, 210, 0.28);
+  --text: #2A1E38;
+  --muted: #7A6A8A;
+  --accent: #F07050;
+  --accent-light: #F8B8A0;
+  --accent-gradient: linear-gradient(135deg, #F07050 0%, #F8A060 100%);
+  --green: #0FC820;
+  --red: #BF1516;
+  --orange: #FFE11F;
+  --blue: #4AABFF;
+  --purple: #B39DDB;
+}
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg-gradient); background-attachment: fixed; color: var(--text); font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; display: flex; min-height: 100vh; }
 
@@ -75,8 +72,8 @@
     display: inline-block; padding: 2px 8px; border-radius: 4px;
     font-size: 11px; font-weight: 600; letter-spacing: .5px; margin-right: 6px;
   }
-  .tag-crave { background: rgba(255,107,74,.2); color: var(--accent-light); }
-  .tag-warn  { background: rgba(212,130,10,.25); color: var(--orange); }
+  .tag-crave { background: rgba(240,112,80,.2); color: var(--accent-light); }
+  .tag-warn  { background: rgba(255,225,31,.25); color: var(--orange); }
   .tag-rule  { background: rgba(15,200,32,.2); color: var(--green); }
 
   /* Section */
@@ -101,9 +98,9 @@
   .callout.rebuke .callout-title  { color: var(--red); }
   .callout.rule    { background: rgba(15,200,32,.08); border-color: var(--green);  color:#059669; }
   .callout.rule .callout-title    { color: var(--green); }
-  .callout.tip     { background: rgba(255,107,74,.08); border-color: var(--blue);   color:#1d6fa3; }
+  .callout.tip     { background: rgba(240,112,80,.08); border-color: var(--blue);   color:#1d6fa3; }
   .callout.tip .callout-title     { color: var(--blue); }
-  .callout.warn    { background: rgba(212,130,10,.08); border-color: var(--orange); color:#D4820A; }
+  .callout.warn    { background: rgba(255,225,31,.08); border-color: var(--orange); color:#FFE11F; }
   .callout.warn .callout-title    { color: var(--orange); }
   .callout.purple  { background: rgba(179,157,219,.08); border-color: var(--purple); color:#B39DDB; }
   .callout.purple .callout-title  { color: var(--purple); }
@@ -129,9 +126,9 @@
 
   /* Stage badge */
   .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-  .badge-learn  { background: rgba(255,107,74,.2);  color: var(--blue);   }
+  .badge-learn  { background: rgba(240,112,80,.2);  color: var(--blue);   }
   .badge-scale  { background: rgba(15,200,32,.2);  color: var(--green);  }
-  .badge-decay  { background: rgba(212,130,10,.25);  color: var(--orange); }
+  .badge-decay  { background: rgba(255,225,31,.25);  color: var(--orange); }
   .badge-dead   { background: rgba(191,21,22,.22);   color: var(--red);    }
 
   /* Code block */
@@ -241,9 +238,9 @@
       <span class="num">10</span><span style="flex:1;">竞品研究方法</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">月更</span>
     </a>
-    <a class="nav-item" onclick="show('s22')" style="color:#D4820A;">
+    <a class="nav-item" onclick="show('s22')" style="color:#FFE11F;">
       <span class="num">11</span><span style="flex:1;">HVU 流失原因</span>
-      <span style="font-size:10px;background:rgba(212,130,10,.20);color:#D4820A;padding:1px 5px;border-radius:3px;">4/21</span>
+      <span style="font-size:10px;background:rgba(255,225,31,.20);color:#FFE11F;padding:1px 5px;border-radius:3px;">4/21</span>
     </a>
   </div>
 
@@ -283,7 +280,7 @@
     <div class="sidebar-section-label">营销日历</div>
     <a class="nav-item" onclick="show('s21')">
       <span class="num">📅</span><span style="flex:1;">北美投放日历</span>
-      <span style="font-size:10px;background:rgba(212,130,10,.18);color:#D4820A;padding:1px 5px;border-radius:3px;">年更</span>
+      <span style="font-size:10px;background:rgba(255,225,31,.18);color:#FFE11F;padding:1px 5px;border-radius:3px;">年更</span>
     </a>
   </div>
 
@@ -993,7 +990,7 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
         <tr style="border-top:1px solid var(--border);">
           <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
           <td style="padding:10px 16px;font-weight:600;">AdClaw 能看到 session 数据</td>
-          <td style="padding:10px 16px;color:#D4820A;">无 session → UTM 参数配置有误，检查落地页链接</td>
+          <td style="padding:10px 16px;color:#FFE11F;">无 session → UTM 参数配置有误，检查落地页链接</td>
         </tr>
         <tr style="border-top:1px solid var(--border);">
           <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
@@ -1107,9 +1104,9 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
       <div style="font-size:20px;font-weight:700;color:var(--orange);margin:8px 0;">$3 ~ $5</div>
       <div style="font-size:12px;color:var(--muted);">正常，观察趋势</div>
     </div>
-    <div class="kpi-card" style="border-color:#D4820A">
-      <div class="kpi-label" style="color:#D4820A">橙色</div>
-      <div style="font-size:20px;font-weight:700;color:#D4820A;margin:8px 0;">&gt; $5</div>
+    <div class="kpi-card" style="border-color:#FFE11F">
+      <div class="kpi-label" style="color:#FFE11F">橙色</div>
+      <div style="font-size:20px;font-weight:700;color:#FFE11F;margin:8px 0;">&gt; $5</div>
       <div style="font-size:12px;color:var(--muted);">偏贵，关注趋势</div>
     </div>
     <div class="kpi-card" style="border-color:var(--red)">
@@ -1558,7 +1555,7 @@ GROUP BY t.task_name
     <div class="meta">
       <span class="tag" style="background:rgba(15,200,32,.15);color:#0FC820;">4/23 完整</span>
       <span class="tag">总花费 $269.64 · ~144 HVU · 平均CPHQ ~$1.87</span>
-      <span class="tag" style="background:rgba(255,107,74,.1);color:#4AABFF;font-size:11px;">HVU = 浏览≥2页 且 停留≥30s</span>
+      <span class="tag" style="background:rgba(240,112,80,.1);color:#4AABFF;font-size:11px;">HVU = 浏览≥2页 且 停留≥30s</span>
     </div>
   </div>
   <div class="data-status-banner"></div>
@@ -1569,7 +1566,7 @@ GROUP BY t.task_name
     <span style="color:var(--border);">|</span>
     <span style="font-size:13px;">总花费 <strong>$269.64</strong></span>
     <span style="font-size:13px;">总HVU <strong>~144</strong></span>
-    <span style="font-size:13px;">平均CPHQ <strong style="color:#D4820A;">~$1.87</strong></span>
+    <span style="font-size:13px;">平均CPHQ <strong style="color:#FFE11F;">~$1.87</strong></span>
     <span style="color:var(--border);">|</span>
     <span style="font-size:12px;color:var(--muted);">CHJ $102.03 · HZM $99.84 · HNN $67.77</span>
   </div>
@@ -1581,7 +1578,7 @@ GROUP BY t.task_name
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
           <span style="font-size:13px;font-weight:700;color:#BF1516;">HZM 四组0HVU / 极低效</span>
-          <span style="font-size:11px;color:#D4820A;margin-left:6px;">HZM</span>
+          <span style="font-size:11px;color:#FFE11F;margin-left:6px;">HZM</span>
           <span style="font-size:11px;background:rgba(191,21,22,.22);color:#BF1516;padding:2px 6px;border-radius:4px;margin-left:6px;">$68.51 花费</span>
         </div>
         <span style="font-size:12px;color:#BF1516;font-weight:700;">组29($22.99) · 组20/Voyeurism($18.98) · 组15(0HVU) · 组19(0HVU) → 建议暂停</span>
@@ -1600,11 +1597,11 @@ GROUP BY t.task_name
     <div style="padding:11px 16px;border-top:1px solid rgba(191,21,22,.12);">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div>
-          <span style="font-size:13px;font-weight:700;color:#D4820A;">HNN 组40 举杯 🆕</span>
+          <span style="font-size:13px;font-weight:700;color:#FFE11F;">HNN 组40 举杯 🆕</span>
           <span style="font-size:11px;color:#0FC820;margin-left:6px;">HNN</span>
-          <span style="font-size:11px;background:rgba(212,130,10,.25);color:#D4820A;padding:2px 6px;border-radius:4px;margin-left:6px;">Day2 学习期</span>
+          <span style="font-size:11px;background:rgba(255,225,31,.25);color:#FFE11F;padding:2px 6px;border-radius:4px;margin-left:6px;">Day2 学习期</span>
         </div>
-        <span style="font-size:12px;color:#D4820A;font-weight:700;">$7.97 · 0HVU · 明天是关键节点，不改善立即暂停</span>
+        <span style="font-size:12px;color:#FFE11F;font-weight:700;">$7.97 · 0HVU · 明天是关键节点，不改善立即暂停</span>
       </div>
     </div>
   </div>
@@ -1612,7 +1609,7 @@ GROUP BY t.task_name
   <!-- 投手排名 -->
   <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">👥 投手排名</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">
-    <div style="background:var(--card);border:1px solid #FF6B4A44;border-left:3px solid #FF6B4A;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:1px solid #F0705044;border-left:3px solid #F07050;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#4AABFF;">🥇 CHJ · 陈洪骏</div>
         <div style="font-size:17px;font-weight:700;color:#0FC820;">$1.04</div>
@@ -1620,18 +1617,18 @@ GROUP BY t.task_name
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$102.03 · 98 HVU · 10组</div>
       <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">9组绿灯。组17/41/5/4/35/27强势($0.70-$0.90)。组7黄色，其余保持</div>
     </div>
-    <div style="background:var(--card);border:1px solid rgba(212,130,10,.3);border-left:3px solid #D4820A;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:1px solid rgba(255,225,31,.3);border-left:3px solid #FFE11F;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <div style="font-size:13px;font-weight:700;color:#D4820A;">🥈 HZM · 黄梓铭</div>
-        <div style="font-size:17px;font-weight:700;color:#D4820A;">$3.70</div>
+        <div style="font-size:13px;font-weight:700;color:#FFE11F;">🥈 HZM · 黄梓铭</div>
+        <div style="font-size:17px;font-weight:700;color:#FFE11F;">$3.70</div>
       </div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$99.84 · 27 HVU · 7组</div>
       <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组36($0.29)/37($1.59)持续优秀。组29/Voyeurism/15/19跌回红区，$68.51浪费</div>
     </div>
-    <div style="background:var(--card);border:1px solid rgba(212,130,10,.3);border-left:3px solid #D4820A;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:1px solid rgba(255,225,31,.3);border-left:3px solid #FFE11F;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <div style="font-size:13px;font-weight:700;color:#D4820A;">🥉 HNN · 黄楠楠</div>
-        <div style="font-size:17px;font-weight:700;color:#D4820A;">~$3.57</div>
+        <div style="font-size:13px;font-weight:700;color:#FFE11F;">🥉 HNN · 黄楠楠</div>
+        <div style="font-size:17px;font-weight:700;color:#FFE11F;">~$3.57</div>
       </div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$67.77 · ~19 HVU · 5组</div>
       <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组39/34绿灯有效。合并组Copy效率偏低(~$4.58)。组8连续0HVU需立即暂停</div>
@@ -1726,16 +1723,16 @@ GROUP BY t.task_name
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(15,200,32,.2);color:#0FC820;padding:2px 8px;border-radius:4px;font-weight:700;">$2.84</span></td>
           <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#0FC820;">观察</span></td>
         </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(212,130,10,.04);">
-          <td style="padding:9px 14px;font-weight:600;color:#D4820A;">组7 best intimacy</td>
+        <tr style="border-top:1px solid var(--border);background:rgba(255,225,31,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#FFE11F;">组7 best intimacy</td>
           <td style="padding:9px 14px;color:#4AABFF;">CHJ</td>
           <td style="padding:9px 14px;text-align:right;">$10.51</td>
           <td style="padding:9px 14px;text-align:right;">3</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(212,130,10,.25);color:#D4820A;padding:2px 8px;border-radius:4px;font-weight:700;">$3.50</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#D4820A;">黄灯·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(255,225,31,.25);color:#FFE11F;padding:2px 8px;border-radius:4px;font-weight:700;">$3.50</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#FFE11F;">黄灯·观察</span></td>
         </tr>
         <!-- CHJ 小计 -->
-        <tr style="border-top:2px solid rgba(255,107,74,.2);background:rgba(255,107,74,.04);">
+        <tr style="border-top:2px solid rgba(240,112,80,.2);background:rgba(240,112,80,.04);">
           <td style="padding:8px 14px;font-size:11px;color:#4AABFF;" colspan="2">CHJ 小计</td>
           <td style="padding:8px 14px;text-align:right;font-weight:700;color:#4AABFF;">$102.03</td>
           <td style="padding:8px 14px;text-align:right;font-weight:700;color:#4AABFF;">98</td>
@@ -1764,8 +1761,8 @@ GROUP BY t.task_name
           <td style="padding:9px 14px;color:#0FC820;">HNN</td>
           <td style="padding:9px 14px;text-align:right;">$36.67</td>
           <td style="padding:9px 14px;text-align:right;">~8</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(212,130,10,.25);color:#D4820A;padding:2px 8px;border-radius:4px;font-weight:700;">~$4.58</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#D4820A;">合并组·黄灯·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(255,225,31,.25);color:#FFE11F;padding:2px 8px;border-radius:4px;font-weight:700;">~$4.58</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#FFE11F;">合并组·黄灯·观察</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(191,21,22,.04);">
           <td style="padding:9px 14px;color:#BF1516;">组8 山间</td>
@@ -1775,26 +1772,26 @@ GROUP BY t.task_name
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(191,21,22,.18);color:#BF1516;padding:2px 8px;border-radius:4px;">0HVU</span></td>
           <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#BF1516;">连续0HVU·立即暂停</span></td>
         </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(212,130,10,.04);">
-          <td style="padding:9px 14px;font-weight:600;color:#D4820A;">组40 举杯 🆕</td>
+        <tr style="border-top:1px solid var(--border);background:rgba(255,225,31,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#FFE11F;">组40 举杯 🆕</td>
           <td style="padding:9px 14px;color:#0FC820;">HNN</td>
           <td style="padding:9px 14px;text-align:right;">$7.97</td>
-          <td style="padding:9px 14px;text-align:right;color:#D4820A;">0</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(212,130,10,.25);color:#D4820A;padding:2px 8px;border-radius:4px;">学习期</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#D4820A;">Day2·明天关键</span></td>
+          <td style="padding:9px 14px;text-align:right;color:#FFE11F;">0</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(255,225,31,.25);color:#FFE11F;padding:2px 8px;border-radius:4px;">学习期</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#FFE11F;">Day2·明天关键</span></td>
         </tr>
         <!-- HNN 小计 -->
         <tr style="border-top:2px solid rgba(15,200,32,.2);background:rgba(15,200,32,.04);">
-          <td style="padding:8px 14px;font-size:11px;color:#D4820A;" colspan="2">HNN 小计</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#D4820A;">$67.77</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#D4820A;">~19</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#D4820A;">~$3.57</td>
+          <td style="padding:8px 14px;font-size:11px;color:#FFE11F;" colspan="2">HNN 小计</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#FFE11F;">$67.77</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#FFE11F;">~19</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#FFE11F;">~$3.57</td>
           <td style="padding:8px 14px;"></td>
         </tr>
         <!-- HZM -->
         <tr style="border-top:1px solid var(--border);">
           <td style="padding:9px 14px;font-weight:600;color:var(--text);">组36 女性高潮</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$2.94</td>
           <td style="padding:9px 14px;text-align:right;">10</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(15,200,32,.2);color:#0FC820;padding:2px 8px;border-radius:4px;font-weight:700;">$0.29</span></td>
@@ -1802,23 +1799,23 @@ GROUP BY t.task_name
         </tr>
         <tr style="border-top:1px solid var(--border);">
           <td style="padding:9px 14px;font-weight:600;color:var(--text);">组37 胸部高潮</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$20.61</td>
           <td style="padding:9px 14px;text-align:right;">13</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(15,200,32,.2);color:#0FC820;padding:2px 8px;border-radius:4px;font-weight:700;">$1.59</span></td>
           <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#0FC820;">保持</span></td>
         </tr>
-        <tr style="border-top:1px solid var(--border);background:rgba(212,130,10,.04);">
-          <td style="padding:9px 14px;font-weight:600;color:#D4820A;">组26 Surrender</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+        <tr style="border-top:1px solid var(--border);background:rgba(255,225,31,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#FFE11F;">组26 Surrender</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$7.78</td>
           <td style="padding:9px 14px;text-align:right;">2</td>
-          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(212,130,10,.25);color:#D4820A;padding:2px 8px;border-radius:4px;font-weight:700;">$3.89</span></td>
-          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#D4820A;">黄灯·观察</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(255,225,31,.25);color:#FFE11F;padding:2px 8px;border-radius:4px;font-weight:700;">$3.89</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#FFE11F;">黄灯·观察</span></td>
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(191,21,22,.04);">
           <td style="padding:9px 14px;color:#BF1516;">组29 性爱疗愈</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$22.99</td>
           <td style="padding:9px 14px;text-align:right;">1</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(191,21,22,.18);color:#BF1516;padding:2px 8px;border-radius:4px;font-weight:700;">$22.99</span></td>
@@ -1826,7 +1823,7 @@ GROUP BY t.task_name
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(191,21,22,.04);">
           <td style="padding:9px 14px;color:#BF1516;">组20/22 Voyeurism</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$18.98</td>
           <td style="padding:9px 14px;text-align:right;">1</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(191,21,22,.18);color:#BF1516;padding:2px 8px;border-radius:4px;font-weight:700;">$18.98</span></td>
@@ -1834,7 +1831,7 @@ GROUP BY t.task_name
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(191,21,22,.04);">
           <td style="padding:9px 14px;color:#BF1516;">组15 Power Shift</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$13.56</td>
           <td style="padding:9px 14px;text-align:right;color:#BF1516;">0</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(191,21,22,.18);color:#BF1516;padding:2px 8px;border-radius:4px;">0HVU</span></td>
@@ -1842,18 +1839,18 @@ GROUP BY t.task_name
         </tr>
         <tr style="border-top:1px solid var(--border);background:rgba(191,21,22,.04);">
           <td style="padding:9px 14px;color:#BF1516;">组19 Top Predator's</td>
-          <td style="padding:9px 14px;color:#D4820A;">HZM</td>
+          <td style="padding:9px 14px;color:#FFE11F;">HZM</td>
           <td style="padding:9px 14px;text-align:right;">$12.98</td>
           <td style="padding:9px 14px;text-align:right;color:#BF1516;">0</td>
           <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(191,21,22,.18);color:#BF1516;padding:2px 8px;border-radius:4px;">0HVU</span></td>
           <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#BF1516;">建议暂停</span></td>
         </tr>
         <!-- HZM 小计 -->
-        <tr style="border-top:2px solid rgba(212,130,10,.25);background:rgba(212,130,10,.04);">
-          <td style="padding:8px 14px;font-size:11px;color:#D4820A;" colspan="2">HZM 小计</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#D4820A;">$99.84</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#D4820A;">27</td>
-          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#D4820A;">$3.70</td>
+        <tr style="border-top:2px solid rgba(255,225,31,.25);background:rgba(255,225,31,.04);">
+          <td style="padding:8px 14px;font-size:11px;color:#FFE11F;" colspan="2">HZM 小计</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#FFE11F;">$99.84</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#FFE11F;">27</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#FFE11F;">$3.70</td>
           <td style="padding:8px 14px;"></td>
         </tr>
         <!-- 总计 -->
@@ -1861,7 +1858,7 @@ GROUP BY t.task_name
           <td style="padding:10px 14px;font-weight:700;color:var(--text);" colspan="2">合计</td>
           <td style="padding:10px 14px;text-align:right;font-weight:700;">$269.64</td>
           <td style="padding:10px 14px;text-align:right;font-weight:700;">~144</td>
-          <td style="padding:10px 14px;text-align:right;font-weight:700;color:#D4820A;">~$1.87</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;color:#FFE11F;">~$1.87</td>
           <td style="padding:10px 14px;"></td>
         </tr>
       </tbody>
@@ -1895,13 +1892,13 @@ GROUP BY t.task_name
   <div class="page-header">
     <h1>Google Ads</h1>
     <div class="meta">
-      <span class="tag" style="background:rgba(255,107,74,.15);color:#4AABFF;">搜索广告为主</span>
+      <span class="tag" style="background:rgba(240,112,80,.15);color:#4AABFF;">搜索广告为主</span>
       <span class="tag">FB先行 · Google补位高意向流量</span>
     </div>
   </div>
 
   <!-- 核心定位 -->
-  <div style="background:rgba(255,107,74,.07);border:1px solid rgba(255,107,74,.25);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.8;">
+  <div style="background:rgba(240,112,80,.07);border:1px solid rgba(240,112,80,.25);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.8;">
     <strong>Google vs FB 分工</strong>：FB 负责"种草"（触达潜在用户、拉新），Google 负责"收割"（捕获已有购买意图的高意向搜索用户）。<br>
     当前 creviatech.com 自然搜索流量 90%+ 来自内容页（知识/BDSM文化），产品页几乎无搜索流量——这是 Google Ads 的核心机会缺口。
   </div>
@@ -1958,7 +1955,7 @@ GROUP BY t.task_name
   <h2>广告系列结构：三驾马车</h2>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:24px;">
 
-    <div style="background:var(--card);border:1px solid #FF6B4A44;border-left:3px solid #FF6B4A;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:1px solid #F0705044;border-left:3px solid #F07050;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:700;color:#4AABFF;">① 品牌保护伞</div>
         <div style="font-size:13px;font-weight:700;color:#4AABFF;">预算 15%</div>
@@ -1985,10 +1982,10 @@ GROUP BY t.task_name
       </div>
     </div>
 
-    <div style="background:var(--card);border:1px solid #D4820A44;border-left:3px solid #D4820A;border-radius:8px;padding:14px 16px;">
+    <div style="background:var(--card);border:1px solid #FFE11F44;border-left:3px solid #FFE11F;border-radius:8px;padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <div style="font-size:13px;font-weight:700;color:#D4820A;">③ 场景欲望探索</div>
-        <div style="font-size:13px;font-weight:700;color:#D4820A;">预算 35%</div>
+        <div style="font-size:13px;font-weight:700;color:#FFE11F;">③ 场景欲望探索</div>
+        <div style="font-size:13px;font-weight:700;color:#FFE11F;">预算 35%</div>
       </div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：将内容流量变现——用产品承接场景需求</div>
       <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
@@ -2042,10 +2039,10 @@ GROUP BY t.task_name
 
   <!-- 竞品截流 -->
   <h2>竞品截流（谨慎单独建系列）</h2>
-  <div style="background:rgba(212,130,10,.06);border:1px solid rgba(212,130,10,.25);border-radius:8px;padding:12px 16px;font-size:13px;margin-bottom:24px;line-height:1.8;">
+  <div style="background:rgba(255,225,31,.06);border:1px solid rgba(255,225,31,.25);border-radius:8px;padding:12px 16px;font-size:13px;margin-bottom:24px;line-height:1.8;">
     目标词：lovense alternative · lelo vs · we-vibe alternative · satisfyer with ai<br>
     文案核心：强调"不只是震动，而是 AI+故事的沉浸体验"——打差异化，不打价格战<br>
-    <span style="color:#D4820A;">⚠️ 谨慎投放，避免引发竞品反截流</span>
+    <span style="color:#FFE11F;">⚠️ 谨慎投放，避免引发竞品反截流</span>
   </div>
 
   <!-- 与FB协同 -->
@@ -2109,14 +2106,14 @@ GROUP BY t.task_name
     <h1>北美投放日历 · 2026</h1>
     <div class="meta">
       <span class="tag">适用：美国为主 / 加拿大补充</span>
-      <span class="tag" style="background:rgba(212,130,10,.18);color:#D4820A;">年更</span>
+      <span class="tag" style="background:rgba(255,225,31,.18);color:#FFE11F;">年更</span>
     </div>
   </div>
 
   <!-- 优先级说明 -->
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
     <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(15,200,32,.12);color:#0FC820;padding:4px 12px;border-radius:20px;border:1px solid rgba(15,200,32,.2);">● A级主战节点 — 全力投入</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(212,130,10,.18);color:#D4820A;padding:4px 12px;border-radius:20px;border:1px solid rgba(212,130,10,.2);">● B级增长节点 — 中等强度</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(255,225,31,.18);color:#FFE11F;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,225,31,.2);">● B级增长节点 — 中等强度</span>
     <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(148,163,184,.1);color:var(--muted);padding:4px 12px;border-radius:20px;border:1px solid var(--border);">● C级内容节点 — 品牌/测试</span>
   </div>
 
@@ -2137,7 +2134,7 @@ GROUP BY t.task_name
       <tr style="border-bottom:1px solid var(--border);">
         <td style="padding:10px 14px;color:var(--muted);font-weight:600;">1 月</td>
         <td style="padding:10px 14px;color:var(--text);">New Year · MLK Day</td>
-        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(212,130,10,.18);color:#D4820A;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(255,225,31,.18);color:#FFE11F;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
         <td style="padding:10px 14px;color:var(--muted);font-size:12px;">自我升级/关系重启叙事；为2月礼物季蓄水</td>
         <td style="padding:10px 14px;color:var(--muted);font-size:11px;">12月中旬</td>
       </tr>
@@ -2179,7 +2176,7 @@ GROUP BY t.task_name
       <tr style="border-bottom:1px solid var(--border);">
         <td style="padding:10px 14px;color:var(--muted);font-weight:600;">7 月</td>
         <td style="padding:10px 14px;color:var(--text);">July 4 · Prime Day 窗口</td>
-        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(212,130,10,.18);color:#D4820A;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(255,225,31,.18);color:#FFE11F;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
         <td style="padding:10px 14px;color:var(--muted);font-size:12px;">中促销+再营销提量；夏季 summer deal；折扣不要太深</td>
         <td style="padding:10px 14px;color:var(--muted);font-size:11px;">6月末</td>
       </tr>
@@ -2193,7 +2190,7 @@ GROUP BY t.task_name
       <tr style="border-bottom:1px solid var(--border);">
         <td style="padding:10px 14px;color:var(--muted);font-weight:600;">9 月</td>
         <td style="padding:10px 14px;color:var(--text);">Labor Day · Q4预热</td>
-        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(212,130,10,.18);color:#D4820A;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(255,225,31,.18);color:#FFE11F;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
         <td style="padding:10px 14px;color:var(--muted);font-size:12px;">清夏季；开始测Halloween/BFCM新主题；严格合规白名单</td>
         <td style="padding:10px 14px;color:var(--muted);font-size:11px;">8月中旬</td>
       </tr>
@@ -2273,8 +2270,8 @@ GROUP BY t.task_name
       <div style="font-weight:700;color:#0FC820;margin-bottom:6px;">主战池</div>
       <div style="font-size:12px;color:var(--muted);">FB + Google · 年度主节点与稳定拉新 · 优先保障不挪用</div>
     </div>
-    <div style="background:var(--card);border:1px solid rgba(212,130,10,.3);border-radius:10px;padding:16px;">
-      <div style="font-weight:700;color:#D4820A;margin-bottom:6px;">补位池</div>
+    <div style="background:var(--card);border:1px solid rgba(255,225,31,.3);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:#FFE11F;margin-bottom:6px;">补位池</div>
       <div style="font-size:12px;color:var(--muted);">Google + FB · 节点高峰再营销 · 仅在页面和库存准备充分时放量</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
@@ -2283,7 +2280,7 @@ GROUP BY t.task_name
     </div>
   </div>
 
-  <div style="margin-top:20px;background:rgba(212,130,10,.06);border:1px solid rgba(212,130,10,.2);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted);">
+  <div style="margin-top:20px;background:rgba(255,225,31,.06);border:1px solid rgba(255,225,31,.2);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted);">
     全年最重资源集中在：<strong style="color:var(--text);">2月 · 5月 · 10月 · 11月 · 12月</strong>。1/3/4/8/9月做测试、调结构、沉淀SOP。
   </div>
 </div>
@@ -2302,7 +2299,7 @@ function renderDataBanners() {
   let html, style;
   if (daysDiff === 0) {
     html = `⏳ <strong>今日（${DATA_DATE}）数据积累中</strong>，当前 ${nowTime} — 下方数据<strong>不完整</strong>，今日决策请参考前一日完整数据`;
-    style = 'background:rgba(212,130,10,.1);border:1px solid rgba(212,130,10,.35);color:#D4820A;';
+    style = 'background:rgba(255,225,31,.1);border:1px solid rgba(255,225,31,.35);color:#FFE11F;';
   } else if (daysDiff === 1) {
     html = `✅ <strong>数据截止 ${DATA_DATE}（完整）</strong> — 今日（${today}）数据待录入`;
     style = 'background:rgba(15,200,32,.08);border:1px solid rgba(15,200,32,.25);color:#059669;';
