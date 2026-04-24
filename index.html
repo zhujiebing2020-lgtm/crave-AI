@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crave AI · 投手知识库</title>
+<style>
+  :root {
+    --bg: #F5F0F6;
+    --sidebar: #EDE5EF;
+    --card: #FFFFFF;
+    --border: #D4C8DC;
+    --text: #2D2438;
+    --muted: #7B6E8A;
+    --accent: #4ACEF0;
+    --accent-light: #D8C2DA;
+    --green: #10b981;
+    --red: #ef4444;
+    --orange: #FE8156;
+    --blue: #4ACEF0;
+    --purple: #C2BBDA;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  #sidebar {
+    width: 260px; min-width: 260px; background: var(--sidebar);
+    border-right: 1px solid var(--border); height: 100vh;
+    position: fixed; top: 0; left: 0; overflow-y: auto;
+    display: flex; flex-direction: column;
+  }
+  .sidebar-logo {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo .brand { font-size: 18px; font-weight: 700; color: var(--accent-light); }
+  .sidebar-logo .sub { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: .5px; text-transform: uppercase; }
+
+  .sidebar-section { padding: 16px 12px 4px; }
+  .sidebar-section-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; padding: 0 8px 8px; }
+  .nav-item {
+    display: block; padding: 8px 12px; border-radius: 6px;
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    cursor: pointer; transition: all .15s;
+  }
+  .nav-item:hover, .nav-item.active { background: var(--card); color: var(--text); }
+  .nav-item.active { color: var(--accent-light); }
+  .nav-item .num { font-size: 11px; background: var(--border); border-radius: 4px; padding: 1px 5px; margin-right: 6px; color: var(--muted); }
+
+  /* Main */
+  #main {
+    margin-left: 260px; flex: 1;
+    padding: 40px 60px 80px;
+    max-width: calc(100vw - 260px);
+  }
+
+  /* Page header */
+  .page-header { margin-bottom: 40px; }
+  .page-header h1 { font-size: 28px; font-weight: 700; line-height: 1.3; }
+  .page-header .meta { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .page-header .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; letter-spacing: .5px; margin-right: 6px;
+  }
+  .tag-crave { background: rgba(74,206,240,.2); color: var(--accent-light); }
+  .tag-warn  { background: rgba(254,129,86,.2); color: var(--orange); }
+  .tag-rule  { background: rgba(16,185,129,.2); color: var(--green); }
+
+  /* Section */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h2 { font-size: 20px; font-weight: 700; margin: 40px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  h2:first-of-type { margin-top: 0; }
+  h3 { font-size: 15px; font-weight: 600; margin: 28px 0 10px; color: var(--text); }
+  p { font-size: 14px; line-height: 1.8; color: #4A3D5A; margin-bottom: 12px; }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { font-size: 14px; line-height: 1.8; color: #4A3D5A; margin-bottom: 4px; }
+  strong { color: var(--text); }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 8px; padding: 16px 20px; margin: 20px 0;
+    border-left: 3px solid; font-size: 13.5px; line-height: 1.75;
+  }
+  .callout-title { font-weight: 700; font-size: 12px; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 8px; }
+  .callout.rebuke  { background: rgba(239,68,68,.08);  border-color: var(--red);    color: #fca5a5; }
+  .callout.rebuke .callout-title  { color: var(--red); }
+  .callout.rule    { background: rgba(16,185,129,.08); border-color: var(--green);  color: #6ee7b7; }
+  .callout.rule .callout-title    { color: var(--green); }
+  .callout.tip     { background: rgba(74,206,240,.08); border-color: var(--blue);   color: #93c5fd; }
+  .callout.tip .callout-title     { color: var(--blue); }
+  .callout.warn    { background: rgba(254,129,86,.08); border-color: var(--orange); color: #fcd34d; }
+  .callout.warn .callout-title    { color: var(--orange); }
+  .callout.purple  { background: rgba(194,187,218,.08); border-color: var(--purple); color: #d8b4fe; }
+  .callout.purple .callout-title  { color: var(--purple); }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--sidebar); color: var(--muted); text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: #4A3D5A; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(0,0,0,.03); }
+  .td-good  { color: var(--green);  font-weight: 600; }
+  .td-bad   { color: var(--red);    font-weight: 600; }
+  .td-warn  { color: var(--orange); font-weight: 600; }
+  .td-blue  { color: var(--blue);   font-weight: 600; }
+
+  /* KPI cards */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; box-shadow: 0 1px 4px rgba(45,36,56,.08); }
+  .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+  .kpi-value { font-size: 28px; font-weight: 700; margin: 6px 0 4px; color: var(--text); }
+  .kpi-desc  { font-size: 12px; color: var(--muted); }
+
+  /* Stage badge */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge-learn  { background: rgba(74,206,240,.2);  color: var(--blue);   }
+  .badge-scale  { background: rgba(16,185,129,.2);  color: var(--green);  }
+  .badge-decay  { background: rgba(254,129,86,.2);  color: var(--orange); }
+  .badge-dead   { background: rgba(239,68,68,.2);   color: var(--red);    }
+
+  /* Code block */
+  .code { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; font-family: 'SF Mono', Menlo, monospace; font-size: 13px; color: #a5f3fc; margin: 12px 0; overflow-x: auto; }
+
+  /* Updated badge */
+  .updated { font-size: 11px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; }
+
+  /* Module intro */
+  .module-intro { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 32px; }
+  .module-intro p { margin: 0; font-size: 14px; color: var(--muted); }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* Decision tree */
+  .decision { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 16px 0; }
+  .decision-step { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .decision-step:last-child { border-bottom: none; }
+  .decision-step .q { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  .decision-step .a { color: var(--text); margin-top: 4px; }
+  .decision-step.go    { border-left: 3px solid var(--green); }
+  .decision-step.stop  { border-left: 3px solid var(--red); }
+  .decision-step.wait  { border-left: 3px solid var(--orange); }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">Crave AI</div>
+    <div class="sub">投手知识库 · 内部版</div>
+  </div>
+
+  <!-- 速查 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">速查</div>
+    <a class="nav-item active" onclick="show('s16')" style="color:#10b981;font-weight:600;border:1px solid rgba(16,185,129,.3);">
+      <span class="num" style="background:rgba(16,185,129,.2);color:#10b981;">📊</span>
+      <span style="flex:1;">广告数据看板</span>
+      <span style="font-size:10px;background:rgba(16,185,129,.15);color:#10b981;padding:1px 5px;border-radius:3px;">每日</span>
+    </a>
+    <a class="nav-item" onclick="show('s8')">
+      <span class="num" style="background:rgba(16,185,129,.1);color:#10b981;">📖</span>
+      <span style="flex:1;">看板解读指南</span>
+    </a>
+  </div>
+
+  <!-- 基础认知 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">基础认知</div>
+    <a class="nav-item" onclick="show('s0')">
+      <span class="num">01</span><span style="flex:1;">怎么用这份知识库</span>
+    </a>
+    <a class="nav-item" onclick="show('s1')">
+      <span class="num">02</span><span style="flex:1;">核心指标体系</span>
+    </a>
+    <a class="nav-item" onclick="show('s2')">
+      <span class="num">03</span><span style="flex:1;">反驳通用FB课程</span>
+    </a>
+  </div>
+
+  <!-- FB 投放操作 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">FB 投放操作</div>
+    <a class="nav-item" onclick="show('s3')">
+      <span class="num">04</span><span style="flex:1;">账户结构与分工</span>
+    </a>
+    <a class="nav-item" onclick="show('s4')">
+      <span class="num">05</span><span style="flex:1;">学习期管理</span>
+    </a>
+    <a class="nav-item" onclick="show('s5')">
+      <span class="num">06</span><span style="flex:1;">落地页 · 素材方向</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
+    </a>
+    <a class="nav-item" onclick="show('s6')">
+      <span class="num">07</span><span style="flex:1;">素材策略 · 投前清单</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
+    </a>
+    <a class="nav-item" onclick="show('s15')">
+      <span class="num">08</span><span style="flex:1;">预算·止损决策</span>
+    </a>
+  </div>
+
+  <!-- 数据与分析 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">数据与分析</div>
+    <a class="nav-item" onclick="show('s9')">
+      <span class="num">09</span><span style="flex:1;">诊断树：指标异常</span>
+    </a>
+    <a class="nav-item" onclick="show('s10')">
+      <span class="num">10</span><span style="flex:1;">竞品研究方法</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">月更</span>
+    </a>
+    <a class="nav-item" onclick="show('s22')" style="color:#f59e0b;">
+      <span class="num">11</span><span style="flex:1;">HVU 流失原因</span>
+      <span style="font-size:10px;background:rgba(254,129,86,.15);color:#f59e0b;padding:1px 5px;border-radius:3px;">4/21</span>
+    </a>
+  </div>
+
+  <!-- 风控与增长 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">风控与增长</div>
+    <a class="nav-item" onclick="show('s11')">
+      <span class="num">12</span><span style="flex:1;">封号防控 SOP</span>
+    </a>
+    <a class="nav-item" onclick="show('s12')">
+      <span class="num">13</span><span style="flex:1;">扩量节奏与节点</span>
+    </a>
+    <a class="nav-item" onclick="show('s13')">
+      <span class="num">14</span><span style="flex:1;">知识沉淀规范</span>
+    </a>
+  </div>
+
+  <!-- 其他渠道 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">其他渠道</div>
+    <a class="nav-item" onclick="show('s18')">
+      <span class="num">G</span><span style="flex:1;">Google Ads</span>
+      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">建设中</span>
+    </a>
+    <a class="nav-item" onclick="show('s19')" style="color:var(--muted);">
+      <span class="num">TK</span><span style="flex:1;">TikTok Ads</span>
+      <span style="font-size:10px;padding:1px 5px;">占位</span>
+    </a>
+    <a class="nav-item" onclick="show('s20')" style="color:var(--muted);">
+      <span class="num">𝕏</span><span style="flex:1;">Twitter / X Ads</span>
+      <span style="font-size:10px;padding:1px 5px;">占位</span>
+    </a>
+  </div>
+
+  <!-- 营销日历 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">营销日历</div>
+    <a class="nav-item" onclick="show('s21')">
+      <span class="num">📅</span><span style="flex:1;">北美投放日历</span>
+      <span style="font-size:10px;background:rgba(251,191,36,.12);color:#fbbf24;padding:1px 5px;border-radius:3px;">年更</span>
+    </a>
+  </div>
+
+  <!-- 投手协作 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">投手协作</div>
+    <a class="nav-item" onclick="show('s14')" style="color:#a78bfa;">
+      <span class="num" style="background:rgba(167,139,250,.2);color:#a78bfa;">✍</span>
+      <span style="flex:1;">投手投稿</span>
+    </a>
+  </div>
+
+  <div style="padding: 20px 20px 12px; margin-top: auto; border-top: 1px solid var(--border);">
+    <div style="font-size: 11px; color: var(--muted);">最后更新：2026-04-21</div>
+    <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">数据基准：BM-A · W15</div>
+    <div style="font-size: 11px; color: var(--muted); margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px;">
+      📁 存放于桌面，发给投手请将文件<br>放入 <strong style="color:var(--text)">iCloud云盘共享文件夹</strong>
+    </div>
+  </div>
+</nav>
+
+<!-- Main -->
+<main id="main">
+
+<!-- ===== S0: 怎么用 ===== -->
+<div id="s0" class="section">
+  <div class="page-header">
+    <h1>Crave AI 投手知识库</h1>
+    <div class="meta">
+      <span class="tag tag-crave">内部专用</span>
+      <span class="tag tag-warn">持续更新</span>
+      不是通用FB课程，是结合我们业务跑出来的操盘逻辑
+    </div>
+  </div>
+
+  <div class="module-intro"><p>这份知识库不是搬运课程，而是把通用方法论里对我们无效的部分拆掉，把 Crave AI 实际跑出来的规律填进去。每个模块都有"反驳"区域，先说通用课程哪里说错了或不适用，再说我们自己的规则。</p></div>
+
+  <h2>知识库地图</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>模块</th><th>解决什么问题</th><th>谁最需要看</th><th>更新频率</th></tr>
+    <tr><td>01 核心指标体系</td><td>统一语言，人人用同一套指标讨论</td><td>所有投手</td><td>季度</td></tr>
+    <tr><td>02 反驳通用课程</td><td>避免用错误方法论指导Crave业务</td><td>新入职投手</td><td>不定期</td></tr>
+    <tr><td>03 账户结构与风控</td><td>搞清楚谁用什么账号，怎么不互相污染</td><td>所有投手</td><td>有结构变化时</td></tr>
+    <tr><td>04 学习期管理</td><td>新广告组头30美元怎么操作</td><td>所有投手</td><td>季度</td></tr>
+    <tr><td>05 落地页类型</td><td>剧情页 vs 文章页，什么场景选哪个</td><td>CHJ / HNN</td><td>有新数据时</td></tr>
+    <tr><td>06 素材策略与合规</td><td>成人内容怎么过审，A级素材标准</td><td>所有投手 + 素材组</td><td>有新封号经验时</td></tr>
+    <tr><td>07 广告组决策标准</td><td>什么时候加量 / 暂停 / 关停</td><td>所有投手</td><td>每月根据实际调整</td></tr>
+    <tr><td>08 数据看板解读</td><td>CPHQ看板怎么看，AdClaw怎么用</td><td>所有投手</td><td>工具变化时</td></tr>
+    <tr><td>09 诊断树</td><td>数据变差了从哪里查起</td><td>所有投手</td><td>有新案例时</td></tr>
+    <tr><td>10 竞品研究</td><td>广告库怎么用，怎么看同类品牌</td><td>HZM / CHJ</td><td>季度</td></tr>
+    <tr><td>11 域名与账号风控</td><td>域名被封、账号被封的判断和应对</td><td>所有投手</td><td>有风控事件时立即更新</td></tr>
+    <tr><td>12 扩量节奏</td><td>什么条件下可以加量，判断节点是什么</td><td>所有投手</td><td>月度</td></tr>
+  </table>
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">使用规范</div>
+    每次有新的封号案例、新的广告组结论、新的落地页测试结论，运营统筹在对应模块末尾追加记录。格式：日期 + 事件 + 结论 + 新增规则（如有）。这份文档是我们自己跑出来的知识，不是网上找来的。
+  </div>
+</div>
+
+<!-- ===== S1: 核心指标体系 ===== -->
+<div id="s1" class="section">
+  <div class="page-header">
+    <h1>01 · 核心指标体系</h1>
+    <div class="meta"><span class="tag tag-crave">Crave AI 专属</span> 我们的KPI不是通用FB课程里那一套</div>
+  </div>
+
+  <h2>我们用什么指标衡量广告效果</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">核心指标</div>
+      <div class="kpi-value" style="color:var(--accent-light)">CPHQ</div>
+      <div class="kpi-desc">每个高质量用户的成本<br>= 当日花费 ÷ 当日HVU</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">高质量用户 HVU</div>
+      <div class="kpi-value" style="color:var(--green)">page_count &gt; 1</div>
+      <div class="kpi-desc">进入超过1个页面<br>= 没有跳出的真实访客</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">当前最优 CPHQ</div>
+      <div class="kpi-value" style="color:var(--green)">$1.76</div>
+      <div class="kpi-desc">组1 Library · 4/8<br>目标降至 ~$1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">盈亏平衡 CPA</div>
+      <div class="kpi-value" style="color:var(--orange)">$77</div>
+      <div class="kpi-desc">毛利率60% × AOV $128<br>每单最高可容忍成本</div>
+    </div>
+  </div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：为什么我们不用ROAS / CPA 作为主指标</div>
+    通用课程把 ROAS 和 CPA 放在核心位置。但 Crave AI 当前购买转化为0，ROAS = ∞，CPA = ∞。这两个指标对我们现在没有任何操作意义。用错指标就是用错方向盘。<br><br>
+    <strong>我们的当前阶段：</strong>漏斗还在打通中（加购→支付卡点），所以优化目标是"带来更多真实有兴趣的用户"，用 HVU 数量 + CPHQ 来衡量广告质量，而不是直接问有没有购买。
+  </div>
+
+  <h2>CPHQ 三段判断标准</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>CPHQ</th><th>判断</th><th>操作</th></tr>
+    <tr><td><strong>≤ $3</strong></td><td class="td-good">优质</td><td>可以考虑加量，优先保留</td></tr>
+    <tr><td><strong>$3 ~ $5</strong></td><td class="td-warn">正常</td><td>观察趋势，不加量不减量</td></tr>
+    <tr><td><strong>&gt; $5</strong></td><td class="td-bad">偏贵</td><td>观察一天，连续两天&gt;$5考虑暂停</td></tr>
+    <tr><td><strong>有花费 / HVU=0</strong></td><td class="td-bad">浪费</td><td>当天不处理，连续2天立即暂停</td></tr>
+  </table>
+  </div>
+
+  <h2>三阶段成本基准（学习期 / 跑量期 / 衰退期）</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>阶段</th><th>进入条件</th><th>CPHQ目标</th><th>操作原则</th></tr>
+    <tr>
+      <td><span class="badge badge-learn">学习期</span> $0~$30</td>
+      <td>新广告组上线起</td>
+      <td>$5~$15 可接受，不作判断</td>
+      <td>不动预算，不换素材，等跑满$30再看</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-scale">跑量期</span> $30后</td>
+      <td>跑满$30且数据稳定</td>
+      <td>新账号≤$5，成熟账号≤$2</td>
+      <td>可以小幅调整预算（每次≤20%）</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-decay">衰退期</span></td>
+      <td>CTR连续3天低于峰值70%</td>
+      <td>CPA≤$77</td>
+      <td>48小时内换素材，不停计划不重建</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">Crave AI 规则：学习期内绝对不动</div>
+    学习期内预算调整幅度不得超过20%。不提前换素材。等跑满$30再做判断。
+    违反此规则会重置学习期，等于白白浪费预算。
+  </div>
+
+  <h2>指标关系图</h2>
+  <div class="code">
+花费
+  └─ ÷ 高质量用户数(HVU) = CPHQ  ← 我们当前核心指标
+  └─ ÷ 总Sessions = CPS（每访客成本）
+  └─ ÷ 转化数 = CPA  ← 漏斗打通后才有意义
+
+HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
+  └─ HVU / 总Sessions = HQ率（高质量率）
+
+目标：CPHQ ↓  HVU ↑  HQ率 ↑
+当前卡点：HVU → 加购 → 支付完成（转化漏斗4/17继续观测）
+  </div>
+</div>
+
+<!-- ===== S2: 反驳通用课程 ===== -->
+<div id="s2" class="section">
+  <div class="page-header">
+    <h1>02 · 反驳通用FB课程</h1>
+    <div class="meta"><span class="tag tag-warn">批判性阅读</span> 通用课程哪些对我们不适用，哪些需要修正</div>
+  </div>
+
+  <div class="module-intro"><p>通用课程的问题不是"内容错误"，而是"前提不同"。它假设你已经有稳定转化、明确ROAS、成熟受众池。Crave AI目前不满足这些前提，直接套用会误导判断。</p></div>
+
+  <h2>逐模块反驳</h2>
+
+  <h3>归因模型</h3>
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程怎么说</div>
+    1-day click / 7-day click / view-through归因，要统一口径才能比较数据。
+  </div>
+  <div class="callout rule">
+    <div class="callout-title">Crave AI 实际情况</div>
+    我们当前购买转化为0，归因口径讨论暂时没有意义。更重要的是：<br>
+    1. AdClaw 是我们的第一数据源，FB后台数字作为参考，不作主判断依据<br>
+    2. 我们的优化事件是 HVU（站内行为），不是购买，所以FB的归因模型对我们的优化信号影响有限<br>
+    3. 等漏斗打通出现稳定购买后，再建立归因口径规范
+  </div>
+
+  <h3>受众策略（Lookalike / Advantage+）</h3>
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程怎么说</div>
+    用购买用户做种子，建Lookalike 1%~3%，然后Advantage+放开让系统自动探索。
+  </div>
+  <div class="callout rule">
+    <div class="callout-title">Crave AI 实际情况</div>
+    <strong>Lookalike 暂时无法使用</strong>：种子是"购买用户"，我们0购买 = 0种子。用HVU做种子虽然可以尝试，但质量远低于购买种子。<br><br>
+    <strong>当前受众策略</strong>：宽泛冷受众（25-45岁女性，兴趣范围宽），让素材自然筛选受众。不要过度细分兴趣标签，会压缩学习信号。<br><br>
+    <strong>Advantage+</strong>：可以开启，但承接端（落地页/支付）未修好之前，放开受众只会更快烧向错误人群。
+  </div>
+
+  <h3>出价策略</h3>
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程怎么说</div>
+    根据目标CPA设Cost per result goal，进阶后用ROAS goal控利润。
+  </div>
+  <div class="callout rule">
+    <div class="callout-title">Crave AI 实际情况</div>
+    <strong>现在只能用 Highest Volume（最低成本）</strong>。<br>
+    原因：设CPA目标需要系统有足够历史转化数据（通常需要50个/周），我们0购买，系统无法计算。设了也只会抢不到量。<br><br>
+    <strong>什么时候切换</strong>：连续7天出现稳定购买数据后，再评估是否设成本目标。
+  </div>
+
+  <h3>跨渠道协同</h3>
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程怎么说</div>
+    FB + Google Search + Email三渠道协同，形成完整用户旅程。
+  </div>
+  <div class="callout rule">
+    <div class="callout-title">Crave AI 实际情况</div>
+    CHJ 在准备对接 Google Ads，这是正确方向（搜索意图流量），但有前提：<br>
+    1. 主站承接逻辑（FB流量路径）跑通之前，不要分散注意力<br>
+    2. Google的内容合规要求和FB不同，需要另行学习<br>
+    3. Email 再营销：我们注册率0.025%，邮件池极小，暂时没有意义<br><br>
+    <strong>当前原则</strong>：先跑通FB单渠道，4/17判断节点后再评估Google对接节奏。
+  </div>
+
+  <h3>素材测试框架</h3>
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程怎么说</div>
+    单变量A/B测试，改一个因子对比两组，数据说话。
+  </div>
+  <div class="callout rule">
+    <div class="callout-title">Crave AI 实际情况</div>
+    成人内容有合规约束，<strong>不是所有素材变量都可以自由测试</strong>。<br>
+    我们测试的核心变量是：<strong>落地页类型（剧情体验页 vs 文章详情页）</strong>。<br>
+    已有结论：文章详情页综合CPHQ $2-3，剧情体验页 $7-9，差距3倍。<br><br>
+    下一步测试方向：<strong>HNN是否也能从剧情体验页切到文章详情页拿到同样改善</strong>（组14女性专栏是第一个测试样本）。
+  </div>
+
+  <h2>通用课程里仍然有效的部分</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>模块</th><th>有效原则</th><th>备注</th></tr>
+    <tr><td>学习期管理</td><td>不频繁修改预算/素材，等系统稳定</td><td>已写入我们的规范</td></tr>
+    <tr><td>素材钩子</td><td>前1-3秒决定用户是否继续看</td><td>适用，但合规前提先行</td></tr>
+    <tr><td>CTR诊断</td><td>CTR低先查首屏，不是先换受众</td><td>适用</td></tr>
+    <tr><td>CPC拆解</td><td>CPC = CPM ÷ CTR，问题先定位在哪层</td><td>适用</td></tr>
+    <tr><td>竞品广告库</td><td>看同类还在投什么，判断市场共识</td><td>适用，但不代表别人在赚钱</td></tr>
+    <tr><td>落地页承接一致性</td><td>广告承诺什么，页面就接什么</td><td><strong>我们最大的当前问题之一</strong></td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ===== S3: 账户结构与风控 ===== -->
+<div id="s3" class="section">
+  <div class="page-header">
+    <h1>03 · 账户结构与风控</h1>
+    <div class="meta"><span class="tag tag-warn">操作规范</span> 谁用什么账号，怎么隔离，出问题怎么处理</div>
+  </div>
+
+  <h2>当前账户架构（2026-04-09）</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>BM</th><th>主理人</th><th>账号类型</th><th>投手</th><th>域名</th><th>日预算上限</th></tr>
+    <tr><td><strong>BM-A</strong></td><td>黄梓铭 HZM</td><td>二不限企业账户</td><td>HZM / HNN / CHJ</td><td>creviatech.com</td><td>$350/天</td></tr>
+    <tr><td><strong>BM-B</strong></td><td>周晓茹 ZXR</td><td>三不限账户</td><td>ZXR / PLZ</td><td>arena-vibe.com / elysianu.com</td><td>无上限</td></tr>
+    <tr><td><strong>BM-C</strong></td><td>—</td><td>计划4/14开通</td><td>HZM Tier2补充</td><td>—</td><td>—</td></tr>
+  </table>
+  </div>
+
+  <h2>操作隔离规范（绝对禁止违反）</h2>
+  <div class="callout warn">
+    <div class="callout-title">环境隔离要求</div>
+    <strong>每人独立：设备 + IP + 浏览器</strong>，三者缺一不可。<br><br>
+    ✗ 不得共用同一设备登录不同人账号<br>
+    ✗ 不得用同一IP操作不同人账号<br>
+    ✗ 不得代操作他人账号（即使对方让你帮忙）<br>
+    ✗ 出口IP必须是独享住宅IP，不得使用共享代理<br><br>
+    <strong>违反后果</strong>：账号被封，申诉成功率极低，且会连带污染同BM下其他账号。
+  </div>
+
+  <h2>封号判断与应对</h2>
+  <div class="callout rule">
+    <div class="callout-title">封号原因只有三种（账号年龄/BM新旧不是风险因子）</div>
+    1. <strong>素材违规</strong>：素材内容触发FB内容政策<br>
+    2. <strong>产品违规</strong>：落地页/产品本身违规<br>
+    3. <strong>操作环境污染</strong>：设备/IP/浏览器与他人交叉
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>情况</th><th>第一步</th><th>第二步</th><th>第三步</th></tr>
+    <tr><td>广告被拒</td><td>确认是素材还是域名问题（看拒审原因）</td><td>素材问题→换素材；域名问题→切备用域名</td><td>记录到风控日志</td></tr>
+    <tr><td>广告账号被封</td><td>24小时内不做任何操作</td><td>提交申诉，保持IP/设备一致</td><td>D10无回复评估是否放弃</td></tr>
+    <tr><td>主页被封</td><td>立即通知运营统筹</td><td>BM-B备用主页接管流量</td><td>排查触发原因，所有投手自查素材</td></tr>
+  </table>
+  </div>
+
+  <h2>三站架构说明</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>站点</th><th>定位</th><th>价格</th><th>用途</th></tr>
+    <tr><td>creviatech.com</td><td>主站</td><td>$149~$379（原价）</td><td>BM-A主力投放</td></tr>
+    <tr><td>arena-vibe.com</td><td>影子站（风控备份）</td><td>与主站一致</td><td>主站被限时热备切换</td></tr>
+    <tr><td>elysianu.com</td><td>低价站（A/B测试）</td><td>$99.99~$149.99</td><td>定价敏感性测试，BM-B独立Pixel</td></tr>
+  </table>
+  </div>
+
+  <h2>新账号养号流程</h2>
+  <div class="callout rule">
+    <div class="callout-title">为什么要养号：成人向广告的额外合规门槛</div>
+    FB 对成人内容类广告账号审查更严格。新账号没有任何互动历史，直接投放成人向素材被封概率极高。养号的目的是让账号在 FB 眼中"看起来像正常运营的账户"，降低初期审核风险。
+  </div>
+
+  <div class="decision">
+    <div class="decision-step">
+      <div class="q">D1~D3 · 账号初始化</div>
+      <div class="a">
+        ✅ 完善主页信息（头像、简介、联系方式）<br>
+        ✅ 发布2~3条普通内容帖子（非成人向，可以是品牌故事、健康生活类）<br>
+        ✅ 在主页点几条同类帖子的赞/评论（模拟真实用户行为）<br>
+        ✅ 完成账号身份验证（有条件的话上传ID）<br>
+        ❌ 不要立即创建广告系列
+      </div>
+    </div>
+    <div class="decision-step">
+      <div class="q">D4~D7 · 小额广告试水</div>
+      <div class="a">
+        ✅ 创建第一条广告，用<strong>最低风险素材</strong>（不含身体接触/性暗示，纯文字/品牌Logo）<br>
+        ✅ 目标选"流量"或"互动"，不选"转化"<br>
+        ✅ 预算 <strong>$3~$5/天</strong>，跑2~3天观察审核通过率<br>
+        ✅ 确认能正常通过审核、正常消耗后，进入下一阶段<br>
+        ❌ 此阶段如果广告被拒，说明账号还没准备好，回到D1~D3补养
+      </div>
+    </div>
+    <div class="decision-step go">
+      <div class="q">D8~D14 · 正式预算爬坡</div>
+      <div class="a">
+        ✅ 切换为正式成人向素材（需已通过特殊类别授权）<br>
+        ✅ 预算从 <strong>$5 → $10 → $15/天</strong>，每2天提升一档，单次涨幅不超过20%<br>
+        ✅ 达到$10/天且连续3天无被拒后，视为养号完成<br>
+        ✅ 可以开始正常投放流程（进入学习期管理）
+      </div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">连续被拒2次 / 账号受限</div>
+      <div class="a">
+        立即停止操作，24小时内不做任何动作。<br>
+        检查：① 素材是否超出该账号当前权限 ② IP/设备环境是否有问题 ③ 主页内容是否触发内容政策<br>
+        若48小时后仍无法投放，联系统筹评估是否需要重新开号。
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>阶段</th><th>时间</th><th>日预算</th><th>目标</th><th>判断标准</th></tr>
+    <tr><td>账号初始化</td><td>D1~D3</td><td>$0</td><td>建立账号基础信誉</td><td>主页内容完整，无异常标记</td></tr>
+    <tr><td>试水广告</td><td>D4~D7</td><td>$3~$5</td><td>验证账号可正常审核通过</td><td>广告审核通过率100%，无被拒</td></tr>
+    <tr><td>预算爬坡</td><td>D8~D14</td><td>$5→$10→$15</td><td>建立消耗历史，过渡到正式投放</td><td>$10/天稳定跑3天无问题</td></tr>
+    <tr><td>正式投放</td><td>D15+</td><td>按正常计划</td><td>进入学习期，开始看CPHQ</td><td>参考学习期管理模块</td></tr>
+  </table>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">成人内容特殊授权：必须在投放前完成</div>
+    FB 投放成人向内容必须先申请"特殊类别广告"授权。<br>
+    路径：广告管理员 → 商务设置 → 广告授权 → 申请"成人产品"类别。<br>
+    <strong>此授权针对 BM，不针对单个账号。</strong>BM-A、BM-B 需分别申请。未获授权直接投放=必被拒，且多次被拒会拉高账号风险值。
+  </div>
+</div>
+
+<!-- ===== S4: 学习期管理 ===== -->
+<div id="s4" class="section">
+  <div class="page-header">
+    <h1>04 · 学习期管理</h1>
+    <div class="meta"><span class="tag tag-crave">操作规范</span> 新广告组头$30怎么操作</div>
+  </div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：通用课程说学习期需要50个转化结果</div>
+    FB官方定义学习期结束标准是"一周内50个转化结果"。但 Crave AI 的优化事件是"落地页浏览"（HVU行为），不是购买。在我们的设置下，学习期结束条件会更快达到，但不能直接用"50个购买"来衡量。<br><br>
+    <strong>我们的判断标准</strong>：跑满$30后，如果CPHQ进入正常区间（$3~$5），视为学习期基本完成，可以开始做判断。
+  </div>
+
+  <h2>学习期操作清单</h2>
+  <div class="decision">
+    <div class="decision-step">
+      <div class="q">D0 · 上线当天</div>
+      <div class="a">✅ 确认落地页URL正确 ✅ 确认Pixel有触发 ✅ 确认素材通过审核 ✅ 设定初始预算（建议$10~$15/天）</div>
+    </div>
+    <div class="decision-step">
+      <div class="q">D1~D3 · 学习期内</div>
+      <div class="a">❌ 不改预算（超过20%会重置学习）❌ 不换素材 ❌ 不改受众 ✅ 只观察CTR和花费速度是否正常</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">花费达$30前</div>
+      <div class="a">暂停判断。数据不足，任何判断都是噪音。</div>
+    </div>
+    <div class="decision-step go">
+      <div class="q">花费达$30后</div>
+      <div class="a">开始看CPHQ。按三段标准判断（≤$3优，$3~$5正常，&gt;$5偏贵）。</div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">连续2天有花费但HVU=0</div>
+      <div class="a">不管是否在学习期，立即暂停。素材或落地页承接有根本性问题。</div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">最常见错误：学习期内提前换素材</div>
+    看到前两天数据差，马上换素材或关掉重开。这不是优化，这是让预算永远在学习期里转圈。新开一个广告组就是重新开始学习，之前积累的数据全部清零。
+  </div>
+</div>
+
+<!-- ===== S5: 落地页类型 ===== -->
+<div id="s5" class="section">
+  <div class="page-header">
+    <h1>05 · 落地页 · 素材方向</h1>
+    <div class="meta"><span class="tag tag-crave">已验证结论</span> 文章页胜率更高；剧情页非必输，LCP+素材力双达标可突破 · 4/21 更新</div>
+  </div>
+
+  <h2>两种落地页的性能对比（4/5~4/19，BM-A实测，29个广告组）</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>维度</th><th>文章详情页</th><th>剧情体验页</th></tr>
+    <tr><td>代表广告组（优秀）</td><td>组4/5/17/20/32（CHJ）</td><td>组28 牛角（HNN）</td></tr>
+    <tr><td>综合CPHQ（优秀组）</td><td class="td-good">$0.82~$2.69</td><td class="td-good">$2.20（4/19单日）</td></tr>
+    <tr><td>整体分布</td><td class="td-good">多数绿色，偶有橙色</td><td class="td-bad">多数0HVU，少数突破</td></tr>
+    <tr><td>稳定性</td><td class="td-good">高，可预期</td><td class="td-warn">依赖素材力，波动大</td></tr>
+    <tr><td>0HVU原因</td><td class="td-warn">素材方向与页面内容不匹配</td><td class="td-bad">LCP慢（>2500ms）+ 素材力不足</td></tr>
+  </table>
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">当前结论（2026-04-19 更新）</div>
+    <strong>文章详情页整体效率仍优于剧情体验页，但结论比4/14更复杂：</strong><br><br>
+    ① <strong>剧情页也能跑出好成绩</strong>——组28 牛角（HNN）4/19 CPHQ $2.20，说明剧情页并非必输，素材力强时可以突破 LCP 限制。<br>
+    ② <strong>文章页出现 0HVU</strong>——组7/24/27（CHJ）LCP 均在 1400~1800ms（技术正常），但 0HVU，根因是素材主题与落地页内容方向不匹配，不是技术问题。<br><br>
+    → 落地页类型只是一个变量，<strong>素材与页面的内容匹配度</strong>才是首要因子。
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ LCP 数据实证（AdClaw web_vitals，4/15~4/19）</div>
+    <div class="table-wrap" style="margin:12px 0;">
+    <table>
+      <tr><th>广告组</th><th>类型</th><th>LCP p50</th><th>LCP差率</th><th>4/19表现</th><th>结论</th></tr>
+      <tr><td>组27 performance</td><td>文章页</td><td class="td-good">1356ms</td><td class="td-good">8.3%</td><td class="td-bad">0HVU</td><td>LCP没问题→素材方向偏了</td></tr>
+      <tr><td>组32 confidence</td><td>文章页</td><td class="td-good">1432ms</td><td class="td-good">6.1%</td><td class="td-good">CPHQ $1.71</td><td>LCP好+方向对=稳定优秀</td></tr>
+      <tr><td>组4 Viennese</td><td>文章页</td><td class="td-good">1512ms</td><td class="td-good">9.1%</td><td class="td-good">CPHQ $1.12</td><td>LCP好+方向对=稳定优秀</td></tr>
+      <tr><td>组17 18 Sensual</td><td>文章页</td><td class="td-good">1569ms</td><td class="td-good">7.9%</td><td class="td-good">CPHQ $0.82</td><td>最优组，LCP+方向双优</td></tr>
+      <tr><td>组24 Dom</td><td>文章页</td><td class="td-good">1592ms</td><td class="td-good">11.5%</td><td class="td-bad">0HVU</td><td>LCP没问题→素材方向偏了</td></tr>
+      <tr><td>组7 best intimacy</td><td>文章页</td><td class="td-good">1782ms</td><td class="td-warn">11.7%</td><td class="td-bad">0HVU</td><td>LCP稍慢但不是根因</td></tr>
+      <tr><td>组28 牛角</td><td>剧情页</td><td class="td-bad">2998ms</td><td class="td-bad">37.5%</td><td class="td-good">CPHQ $2.20</td><td>LCP超阈值仍跑出，素材力强</td></tr>
+      <tr><td>组6/8/9/16（HNN）</td><td>剧情页</td><td class="td-bad">&gt;3800ms</td><td class="td-bad">&gt;43%</td><td class="td-bad">持续0HVU</td><td>LCP技术瓶颈+素材力弱，双杀</td></tr>
+    </table>
+    </div>
+    <strong>修正后的 LCP 规则：</strong><br>
+    · 剧情页 LCP &gt;2500ms → <strong>高风险</strong>，先修技术；但素材力极强时可短期突破（见组28）<br>
+    · 文章页 LCP &gt;2500ms → 查技术；LCP 正常但 0HVU → <strong>查素材方向，不是技术问题</strong><br>
+    · 遇到 0HVU 的排查顺序：① 查 LCP → ② 查素材与落地页内容匹配度 → ③ 再考虑换素材
+  </div>
+
+  <h2>选择落地页类型的决策逻辑（4/19 版）</h2>
+  <div class="decision">
+    <div class="decision-step go">
+      <div class="q">默认选择：文章详情页</div>
+      <div class="a">胜率高、稳定性强、LCP天然优于剧情页。<strong>图片素材首选</strong>，视频素材也可用。关键：素材主题必须与文章内容方向匹配（性爱技巧/知识类）</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">谨慎使用：剧情体验页</div>
+      <div class="a">适合<strong>叙事感极强的视频素材</strong>。前提：① 确认 LCP &lt;2500ms；② 素材与剧情场景强匹配。不满足任意一条，切换到文章页</div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">0HVU 时的排查顺序</div>
+      <div class="a">① 查落地页 LCP（AdClaw → session_overview 按 utm_campaign 筛选）<br>② 若 LCP 正常（&lt;2500ms）→ 是素材方向问题，换内容角度，不换页面类型<br>③ 若 LCP 超标 → 通知研发，暂停花费，LCP 修复前换素材无效</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ===== S22: HVU流失原因 ===== -->
+<div id="s22" class="section">
+  <div class="page-header">
+    <h1>高质量用户流失原因</h1>
+    <div class="meta">
+      <span class="tag tag-warn">4/21 Clarity人工回放</span>
+      <span class="tag">534个Session · 30个典型样本 · 成交0</span>
+    </div>
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">核心发现：HVU 停留久、互动多，但 534 个 Session 成交 0</div>
+    高质量用户进站后的真实流失原因不是"没兴趣"，是<strong>内容与商品割裂 + 技术障碍 + 缺乏决策支持</strong>。
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>流失原因</th><th>占比</th><th>涉及落地页</th><th>对投手的指令</th></tr>
+    <tr>
+      <td><strong>内容沉迷型</strong>——广告吸引的是"读者"不是"买家"，全程不进商品页</td>
+      <td class="td-bad">40%</td>
+      <td>文章详情页（组5 30 Positions、组24 Dom）</td>
+      <td>素材钩子从「知识/姿势科普」→ 「欲望/感受」，目标人群要有购买意图</td>
+    </tr>
+    <tr>
+      <td><strong>商品研究后犹豫</strong>——看遍所有单品但无法做决策，最长停留 45 分钟未下单</td>
+      <td class="td-warn">23%</td>
+      <td>文章详情页（组4/7）</td>
+      <td>对曾浏览商品详情页 &gt;2min 的人群做<strong>再营销</strong>，落地页直打商品页+优惠，不走文章页</td>
+    </tr>
+    <tr>
+      <td><strong>Scene Room 替代购买</strong>——把网站当 AI 故事平台，从不进商品页</td>
+      <td class="td-warn">13%</td>
+      <td>剧情体验页（组2 Tonight、组8 山间）</td>
+      <td>Room 方向<strong>暂缓扩量</strong>，承接端加上硬件联动引导前不值得继续加预算</td>
+    </tr>
+    <tr>
+      <td><strong>技术/交互障碍</strong>——JS 报错、Dead Click、视频加载失败，数据看不出来</td>
+      <td class="td-bad">10%</td>
+      <td>剧情体验页（组6 冰块、组28）</td>
+      <td>已提技术需求单（P0），等研发修复；此类用户是真实高意向，不是素材问题</td>
+    </tr>
+    <tr>
+      <td><strong>购买流程卡点</strong>——结算页停留 5min 零挽留；登录墙阻断内容→购买路径</td>
+      <td class="td-warn">7%</td>
+      <td>所有落地页</td>
+      <td>承接端问题，已提给技术项目负责人，投手无需操作</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 技术问题待修复（P0，已提单）</div>
+    · 商品详情页→结算页 JS 脚本报错 + 死链（session 181261a7，高意向用户被逼走）<br>
+    · AI Room 多次 Dead Click，无效点击打断体验（session 56b224c9）<br>
+    · 视频无法加载（session 5f0a7ebb）
+  </div>
+</div>
+
+<!-- ===== S6: 素材策略与合规 ===== -->
+<div id="s6" class="section">
+  <div class="page-header">
+    <h1>06 · 素材策略与合规</h1>
+    <div class="meta"><span class="tag tag-warn">合规先行</span> 成人内容投放的红线与灰区</div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">成人内容FB投放的基本前提</div>
+    FB不允许直接推广露骨成人内容。Crave AI的所有素材必须在"暗示性/情感性"而非"显性"的边界内。超出边界=广告被拒+账号风险。
+  </div>
+
+  <h2>A级素材判断标准（可投放）</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>维度</th><th>允许</th><th>禁止</th></tr>
+    <tr><td>视觉内容</td><td>情感表达、亲密动作（暗示性）、健康/关系类画面</td><td>裸露、露骨性行为、生殖器官暗示</td></tr>
+    <tr><td>文案用词</td><td>intimate, connection, wellness, desire, pleasure（在语境中）</td><td>直接性描述词、器官名称、性行为动作词</td></tr>
+    <tr><td>落地页关联</td><td>落地页内容与素材主题一致</td><td>素材暗示A，落地页展示B（期望断层）</td></tr>
+    <tr><td>品牌呈现</td><td>科技/健康/情感品牌调性</td><td>露骨成人网站调性</td></tr>
+  </table>
+  </div>
+
+  <h2>素材生命周期管理</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>阶段</th><th>信号</th><th>动作</th></tr>
+    <tr><td>新鲜期</td><td>CTR稳定，CPHQ在目标内</td><td>保持，可小幅加量</td></tr>
+    <tr><td>疲劳期</td><td>CTR连续3天低于峰值70%</td><td>准备新素材，48小时内替换</td></tr>
+    <tr><td>报废期</td><td>换素材后仍无改善</td><td>检查落地页承接，可能不是素材问题</td></tr>
+  </table>
+  </div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：通用课程说"好素材=高CTR素材"</div>
+    在Crave AI的业务里，高CTR≠好素材。我们见过CTR高但HVU=0的广告组（用户点进来就跳出），也见过CTR一般但CPHQ极低的广告组。<br><br>
+    <strong>Crave AI的好素材定义</strong>：能帮系统找到真正有兴趣的用户（page_count&gt;1），而不是只能吸引好奇点击的用户。
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">4月验证结论（2026-04-20）：文章页 + 情感/知识型素材 = 唯一稳定可复制的公式</div>
+    4/5~4/19 期间，CHJ负责的文章页广告组（组4/5/17/20）累计表现：<br>
+    · 组17 18 Sensual：总花费 $85.86，HVU 76人，<strong>CPHQ $1.13（全场最优）</strong><br>
+    · 组20 A Softer：总花费 $112.64，HVU 49人，CPHQ $2.30<br>
+    · 组4 Viennese：总花费 $161.90，HVU 66人，CPHQ $2.45<br><br>
+    <strong>公式拆解</strong>：<br>
+    · 落地页：文章详情页（/multisensory/...），LCP &lt;1800ms，技术层面无瓶颈<br>
+    · 素材方向：情感型 / 知识型，满足用户明确的信息需求（具体体位、关系建议），不只是视觉刺激<br>
+    · 投放方式：FB ABO，让系统自动寻找匹配受众<br><br>
+    <strong>反例警示</strong>：组14女性专栏（HNN，文章页）LCP 1228ms，技术完全正常，但HVU率仅3.6%。说明"文章页"不是万能钥匙——<strong>素材方向与页面内容的匹配度同样关键</strong>，内容不对，快页面也白搭。
+  </div>
+
+
+  <hr style="border:none;border-top:1px solid var(--border);margin:32px 0;">
+
+  <div class="page-header">
+    <h1>投前检查清单</h1>
+    <div class="meta">
+      <span class="tag">新广告组上线前必过</span>
+      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">全部打勾才能发布</span>
+    </div>
+  </div>
+
+  <!-- 第一关：落地页 -->
+  <h2>① 落地页</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">检查项</th>
+          <th style="padding:9px 16px;">怎么查</th>
+          <th style="padding:9px 16px;">不通过怎么办</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">URL 手机端能正常打开</td>
+          <td style="padding:10px 16px;color:var(--muted);">手机浏览器直接访问，确认无报错/跳转异常</td>
+          <td style="padding:10px 16px;color:#ef4444;">通知研发，未修复前不上线</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">LCP 达标</td>
+          <td style="padding:10px 16px;color:var(--muted);">AdClaw → get_session_overview，按 utm_campaign 看 landing_lcp_ms；或用 Chrome DevTools Lighthouse 跑一次</td>
+          <td style="padding:10px 16px;color:#ef4444;">文章页 &gt;1800ms / 剧情页 &gt;2500ms → 通知研发，先不投</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">落地页主题与素材承诺一致</td>
+          <td style="padding:10px 16px;color:var(--muted);">素材钩子讲的是什么→落地页首屏讲的是什么，两者方向必须一致</td>
+          <td style="padding:10px 16px;color:#ef4444;">换素材或换落地页，不能强行配对（组27/24 的教训）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 第二关：素材合规 -->
+  <h2>② 素材合规</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">检查项</th>
+          <th style="padding:9px 16px;">红线（有一条即不通过）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">视觉无违规</td>
+          <td style="padding:10px 16px;color:#ef4444;">裸露 · 露骨性行为 · 生殖器官暗示 → 任何一条直接重新出图</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">文案无违规词</td>
+          <td style="padding:10px 16px;color:#ef4444;">直接性描述词 · 器官名称 · 性行为动作词 → 重写文案</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">整体调性：情感/健康/科技感</td>
+          <td style="padding:10px 16px;color:#ef4444;">露骨成人网站风格 → 重新制作</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 第三关：投放配置 -->
+  <h2>③ 投放配置</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">检查项</th>
+          <th style="padding:9px 16px;">怎么查 / 标准</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">AdClaw 任务已创建</td>
+          <td style="padding:10px 16px;color:var(--muted);">utm_campaign 已录入 AdClaw，确保上线后能追踪到数据</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">广告组命名规范</td>
+          <td style="padding:10px 16px;color:var(--muted);">格式：组X 素材名（如「组35 15 Ideas」）· 在数据看板同步新增一行</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">预算设置</td>
+          <td style="padding:10px 16px;color:var(--muted);">ABO · 新组初始 $10~15/天 · 学习期内（前 $30）不调整预算</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 上线后24h -->
+  <h2>④ 上线后 24h 确认（次日早上看）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:32px;"></th>
+          <th style="padding:9px 16px;">确认项</th>
+          <th style="padding:9px 16px;">异常处理</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">AdClaw 能看到 session 数据</td>
+          <td style="padding:10px 16px;color:#f59e0b;">无 session → UTM 参数配置有误，检查落地页链接</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">花费 ≥ $10 后开始看 HVU</td>
+          <td style="padding:10px 16px;color:var(--muted);">花费不足 $10 不下结论，系统还在学习</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:10px 16px;text-align:center;font-size:16px;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;color:#ef4444;">连续 2 天有花费 / HVU = 0</td>
+          <td style="padding:10px 16px;color:#ef4444;">立即暂停 → 按顺序排查：① LCP → ② 素材与落地页匹配度</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 快速判断口诀 -->
+  <h2>一句话口诀</h2>
+  <div class="code">上线前：页面能开 · LCP 达标 · 素材不违规 · 主题要对齐
+上线后：有 session · 有 HVU · 2天没HVU立刻停</div>
+
+
+</div>
+
+<!-- ===== S7: 广告组决策标准 ===== -->
+<div id="s7" class="section">
+  <div class="page-header">
+    <h1>07 · 广告组决策标准</h1>
+    <div class="meta"><span class="tag tag-crave">操作规范</span> 加量 / 保留 / 暂停 / 关停的判断依据</div>
+  </div>
+  <div class="data-status-banner"></div>
+
+  <h2>决策树</h2>
+  <div class="decision">
+    <div class="decision-step">
+      <div class="q">第一步：判断阶段</div>
+      <div class="a">花费 &lt; $30 → <span class="badge badge-learn">学习期</span>，不做任何判断，只观察</div>
+    </div>
+    <div class="decision-step go">
+      <div class="q">花费 ≥ $30，CPHQ ≤ $3</div>
+      <div class="a">✅ <strong>加量</strong>：每次预算调整 ≤ 20%，观察2天确认稳定后再加下一次</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">花费 ≥ $30，CPHQ $3~$5</div>
+      <div class="a">⏸ <strong>保留观察</strong>：不加量，不减量，看趋势（连续改善则加量，连续恶化则暂停）</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">花费 ≥ $30，CPHQ &gt; $5</div>
+      <div class="a">⚠️ <strong>观察一天</strong>：连续2天&gt;$5 → 暂停；单天偶尔&gt;$5 → 继续观察</div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">连续2天有花费 / HVU=0</div>
+      <div class="a">🔴 <strong>立即暂停</strong>：不管是否在学习期。先检查落地页是否正常，再检查素材是否被降权</div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">CPHQ持续恶化 + CTR低于峰值70%</div>
+      <div class="a">🔴 <strong>关停</strong>：素材已死，继续跑是浪费。在同样的落地页方向上新建广告组</div>
+    </div>
+  </div>
+
+  <h2 id="s7-date-header">4/19 各广告组当前状态</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>广告组</th><th>投手</th><th>4/19 花费 / HVU / CPHQ</th><th>建议操作</th></tr>
+    <!-- 优秀 CPHQ ≤ $3 -->
+    <tr><td>组17 18 Sensual</td><td>CHJ</td><td class="td-good">$9.84 / 12HVU / $0.82</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组4 Viennese Oyster</td><td>CHJ</td><td class="td-good">$10.08 / 9HVU / $1.12</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组32 confidence</td><td>CHJ</td><td class="td-good">$13.66 / 8HVU / $1.71</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组5 30 Positions</td><td>CHJ</td><td class="td-good">$9.38 / 5HVU / $1.88</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组28 牛角</td><td>HNN</td><td class="td-good">$8.81 / 4HVU / $2.20</td><td class="td-good">加量≤20%</td></tr>
+    <tr><td>组20 A Softer</td><td>CHJ</td><td class="td-good">$18.84 / 7HVU / $2.69</td><td class="td-good">加量≤20%</td></tr>
+    <!-- 观察 $3~$5 -->
+    <tr><td>组21 职场</td><td>HNN</td><td class="td-warn">$6.29 / 2HVU / $3.15</td><td class="td-warn">保留观察</td></tr>
+    <tr><td>组23 工作室</td><td>HNN</td><td class="td-warn">$6.54 / 2HVU / $3.27</td><td class="td-warn">保留观察</td></tr>
+    <!-- 偏贵 >$5 -->
+    <tr><td>组29 性爱疗愈</td><td>HZM</td><td class="td-bad">$12.87 / 2HVU / $6.43</td><td class="td-warn">连续>$5→暂停</td></tr>
+    <tr><td>组31 天使</td><td>HZM</td><td class="td-bad">$13.49 / 2HVU / $6.75</td><td class="td-warn">连续>$5→暂停</td></tr>
+    <!-- 0 HVU - CHJ -->
+    <tr><td>组7 best intimacy / 组24 Dom / 组27 performance</td><td>CHJ</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">先查落地页LCP，再决策</td></tr>
+    <!-- 0 HVU - HNN -->
+    <tr><td>组8 山间 / 组9 金项圈 / 组16 敲门 / 组18 红玫瑰 / 组25 强迫休息 / 组30 流汗男</td><td>HNN</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">查LCP（>2500ms通知研发），暂停花费</td></tr>
+    <!-- 0 HVU - HZM -->
+    <tr><td>组15 Power Shift / 组19 Top Predator's / 组26 Surrender</td><td>HZM</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">建议暂停，集中预算到有产出方向</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ===== S8: 数据看板解读 ===== -->
+<div id="s8" class="section">
+  <div class="page-header">
+    <h1>08 · 数据看板解读</h1>
+    <div class="meta"><span class="tag tag-crave">工具使用</span> 怎么读CPHQ看板，AdClaw怎么查数据</div>
+  </div>
+
+  <h2>桌面CPHQ看板（广告组数据看板0414.xlsx）</h2>
+  <div class="callout tip">
+    <div class="callout-title">看板格式说明</div>
+    每格格式：<strong>花费 / 高质量用户数 / 单价（CPHQ）</strong><br>
+    例：<code style="background:rgba(255,255,255,.08); padding:2px 6px; border-radius:4px;">$14.36/7/$2.05</code>
+    = 当天花费$14.36，带来7个高质量用户，每个用户成本$2.05
+  </div>
+
+  <h2>颜色规则</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-color:var(--green)">
+      <div class="kpi-label" style="color:var(--green)">绿色</div>
+      <div style="font-size:20px;font-weight:700;color:var(--green);margin:8px 0;">CPHQ ≤ $3</div>
+      <div style="font-size:12px;color:var(--muted);">优质，可以加量</div>
+    </div>
+    <div class="kpi-card" style="border-color:var(--orange)">
+      <div class="kpi-label" style="color:var(--orange)">黄色</div>
+      <div style="font-size:20px;font-weight:700;color:var(--orange);margin:8px 0;">$3 ~ $5</div>
+      <div style="font-size:12px;color:var(--muted);">正常，观察趋势</div>
+    </div>
+    <div class="kpi-card" style="border-color:#f97316">
+      <div class="kpi-label" style="color:#f97316">橙色</div>
+      <div style="font-size:20px;font-weight:700;color:#f97316;margin:8px 0;">&gt; $5</div>
+      <div style="font-size:12px;color:var(--muted);">偏贵，关注趋势</div>
+    </div>
+    <div class="kpi-card" style="border-color:var(--red)">
+      <div class="kpi-label" style="color:var(--red)">红色</div>
+      <div style="font-size:20px;font-weight:700;color:var(--red);margin:8px 0;">花费/0HVU</div>
+      <div style="font-size:12px;color:var(--muted);">预算浪费，立即关注</div>
+    </div>
+  </div>
+
+  <h2>如何横向看趋势</h2>
+  <p>找到某个广告组的行，从左往右看它的单价列（每3格一个单价），可以看出：</p>
+  <ul>
+    <li>是否在<strong>改善</strong>（单价越来越低）→ 可以加量</li>
+    <li>是否在<strong>恶化</strong>（单价越来越高）→ 准备换素材或暂停</li>
+    <li>是否<strong>剧烈波动</strong>（忽高忽低）→ 学习期还未稳定，继续观察</li>
+  </ul>
+
+  <h2>AdClaw 数据查询方法</h2>
+  <div class="callout tip">
+    <div class="callout-title">AdClaw 是什么</div>
+    AdClaw 是我们的独立站数据看板系统，通过 MCP 接口接入 Claude Code。可以查询：<br>
+    Session 数量 / HVU数 / 用户行为路径 / 广告组按日明细 / 转化事件明细
+  </div>
+
+  <div class="code">
+-- 查询某广告组某日HVU示例
+SELECT t.task_name, COUNT(*) FILTER (WHERE s.page_count > 1) AS hvu
+FROM session s
+JOIN task t ON s.utm_campaign = t.utm_campaign
+WHERE s.first_seen_at >= '2026-04-14'
+  AND s.first_seen_at &lt; '2026-04-15'
+  AND t.task_name LIKE '%30 Positions%'
+GROUP BY t.task_name
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">数据来源优先级</div>
+    1. <strong>AdClaw</strong>（站内实际行为数据）&gt; FB后台数据<br>
+    2. HVU 以 AdClaw 的 page_count &gt; 1 为准<br>
+    3. 花费以 FB 投手导出截图为准<br>
+    4. CPHQ = FB花费 ÷ AdClaw HVU（跨平台计算）
+  </div>
+
+  <h2>两个常见误判陷阱（4月实战验证）</h2>
+  <div class="callout warn">
+    <div class="callout-title">陷阱1：跳出率高 ≠ 广告组差</div>
+    组17（18 Sensual）在 4/5~4/19 期间整体跳出率 84%，按通用课程标准早该关停。但实际 CPHQ $1.13，全场最优，76个HVU，是表现最好的广告组。<br><br>
+    <strong>原因</strong>：文章类落地页用户行为是"快速扫描，找到感兴趣的才继续"，大量跳出是正常的。只要留下来的人（page_count &gt;1）单价够低，广告组就是健康的。<br>
+    <strong>结论</strong>：<strong>不要看跳出率，只看HVU和CPHQ。</strong>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">陷阱2：剧情页HVU=0，先别换素材</div>
+    4月数据显示：组16（LCP 4503ms）花费$51，仅2HVU；组28（LCP 3140ms）花费$29，仅3HVU。这两组都曾被认为是"素材问题"，实际是落地页LCP过高导致移动端用户加载太慢直接关闭。<br><br>
+    <strong>排查顺序</strong>：剧情页0HVU → 先查LCP → LCP &gt;2500ms = 技术问题 → 通知研发 → 修复后再评估素材。
+  </div>
+</div>
+
+<!-- ===== S9: 诊断树 ===== -->
+<div id="s9" class="section">
+  <div class="page-header">
+    <h1>09 · 诊断树：指标异常怎么查</h1>
+    <div class="meta"><span class="tag tag-crave">排查工具</span> 遇到问题，按层级找根因</div>
+  </div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：很多人遇到问题直接重开广告组</div>
+    重开广告组不是优化，是逃避。真正的问题没找到，新广告组照样会出同样的问题，还浪费了之前积累的学习数据。
+  </div>
+
+  <h2>CPHQ突然升高</h2>
+  <div class="decision">
+    <div class="decision-step"><div class="q">第一层</div><div class="a">CTR 是否下降？</div></div>
+    <div class="decision-step wait"><div class="q">CTR下降</div><div class="a">→ 素材问题。钩子老化，首屏表达失效。检查素材是否超过3周未换，或是否有竞争加剧。</div></div>
+    <div class="decision-step wait"><div class="q">CTR未变</div><div class="a">→ 看CPM是否上升。CPM上升=竞争变强。先不动，等3天观察市场是否回调。</div></div>
+    <div class="decision-step stop"><div class="q">CTR正常/CPM正常，但HVU下降</div><div class="a">→ 落地页问题。检查网站是否有报错，页面加载速度是否变慢，CTA是否被改动。</div></div>
+  </div>
+
+  <h2>有花费但HVU=0</h2>
+  <div class="decision">
+    <div class="decision-step"><div class="q">第一步</div><div class="a">检查落地页URL是否还能正常打开</div></div>
+    <div class="decision-step stop"><div class="q">落地页报错/打不开</div><div class="a">🔴 立即通知研发，同时暂停该广告组，切换到备用落地页</div></div>
+    <div class="decision-step wait"><div class="q">落地页正常打开</div><div class="a">检查AdClaw是否有session但page_count=1（大量跳出）</div></div>
+    <div class="decision-step stop"><div class="q">有session，但全部page_count=1</div><div class="a">→ 首屏承接断层。广告承诺的内容与落地页首屏不一致，用户点进来立刻失望跳出。换落地页或换素材方向。</div></div>
+    <div class="decision-step stop"><div class="q">AdClaw里完全没有session</div><div class="a">→ Pixel/UTM追踪问题，或广告虽然扣费但实际没有带来真实点击。联系运营统筹核查。</div></div>
+  </div>
+
+  <h2>剧情页持续 0 HVU（页面能打开，用户不翻页）</h2>
+  <div class="decision">
+    <div class="decision-step"><div class="q">第一步（2026-04-20新增）</div><div class="a">先查落地页LCP，不要急着换素材。在 Claude Code 里用 get_daily_summary（dim=overall）查看 web_vitals 字段中的 lcp_p50。</div></div>
+    <div class="decision-step stop"><div class="q">LCP &gt; 2500ms（差率 &gt;30%）</div><div class="a">🔴 <strong>技术问题，不是素材问题</strong>。立即通知研发优化剧情页加载速度。在修复之前，换素材无效。<br>实证：组16（LCP 4503ms，差率53.8%）花费$51，仅2HVU；组28（LCP 3140ms）花费$29，仅3HVU。</div></div>
+    <div class="decision-step wait"><div class="q">LCP &lt; 2000ms，有session但全部page_count=1</div><div class="a">→ 首屏内容承接断层。素材所承诺的内容与剧情页首屏不符，用户进来立刻失望跳出。考虑迁移到文章页，或重构剧情页首屏内容。</div></div>
+    <div class="decision-step go"><div class="q">LCP正常，内容方向对，HVU率仍低</div><div class="a">→ 素材问题。更换视觉钩子（前3帧画面/标题），让点击用户与剧情内容调性更匹配。</div></div>
+  </div>
+
+  <h2>CTR正常但转化为0</h2>
+  <div class="decision">
+    <div class="decision-step go"><div class="q">当前阶段（2026-04-15）</div><div class="a">0购买是已知问题，漏斗卡在"加购→支付完成"。观测节点：4/17。在研发修复结算页之前，这是预期内状态，不是广告问题。</div></div>
+    <div class="decision-step wait"><div class="q">检查路径</div><div class="a">用AdClaw查看：有HVU的session是否有到达购物车/加购事件。如果有加购但无购买，说明结算页有断点，非广告问题。</div></div>
+  </div>
+</div>
+
+<!-- ===== S10: 竞品研究 ===== -->
+<div id="s10" class="section">
+  <div class="page-header">
+    <h1>10 · 竞品研究方法</h1>
+    <div class="meta"><span class="tag tag-crave">情报工具</span> 怎么用FB广告库，怎么判断同类竞品</div>
+  </div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">反驳：还在投的广告 ≠ 赚钱的广告</div>
+    FB广告库只能告诉你"这个广告还在跑"，不能告诉你"这个广告在赚钱"。很多广告主会持续跑亏损广告，因为缺乏清晰的CPA目标。别人还在投不是你该跟的信号，别人的素材方向才是值得参考的。
+  </div>
+
+  <h2>竞品研究操作流程</h2>
+  <ol>
+    <li>打开 <strong>facebook.com/ads/library</strong></li>
+    <li>搜索关键词：wellness, intimate, adult entertainment, sensual, pleasure（用英文，目标市场是美国用户）</li>
+    <li>筛选：国家 = All / 媒介 = All / 状态 = Active</li>
+    <li>找到仍在投放的同类品牌，重点看：素材类型（图/视频）、钩子、落地页风格</li>
+  </ol>
+
+  <h2>竞品拆解维度</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>维度</th><th>看什么</th><th>对Crave AI的意义</th></tr>
+    <tr><td>素材形式</td><td>图片/视频/carousel比例</td><td>验证我们图片→文章的方向是否主流</td></tr>
+    <tr><td>落地页类型</td><td>直链产品页/内容页/注册页</td><td>参考最有效的承接形式</td></tr>
+    <tr><td>钩子文案</td><td>前三秒说什么，标题打什么利益点</td><td>提炼同类高频钩子，迭代我们的素材</td></tr>
+    <tr><td>品牌定位</td><td>科技/健康/成人，哪种调性</td><td>确认我们的"科技/健康"定位是否差异化</td></tr>
+    <tr><td>投放时长</td><td>这个素材跑了多久</td><td>跑超过30天的素材基本上是在赚钱的</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- ===== S11: 域名与账号风控 ===== -->
+<div id="s11" class="section">
+  <div class="page-header">
+    <h1>11 · 域名与账号风控</h1>
+    <div class="meta"><span class="tag tag-warn">高风险区域</span> 域名被FB标记 / 账号被封的判断与应对</div>
+  </div>
+
+  <h2>R5c · 落地页域名被FB标记风险</h2>
+  <div class="callout warn">
+    <div class="callout-title">触发条件与影响</div>
+    落地页域名本身被FB广告系统拉黑或标为低质量域名时，<strong>即使账号/BM/素材本身无问题，广告也无法出量</strong>。申诉路径长，FB不会主动通知。<br><br>
+    <strong>监控方法</strong>：每周检查一次广告拒审率。同一域名拒审率突然升高（&gt;30%），立即切换到备用域名。
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>风险等级</th><th>信号</th><th>应对</th></tr>
+    <tr><td class="td-bad">🔴 高</td><td>广告被批量拒审，原因指向域名</td><td>立即切换到 arena-vibe.com，通知研发</td></tr>
+    <tr><td class="td-warn">🟡 中</td><td>拒审率突然升高但原因不明确</td><td>用FB Sharing Debugger检查域名状态</td></tr>
+    <tr><td class="td-good">🟢 低</td><td>正常拒审（素材原因）</td><td>按素材问题处理，不涉及域名切换</td></tr>
+  </table>
+  </div>
+
+  <h2>账号被封后的操作节奏</h2>
+  <div class="decision">
+    <div class="decision-step stop"><div class="q">D0 · 被封当天</div><div class="a">不做任何操作。不改素材，不动账号，保持IP/设备环境一致。</div></div>
+    <div class="decision-step wait"><div class="q">D1 · 次日</div><div class="a">提交申诉（FB帮助中心 → 账号状态 → 申诉）。附上业务说明和合规声明。</div></div>
+    <div class="decision-step wait"><div class="q">D4~D14 · 等待期</div><div class="a">申诉已提交则继续等待，不做其他操作。同BM下其他账号正常运营，但提高合规自查频率。</div></div>
+    <div class="decision-step go"><div class="q">申诉通过</div><div class="a">轻行为养号7天（低预算，合规素材），再逐步恢复正常投放。第1周只跑Feed，预算≤原来50%。</div></div>
+    <div class="decision-step stop"><div class="q">D10无回复</div><div class="a">评估是否放弃该账号，将预算转移到BM-B或新备用账号。</div></div>
+  </div>
+</div>
+
+<!-- ===== S12: 扩量节奏 ===== -->
+<div id="s12" class="section">
+  <div class="page-header">
+    <h1>12 · 扩量节奏与判断节点</h1>
+    <div class="meta"><span class="tag tag-crave">增长规划</span> 什么条件下才能加量，关键节点是什么</div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">当前原则：承接端未修好前不做放量</div>
+    购买漏斗（加购→支付完成）还有断点。现在加量只是更快地把钱烧进黑洞。先等漏斗打通，再谈放量节奏。
+  </div>
+
+  <h2>关键判断节点</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>时间</th><th>观测指标</th><th>达标 → 下一步</th><th>未达标 → 应对</th></tr>
+    <tr><td><strong>4/17</strong></td><td>结算页修复后是否出现完整支付</td><td>有支付 → 找出单路径，开始加量</td><td>仍无支付 → 停止加量，产品/定价专项排查</td></tr>
+    <tr><td><strong>4/21</strong></td><td>稳定日均出单 + CPHQ ≤ $5</td><td>继续推进扩量计划</td><td>产品/定价策略根本性检查</td></tr>
+    <tr><td><strong>4/28</strong></td><td>CPHQ稳定≤$5 + 稳定日均出单</td><td>ZXR主力拉量，BM-B放开</td><td>维持预算，继续优化</td></tr>
+  </table>
+  </div>
+
+  <h2>加量条件（四个都要满足）</h2>
+  <ul>
+    <li>广告组已完成学习期（花费≥$30）</li>
+    <li>CPHQ连续3天在目标区间内（≤$5）</li>
+    <li>站内漏斗有实际转化（加购 or 购买）</li>
+    <li>落地页承接正常（无技术断点）</li>
+  </ul>
+
+  <h2>加量操作规范</h2>
+  <div class="callout rule">
+    <div class="callout-title">每次加量≤20%，等2天稳定再加下一次</div>
+    例：当前预算$15/天，第一次加到$18，等2天确认CPHQ未恶化，再加到$21.6，依此类推。<br>
+    不要一次从$15跳到$30，这会重置学习期。
+  </div>
+</div>
+
+<!-- ===== S13: 知识沉淀规范 ===== -->
+<div id="s13" class="section">
+  <div class="page-header">
+    <h1>13 · 知识沉淀规范</h1>
+    <div class="meta"><span class="tag tag-rule">持续更新</span> 怎么让这份知识库越来越有用</div>
+  </div>
+
+  <h2>什么情况下必须更新知识库</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>事件类型</th><th>更新位置</th><th>格式</th></tr>
+    <tr><td>广告组有明确结论（关停/稳定跑量）</td><td>模块07 广告组决策表</td><td>日期 + 结论 + CPHQ数据</td></tr>
+    <tr><td>账号被封</td><td>模块11 风控，添加案例</td><td>日期 + 投手 + 触发原因 + 结论</td></tr>
+    <tr><td>落地页类型有新测试结论</td><td>模块05 落地页</td><td>日期 + 组名 + 前后CPHQ对比</td></tr>
+    <tr><td>新素材方向有明确数据</td><td>模块06 素材策略</td><td>日期 + 素材描述 + 结果</td></tr>
+    <tr><td>判断节点观测完成</td><td>模块12 扩量节奏</td><td>日期 + 结论 + 更新下一节点</td></tr>
+  </table>
+  </div>
+
+  <h2>更新记录（持续追加）</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>日期</th><th>更新内容</th><th>负责人</th></tr>
+    <tr><td>2026-04-15</td><td>初始版本建立，涵盖基础认知/投放操作/数据分析/风控增长全模块</td><td>运营统筹</td></tr>
+    <tr><td>2026-04-15</td><td>补充4/14数据：新组18/19/20，CPHQ看板更新至0414版本</td><td>运营统筹</td></tr>
+    <tr><td>2026-04-20</td><td>同步4/16~4/19看板数据，新增组25~32（共32组），更新合计行。总花费$1,976 / 473 HVU / CPHQ $4.18。看板0419.xlsx已生成。</td><td>运营统筹</td></tr>
+    <tr><td>2026-04-20</td><td>落地页性能分析：LCP&gt;2500ms是剧情页0HVU根因（非素材），更新模块05/09。CHJ文章页公式（组4/5/17/20，CPHQ $1.13~$2.45）验证，更新模块06。跳出率对本业务无效，唯一指标是HVU+CPHQ，更新模块08。</td><td>运营统筹</td></tr>
+    <tr><td></td><td></td><td></td></tr>
+  </table>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">更新这份文件的方式</div>
+    这个 HTML 文件存放在桌面，可以用任何文本编辑器（VS Code / 记事本）直接编辑。知识更新就是在对应表格里加一行。<br><br>
+    如果需要新增整个模块（如Google Ads上线后），在侧边栏增加导航项，在HTML末尾增加对应 section 即可。
+  </div>
+</div>
+
+<!-- ===== S15: 预算·止损·素材决策 ===== -->
+<div id="s15" class="section">
+  <div class="page-header">
+    <h1>15 · 预算·止损决策</h1>
+    <div class="meta"><span class="tag tag-crave">操作框架</span> 三个模块联动，不能拆开看</div>
+  </div>
+
+  <div class="module-intro"><p>预算决定把钱压到哪里，止损决定在哪里切断错误，素材决定系统有没有新鲜信号。判断链：<strong>先看广告组阶段 → 再看 CPHQ 信号是否稳定 → 再决定加预算、维持还是止损。</strong></p></div>
+
+  <div class="callout rebuke">
+    <div class="callout-title">通用课程的问题：用 CPA/ROAS 驱动所有决策</div>
+    通用框架把 CPA、ROAS 放在核心。Crave AI 当前购买转化为0，这两个指标对我们没有操作意义。<br>
+    我们的核心判断层是：<strong>交付层（能不能出量）→ 点击层（CTR）→ 站内层（HVU / CPHQ）</strong>。结果层（CPA/ROAS）等漏斗打通后再接入。
+  </div>
+
+  <h2>指标四层：只有第三层是我们当前优化目标</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标层</th><th>代表指标</th><th>回答的问题</th><th>当前状态</th></tr>
+    <tr><td>交付层</td><td>Spend、CPM、Frequency</td><td>广告有没有正常投出去</td><td>正常，BM-A 日消耗 ~$140</td></tr>
+    <tr><td>点击层</td><td>CTR、CPC</td><td>素材是否拿到注意力</td><td>目标 CTR ≥ 2%</td></tr>
+    <tr><td class="td-good"><strong>站内层 ← 核心</strong></td><td><strong>HVU、CPHQ</strong></td><td>点进来的是不是真实有兴趣用户</td><td class="td-good">当前唯一优化层</td></tr>
+    <tr><td class="td-bad">结果层（暂不可用）</td><td class="td-bad">Purchase、CPA、ROAS</td><td>广告最终有没有赚到钱</td><td class="td-bad">漏斗卡点，4/17 观测</td></tr>
+  </table></div>
+
+  <hr>
+
+  <h2>预算判断：三阶段标准</h2>
+  <div class="table-wrap"><table>
+    <tr><th>阶段</th><th>进入条件</th><th>CPHQ 目标</th><th>操作原则</th></tr>
+    <tr>
+      <td><span class="badge badge-learn">学习期</span> $0~$30</td>
+      <td>新广告组上线起</td>
+      <td>$5~$15 可接受，不作判断</td>
+      <td><strong>绝对不动预算，不换素材</strong></td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-scale">跑量期</span> $30后</td>
+      <td>跑满 $30 且有信号</td>
+      <td>新账号 ≤$5，成熟账号 ≤$2</td>
+      <td>每次调整 ≤20%，等2天再加下一次</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-decay">衰退期</span></td>
+      <td>CTR 连续3天低于峰值70%</td>
+      <td>维持，关注 CPA ≤$77</td>
+      <td>48小时内换素材，不停计划不重建</td>
+    </tr>
+  </table></div>
+
+  <div class="callout rule">
+    <div class="callout-title">加预算的四个前提（都要满足）</div>
+    1. <strong>结果前提</strong>：CPHQ 连续2天 ≤ $3<br>
+    2. <strong>样本前提</strong>：花费已过 $30<br>
+    3. <strong>稳定前提</strong>：CPHQ 趋势在收敛/改善，不是今天好明天爆<br>
+    4. <strong>承接前提</strong>：落地页和支付无技术断点
+  </div>
+
+  <h3>加量后必须观察的边际变化</h3>
+  <div class="table-wrap"><table>
+    <tr><th>观察指标</th><th>变好 → 继续</th><th>变差 → 暂缓</th></tr>
+    <tr><td>CPHQ 是否随花费上升而恶化</td><td>没恶化</td><td>明显恶化，说明扩量已挤压效率</td></tr>
+    <tr><td>CPM 是否显著升高</td><td>稳定</td><td>快速抬升，进入更贵竞价池</td></tr>
+    <tr><td>CTR 是否下降</td><td>稳定</td><td>下滑，素材覆盖到更不精准人群</td></tr>
+  </table></div>
+
+  <hr>
+
+  <h2>止损判断：三类止损方式</h2>
+
+  <div class="callout warn">
+    <div class="callout-title">学习期内（花费 &lt; $30）不止损</div>
+    除非：落地页报错 / 连续2天有花费但 HVU = 0。其他情况一律观察，不做止损动作。
+  </div>
+
+  <div class="table-wrap"><table>
+    <tr><th>止损类型</th><th>触发条件</th><th>操作</th></tr>
+    <tr><td class="td-bad">空耗止损</td><td>有花费但 HVU = 0，连续2天</td><td>先查落地页是否报错，再查素材是否被降权，暂停广告组</td></tr>
+    <tr><td class="td-warn">成本止损</td><td>CPHQ 连续2天 &gt; $5（跑量期后）</td><td>暂停，不立刻重建，换素材方向后新建</td></tr>
+    <tr><td class="td-bad">趋势止损</td><td>CPHQ 持续恶化 + CTR 低于峰值70%</td><td>关停，在同落地页方向上新建广告组</td></tr>
+  </table></div>
+
+  <h3>止损后的下一步（止损不是结束）</h3>
+  <div class="table-wrap"><table>
+    <tr><th>止损原因</th><th>后续动作</th></tr>
+    <tr><td>素材 CTR 弱</td><td>换钩子/换首屏方向，新建广告组</td></tr>
+    <tr><td>有 CTR 但 HVU = 0</td><td>查落地页承接，检查广告承诺与首屏是否一致</td></tr>
+    <tr><td>剧情体验页 CPHQ 持续 &gt; $7</td><td>迁移到文章详情页方向（已验证更优，差3倍）</td></tr>
+    <tr><td>老组趋势衰退</td><td>保留落地页方向，换素材后新建</td></tr>
+  </table></div>
+
+  <hr>
+
+  <h2>日常巡检决策链（5步）</h2>
+  <div class="decision">
+    <div class="decision-step">
+      <div class="q">第一步</div>
+      <div class="a">花费 &lt; $30？→ <span class="badge badge-learn">学习期</span> 不动任何东西，继续观察</div>
+    </div>
+    <div class="decision-step go">
+      <div class="q">花费 ≥ $30，CPHQ ≤ $3</div>
+      <div class="a">✅ 加量：每次 ≤20%，等2天确认稳定再加下一次</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">花费 ≥ $30，CPHQ $3~$5</div>
+      <div class="a">⏸ 保留观察：看趋势，连续改善则加量，连续恶化则暂停</div>
+    </div>
+    <div class="decision-step wait">
+      <div class="q">CPHQ &gt; $5</div>
+      <div class="a">⚠️ 观察一天：连续2天 &gt; $5 → 暂停；单天偶发 → 继续观察</div>
+    </div>
+    <div class="decision-step stop">
+      <div class="q">有花费 / HVU = 0，连续2天</div>
+      <div class="a">🔴 立即暂停：先查落地页是否报错，再查素材是否被降权</div>
+    </div>
+  </div>
+
+  <h3>异常情况快速判断</h3>
+  <div class="table-wrap"><table>
+    <tr><th>现象</th><th>先查什么</th><th>可能原因</th><th>动作</th></tr>
+    <tr><td>CPHQ 突然升高</td><td>CTR 是否同步下降</td><td>素材疲劳 或 CPM 上升</td><td>CTR 跌→换素材；CTR 稳→等3天</td></tr>
+    <tr><td>有花费 HVU = 0</td><td>落地页能否正常打开</td><td>页面报错 或 承接断层</td><td>报错→立即暂停并切备用落地页</td></tr>
+    <tr><td>新组首日 CPHQ &gt; $10</td><td>花费是否 &lt; $30</td><td>学习期正常波动</td><td>不操作，等跑满 $30</td></tr>
+    <tr><td>CPHQ 忽高忽低</td><td>花费是否 &lt; $30</td><td>学习期未稳定</td><td>继续观察，不换素材不改预算</td></tr>
+    <tr><td>CTR 正常但 HVU = 0</td><td>AdClaw page_count 分布</td><td>落地页首屏与广告承诺不一致</td><td>换落地页或换素材方向</td></tr>
+  </table></div>
+
+  <div class="callout rule">
+    <div class="callout-title">三条总规则</div>
+    <strong>规则一：预算是证据分配机制，不是奖励机制。</strong><br>
+    谁拿到更多预算，是因为它提供了"继续投更可能带来 CPHQ ≤$3 结果"的证据，不是因为"今天感觉不错"。<br><br>
+    <strong>规则二：止损是样本判断动作，不是情绪动作。</strong><br>
+    学习期内不止损，跑量期看连续2天数据再决定。过早止损和拖延止损都是浪费。<br><br>
+    <strong>规则三：素材不是单条资产，是方向供给。</strong><br>
+    现在的问题不是"有没有好素材"，而是"文章详情页方向的素材供给速度，能不能跟上预算消耗速度"。
+  </div>
+</div>
+
+<!-- ===== S14: 投手投稿 ===== -->
+<div id="s14" class="section">
+  <div class="page-header">
+    <h1>投手投稿</h1>
+    <div class="meta"><span class="tag" style="background:rgba(167,139,250,.2);color:#a78bfa;">投手专区</span> 记录你发现的规律、踩过的坑、值得沉淀的经验</div>
+  </div>
+
+  <div class="module-intro"><p>填完表单点"生成投稿"，把生成的文字复制发给运营统筹（微信/飞书）即可。不需要账号，不需要登录，手机也能用。</p></div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;">
+    <h3 style="margin-top:0;margin-bottom:16px;">填写投稿内容</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div>
+        <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px;">投手代号</label>
+        <select id="c-person" style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;">
+          <option value="">选择代号</option>
+          <option>HZM</option>
+          <option>HNN</option>
+          <option>CHJ</option>
+          <option>ZXR</option>
+          <option>PLZ</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px;">类型</label>
+        <select id="c-type" style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;">
+          <option value="">选择类型</option>
+          <option>素材经验</option>
+          <option>落地页发现</option>
+          <option>账号/风控</option>
+          <option>数据洞察</option>
+          <option>其他</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px;">内容（一两句话就够）</label>
+      <textarea id="c-content" rows="4" placeholder="例：组5用横版图片比竖版CTR高了约40%，CPHQ从$3.2降到$2.1，建议后续文章详情页优先横版图片..."
+        style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;resize:vertical;font-family:inherit;"></textarea>
+    </div>
+    <button onclick="generateContrib()" style="background:var(--accent);color:#fff;border:none;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">生成投稿文本</button>
+  </div>
+
+  <!-- 生成结果区 -->
+  <div id="c-result" style="display:none;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:20px;margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div style="font-size:13px;font-weight:600;color:var(--green);">✓ 投稿文本已生成 — 复制后发给运营统筹</div>
+      <button onclick="copyContrib()" id="c-copy-btn" style="background:var(--green);color:#fff;border:none;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">复制</button>
+    </div>
+    <div id="c-output" style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;font-family:inherit;"></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:10px;">复制后直接发到微信/飞书群，运营统筹会整理进对应知识模块。</div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">流程说明</div>
+    投稿 → 复制文本 → 发给运营统筹 → 统筹审核后更新知识库并同步 GitHub Pages。<br>
+    不限次数，随时投稿。有价值的经验都值得记录。
+  </div>
+</div>
+
+<!-- ===== S16: 广告数据看板 ===== -->
+<div id="s16" class="section active">
+  <div class="page-header">
+    <h1>广告数据看板</h1>
+    <div class="meta">
+      <span class="tag" style="background:rgba(16,185,129,.15);color:#10b981;">4/23 完整</span>
+      <span class="tag">总花费 $269.64 · ~144 HVU · 平均CPHQ ~$1.87</span>
+      <span class="tag" style="background:rgba(74,206,240,.1);color:#60a5fa;font-size:11px;">HVU = 浏览≥2页 且 停留≥30s</span>
+    </div>
+  </div>
+  <div class="data-status-banner"></div>
+
+  <!-- 总览 -->
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:24px;">
+    <span style="font-size:12px;color:var(--muted);">4/23</span>
+    <span style="color:var(--border);">|</span>
+    <span style="font-size:13px;">总花费 <strong>$269.64</strong></span>
+    <span style="font-size:13px;">总HVU <strong>~144</strong></span>
+    <span style="font-size:13px;">平均CPHQ <strong style="color:#f59e0b;">~$1.87</strong></span>
+    <span style="color:var(--border);">|</span>
+    <span style="font-size:12px;color:var(--muted);">CHJ $102.03 · HZM $99.84 · HNN $67.77</span>
+  </div>
+
+  <!-- 异常预警 -->
+  <div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:12px;">🚨 异常预警</div>
+  <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.35);border-radius:8px;margin-bottom:24px;overflow:hidden;">
+    <div style="padding:11px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="font-size:13px;font-weight:700;color:#ef4444;">HZM 四组0HVU / 极低效</span>
+          <span style="font-size:11px;color:#f59e0b;margin-left:6px;">HZM</span>
+          <span style="font-size:11px;background:rgba(239,68,68,.2);color:#ef4444;padding:2px 6px;border-radius:4px;margin-left:6px;">$68.51 花费</span>
+        </div>
+        <span style="font-size:12px;color:#ef4444;font-weight:700;">组29($22.99) · 组20/Voyeurism($18.98) · 组15(0HVU) · 组19(0HVU) → 建议暂停</span>
+      </div>
+    </div>
+    <div style="padding:11px 16px;border-top:1px solid rgba(239,68,68,.12);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="font-size:13px;font-weight:700;color:#ef4444;">HNN 组8 山间 连续0HVU</span>
+          <span style="font-size:11px;color:#10b981;margin-left:6px;">HNN</span>
+          <span style="font-size:11px;background:rgba(239,68,68,.2);color:#ef4444;padding:2px 6px;border-radius:4px;margin-left:6px;">4/22已建议暂停</span>
+        </div>
+        <span style="font-size:12px;color:#ef4444;font-weight:700;">$7.44 · 0HVU · 昨日建议暂停但仍在跑，需立即处理</span>
+      </div>
+    </div>
+    <div style="padding:11px 16px;border-top:1px solid rgba(239,68,68,.12);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="font-size:13px;font-weight:700;color:#f59e0b;">HNN 组40 举杯 🆕</span>
+          <span style="font-size:11px;color:#10b981;margin-left:6px;">HNN</span>
+          <span style="font-size:11px;background:rgba(254,129,86,.2);color:#f59e0b;padding:2px 6px;border-radius:4px;margin-left:6px;">Day2 学习期</span>
+        </div>
+        <span style="font-size:12px;color:#f59e0b;font-weight:700;">$7.97 · 0HVU · 明天是关键节点，不改善立即暂停</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 投手排名 -->
+  <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">👥 投手排名</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:28px;">
+    <div style="background:var(--card);border:1px solid #3b82f644;border-left:3px solid #3b82f6;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#3b82f6;">🥇 CHJ · 陈洪骏</div>
+        <div style="font-size:17px;font-weight:700;color:#10b981;">$1.04</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$102.03 · 98 HVU · 10组</div>
+      <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">9组绿灯。组17/41/5/4/35/27强势($0.70-$0.90)。组7黄色，其余保持</div>
+    </div>
+    <div style="background:var(--card);border:1px solid rgba(254,129,86,.3);border-left:3px solid #f59e0b;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">🥈 HZM · 黄梓铭</div>
+        <div style="font-size:17px;font-weight:700;color:#f59e0b;">$3.70</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$99.84 · 27 HVU · 7组</div>
+      <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组36($0.29)/37($1.59)持续优秀。组29/Voyeurism/15/19跌回红区，$68.51浪费</div>
+    </div>
+    <div style="background:var(--card);border:1px solid rgba(254,129,86,.3);border-left:3px solid #f59e0b;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">🥉 HNN · 黄楠楠</div>
+        <div style="font-size:17px;font-weight:700;color:#f59e0b;">~$3.57</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">$67.77 · ~19 HVU · 5组</div>
+      <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.6;">组39/34绿灯有效。合并组Copy效率偏低(~$4.58)。组8连续0HVU需立即暂停</div>
+    </div>
+  </div>
+
+  <!-- 完整明细 -->
+  <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">📊 4/23 广告组完整明细</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:24px;overflow:hidden;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);text-align:left;border-bottom:1px solid var(--border);">
+          <th style="padding:9px 14px;">广告组</th>
+          <th style="padding:9px 14px;">人</th>
+          <th style="padding:9px 14px;text-align:right;">花费</th>
+          <th style="padding:9px 14px;text-align:right;">HVU</th>
+          <th style="padding:9px 14px;text-align:right;">CPHQ</th>
+          <th style="padding:9px 14px;text-align:right;">初步决策</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- CHJ -->
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组17 18 Sensual</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$12.55</td>
+          <td style="padding:9px 14px;text-align:right;">18</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.70</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组41 Most positions</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$10.97</td>
+          <td style="padding:9px 14px;text-align:right;">15</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.73</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">转绿·加量</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组5 30 Positions</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$12.77</td>
+          <td style="padding:9px 14px;text-align:right;">15</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.85</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组4 Viennese Oyster</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$9.92</td>
+          <td style="padding:9px 14px;text-align:right;">11</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.90</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">加量≤20%</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组35 15 Ideas</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$8.22</td>
+          <td style="padding:9px 14px;text-align:right;">10</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.82</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">转绿·保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组27 performance</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$8.80</td>
+          <td style="padding:9px 14px;text-align:right;">10</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.88</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组20 A Softer</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$10.68</td>
+          <td style="padding:9px 14px;text-align:right;">9</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.19</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组32 confidence</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$9.09</td>
+          <td style="padding:9px 14px;text-align:right;">4</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.27</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持·观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组38 CRAVE AI</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$8.52</td>
+          <td style="padding:9px 14px;text-align:right;">3</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.84</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(254,129,86,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#f59e0b;">组7 best intimacy</td>
+          <td style="padding:9px 14px;color:#3b82f6;">CHJ</td>
+          <td style="padding:9px 14px;text-align:right;">$10.51</td>
+          <td style="padding:9px 14px;text-align:right;">3</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(254,129,86,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;font-weight:700;">$3.50</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">黄灯·观察</span></td>
+        </tr>
+        <!-- CHJ 小计 -->
+        <tr style="border-top:2px solid rgba(74,206,240,.2);background:rgba(74,206,240,.04);">
+          <td style="padding:8px 14px;font-size:11px;color:#3b82f6;" colspan="2">CHJ 小计</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#3b82f6;">$102.03</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#3b82f6;">98</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#10b981;">$1.04</td>
+          <td style="padding:8px 14px;"></td>
+        </tr>
+        <!-- HNN -->
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组39 解锁高潮</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$8.54</td>
+          <td style="padding:9px 14px;text-align:right;">8</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.07</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组34 银发男</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$7.15</td>
+          <td style="padding:9px 14px;text-align:right;">3</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$2.38</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组18/21/25/28/30/33 Copy</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$36.67</td>
+          <td style="padding:9px 14px;text-align:right;">~8</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(254,129,86,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;font-weight:700;">~$4.58</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">合并组·黄灯·观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:#ef4444;">组8 山间</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$7.44</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">连续0HVU·立即暂停</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(254,129,86,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#f59e0b;">组40 举杯 🆕</td>
+          <td style="padding:9px 14px;color:#10b981;">HNN</td>
+          <td style="padding:9px 14px;text-align:right;">$7.97</td>
+          <td style="padding:9px 14px;text-align:right;color:#f59e0b;">0</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(254,129,86,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;">学习期</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">Day2·明天关键</span></td>
+        </tr>
+        <!-- HNN 小计 -->
+        <tr style="border-top:2px solid rgba(16,185,129,.2);background:rgba(16,185,129,.04);">
+          <td style="padding:8px 14px;font-size:11px;color:#f59e0b;" colspan="2">HNN 小计</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">$67.77</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">~19</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">~$3.57</td>
+          <td style="padding:8px 14px;"></td>
+        </tr>
+        <!-- HZM -->
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组36 女性高潮</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$2.94</td>
+          <td style="padding:9px 14px;text-align:right;">10</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$0.29</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">🔥 持续爆发·加量</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;color:var(--text);">组37 胸部高潮</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$20.61</td>
+          <td style="padding:9px 14px;text-align:right;">13</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(16,185,129,.2);color:#10b981;padding:2px 8px;border-radius:4px;font-weight:700;">$1.59</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#10b981;">保持</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(254,129,86,.04);">
+          <td style="padding:9px 14px;font-weight:600;color:#f59e0b;">组26 Surrender</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$7.78</td>
+          <td style="padding:9px 14px;text-align:right;">2</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(254,129,86,.2);color:#f59e0b;padding:2px 8px;border-radius:4px;font-weight:700;">$3.89</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#f59e0b;">黄灯·观察</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:#ef4444;">组29 性爱疗愈</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$22.99</td>
+          <td style="padding:9px 14px;text-align:right;">1</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$22.99</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">高烧·建议暂停</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:#ef4444;">组20/22 Voyeurism</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$18.98</td>
+          <td style="padding:9px 14px;text-align:right;">1</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;font-weight:700;">$18.98</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">建议暂停</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:#ef4444;">组15 Power Shift</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$13.56</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">建议暂停</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(239,68,68,.04);">
+          <td style="padding:9px 14px;color:#ef4444;">组19 Top Predator's</td>
+          <td style="padding:9px 14px;color:#f59e0b;">HZM</td>
+          <td style="padding:9px 14px;text-align:right;">$12.98</td>
+          <td style="padding:9px 14px;text-align:right;color:#ef4444;">0</td>
+          <td style="padding:9px 14px;text-align:right;"><span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 8px;border-radius:4px;">0HVU</span></td>
+          <td style="padding:9px 14px;text-align:right;"><span style="font-size:11px;color:#ef4444;">建议暂停</span></td>
+        </tr>
+        <!-- HZM 小计 -->
+        <tr style="border-top:2px solid rgba(254,129,86,.2);background:rgba(254,129,86,.04);">
+          <td style="padding:8px 14px;font-size:11px;color:#f59e0b;" colspan="2">HZM 小计</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">$99.84</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">27</td>
+          <td style="padding:8px 14px;text-align:right;font-weight:700;color:#f59e0b;">$3.70</td>
+          <td style="padding:8px 14px;"></td>
+        </tr>
+        <!-- 总计 -->
+        <tr style="border-top:2px solid var(--border);background:rgba(255,255,255,.03);">
+          <td style="padding:10px 14px;font-weight:700;color:var(--text);" colspan="2">合计</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;">$269.64</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;">~144</td>
+          <td style="padding:10px 14px;text-align:right;font-weight:700;color:#f59e0b;">~$1.87</td>
+          <td style="padding:10px 14px;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 决策建议 -->
+  <div style="font-size:14px;font-weight:700;color:#10b981;margin-bottom:12px;">✅ 4/23 决策建议</div>
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;padding:14px 16px;margin-bottom:24px;">
+    <div style="font-size:12px;color:var(--muted);line-height:2.0;">
+      🟢 <strong>CHJ 组17/41/5/4/35/27（CPHQ $0.70-$0.90）</strong>→ 六组强绿，加量≤20%<br>
+      🟢 <strong>CHJ 组20/38/32（$1.19-$2.84）</strong>→ 绿灯保持<br>
+      🟡 <strong>CHJ 组7（$3.50）</strong>→ 黄灯，明天不改善考虑降预算<br>
+      🔥 <strong>HZM 组36 女性高潮（$0.29）</strong>→ 持续爆发，继续加量<br>
+      🟢 <strong>HZM 组37 胸部高潮（$1.59）</strong>→ 稳健绿灯，保持<br>
+      🟡 <strong>HZM 组26 Surrender（$3.89）</strong>→ 黄灯观察<br>
+      🔴 <strong>HZM 组29（$22.99）· 组20/Voyeurism（$18.98）</strong>→ 高烧，建议立即暂停<br>
+      🔴 <strong>HZM 组15/19（0HVU）</strong>→ 再次0HVU，建议暂停<br>
+      🟢 <strong>HNN 组39（$1.07）· 组34（$2.38）</strong>→ 绿灯保持<br>
+      🟡 <strong>HNN 组18/21/25/28/30/33 Copy（~$4.58）</strong>→ 合并组效率偏低，观察趋势<br>
+      🔴 <strong>HNN 组8 山间（连续0HVU）</strong>→ 昨日已建议暂停，需立即执行<br>
+      ⚠️ <strong>HNN 组40 举杯（Day2·0HVU）</strong>→ 明天是关键节点，不改善立即暂停
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ===== S18: Google Ads ===== -->
+<div id="s18" class="section">
+  <div class="page-header">
+    <h1>Google Ads</h1>
+    <div class="meta">
+      <span class="tag" style="background:rgba(74,206,240,.15);color:#60a5fa;">搜索广告为主</span>
+      <span class="tag">FB先行 · Google补位高意向流量</span>
+    </div>
+  </div>
+
+  <!-- 核心定位 -->
+  <div style="background:rgba(74,206,240,.07);border:1px solid rgba(74,206,240,.25);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.8;">
+    <strong>Google vs FB 分工</strong>：FB 负责"种草"（触达潜在用户、拉新），Google 负责"收割"（捕获已有购买意图的高意向搜索用户）。<br>
+    当前 creviatech.com 自然搜索流量 90%+ 来自内容页（知识/BDSM文化），产品页几乎无搜索流量——这是 Google Ads 的核心机会缺口。
+  </div>
+
+  <!-- 账户现状 -->
+  <h2>账户基本情况（开会确认）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:2;">
+    · 主体验证：无历史记录的主体均可，选关联性最强的主体，<strong>技术团队协助验证</strong><br>
+    · 账户数量：搜索广告只能有一个账户<br>
+    · 投放节奏：<strong>FB先行</strong>，稳定后再开 Google 作补充<br>
+    · 折扣价：<strong>30单以前不做折扣</strong>（避免影响机审和定价锚点）<br>
+    · AI肖像/网红素材：需确认与网络红人是否有冲突<br>
+    · 年龄限制：未成年确认页，年龄门槛写高<br>
+    · 信任资产：地址 + 邮箱 + 公司注册年份 + 支付条款 + 保密协议需完整
+  </div>
+
+  <!-- P0 硬性前置 -->
+  <h2>P0 投前硬性阻断项（未完成不能开投）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;width:28px;"></th>
+          <th style="padding:9px 16px;">项目</th>
+          <th style="padding:9px 16px;">具体操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">GA4 + GTM 全站安装</td>
+          <td style="padding:10px 16px;color:var(--muted);">确认 creviatech.com 全站已正确安装 GA4 和 GTM，这是所有追踪的基础</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">转化事件配置</td>
+          <td style="padding:10px 16px;color:var(--muted);">GTM 中配置：view_item · add_to_cart · begin_checkout · <strong>purchase（主转化）</strong> · test_completion（次转化）· sign_up</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">GA4 关联 Google Ads</td>
+          <td style="padding:10px 16px;color:var(--muted);">GA4 账户与 Google Ads 关联，导入 purchase 为主要转化，test_completion 为次要转化</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;text-align:center;">☐</td>
+          <td style="padding:10px 16px;font-weight:600;">产品落地页无 404</td>
+          <td style="padding:10px 16px;color:var(--muted);">修复 /products · /shop · /device 等关键页面的 404 错误，不能将付费流量引向死胡同</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 三驾马车方案 -->
+  <h2>广告系列结构：三驾马车</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:24px;">
+
+    <div style="background:var(--card);border:1px solid #3b82f644;border-left:3px solid #3b82f6;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#3b82f6;">① 品牌保护伞</div>
+        <div style="font-size:13px;font-weight:700;color:#60a5fa;">预算 15%</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：100% 捕获搜品牌的用户，防止竞品截流</div>
+      <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
+        关键词：crave ai · creviatech · crave ai app · crave ai toy<br>
+        匹配方式：精确匹配<br>
+        落地页：首页
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid #10b98144;border-left:3px solid #10b981;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#10b981;">② 核心产品收割机</div>
+        <div style="font-size:13px;font-weight:700;color:#10b981;">预算 50%</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：捕获有明确购买意图的高意向用户</div>
+      <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
+        AI/智能玩具：ai sex toy · smart vibrator · app controlled sex toy<br>
+        女性器具：sex toys for women · g-spot vibrator · clitoral stimulator<br>
+        具体产品：Twin Pact / Trembling Secret 等各建独立广告组<br>
+        落地页：对应产品详情页
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid #f59e0b44;border-left:3px solid #f59e0b;border-radius:8px;padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">③ 场景欲望探索</div>
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;">预算 35%</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">目标：将内容流量变现——用产品承接场景需求</div>
+      <div style="font-size:12px;color:#4A3D5A;border-top:1px solid var(--border);padding-top:8px;line-height:1.8;">
+        BDSM/权力：bdsm gear for beginners · femdom toys · submissive training tools<br>
+        角色扮演：roleplay sex toys · doctor patient scenario<br>
+        欲望测试：sexual personality test · what is my kink quiz<br>
+        落地页：/theater 或社区分类页
+      </div>
+    </div>
+  </div>
+
+  <!-- 出价策略 -->
+  <h2>出价策略（分阶段）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(255,255,255,.04);color:var(--muted);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;">阶段</th><th style="padding:9px 16px;">条件</th><th style="padding:9px 16px;">出价策略</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;font-weight:600;">冷启动期</td>
+          <td style="padding:10px 16px;color:var(--muted);">转化数据 &lt; 30 个</td>
+          <td style="padding:10px 16px;">最大化点击次数（Maximize Clicks）· 积累数据</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;font-weight:600;">优化期</td>
+          <td style="padding:10px 16px;color:var(--muted);">累计转化 ≥ 30~50 个</td>
+          <td style="padding:10px 16px;">切换为最大化转化次数（Maximize Conversions）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 素材规范 RSA -->
+  <h2>响应式搜索广告（RSA）素材规范</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.9;">
+    <strong>标题（10~15条）方向：</strong><br>
+    · 含核心关键词：AI-Powered Sex Toy · Smart Vibrator<br>
+    · 突出卖点：AI Story-Synced · Voice Responsive · Dual Stimulation<br>
+    · 行动号召：Explore Now · Unlock Your Desires · Shop Today<br><br>
+    <strong>描述（4条）方向：</strong><br>
+    · 阐述产品如何解决痛点，强调 AI+故事联动的沉浸体验<br>
+    · 结尾含 CTA（Free Shipping · Limited Stock · Start Your Journey）<br><br>
+    <strong>附加信息（必配）：</strong><br>
+    · 附加链接：欲望测试页 · 社区 · 关于我们 · 各产品分类<br>
+    · 图片素材：高质量合规产品图<br>
+    · 价格素材：直接展示产品价格
+  </div>
+
+  <!-- 竞品截流 -->
+  <h2>竞品截流（谨慎单独建系列）</h2>
+  <div style="background:rgba(254,129,86,.06);border:1px solid rgba(254,129,86,.2);border-radius:8px;padding:12px 16px;font-size:13px;margin-bottom:24px;line-height:1.8;">
+    目标词：lovense alternative · lelo vs · we-vibe alternative · satisfyer with ai<br>
+    文案核心：强调"不只是震动，而是 AI+故事的沉浸体验"——打差异化，不打价格战<br>
+    <span style="color:#f59e0b;">⚠️ 谨慎投放，避免引发竞品反截流</span>
+  </div>
+
+  <!-- 与FB协同 -->
+  <h2>与 Facebook 协同策略</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:13px;line-height:1.9;margin-bottom:16px;">
+    · FB 拉新种草 → Google 再营销收割（购物车放弃者、产品浏览者）<br>
+    · FB 跑出的高 HVU 受众数据，可用于 Google 受众定向参考<br>
+    · Google SEM 跑出的高转化关键词，反哺 FB 素材文案方向<br>
+    · 两端落地页保持一致（文章页/产品页），统一 UTM 追踪
+  </div>
+
+</div>
+
+<!-- ===== S20: Twitter / X Ads 占位 ===== -->
+<div id="s20" class="section">
+  <div class="page-header">
+    <h1>Twitter / X Ads</h1>
+    <div class="meta">
+      <span class="tag" style="background:rgba(255,255,255,.06);color:var(--muted);">待建设</span>
+    </div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;text-align:center;color:var(--muted);">
+    <div style="font-size:32px;margin-bottom:12px;">𝕏</div>
+    <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;">Twitter / X Ads 模块待建设</div>
+    <div style="font-size:13px;line-height:1.8;">
+      后续计划录入内容：<br>
+      · 账户结构 &amp; 广告系列类型（Promoted Tweets / Amplify）<br>
+      · 素材规范（图片/视频比例/文案字数限制）<br>
+      · 成人内容在 X 端的合规边界（X 有专属成人内容政策）<br>
+      · HVU &amp; CPHQ 追踪方式<br>
+      · 受众定向策略（兴趣词 / 关键词定向）
+    </div>
+  </div>
+</div>
+
+<!-- ===== S19: TikTok Ads 占位 ===== -->
+<div id="s19" class="section">
+  <div class="page-header">
+    <h1>TikTok Ads</h1>
+    <div class="meta">
+      <span class="tag" style="background:rgba(255,255,255,.06);color:var(--muted);">待建设</span>
+    </div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;text-align:center;color:var(--muted);">
+    <div style="font-size:32px;margin-bottom:12px;">🎵</div>
+    <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;">TikTok Ads 模块待建设</div>
+    <div style="font-size:13px;line-height:1.8;">
+      后续计划录入内容：<br>
+      · 账户结构 &amp; 广告系列类型（TopFeed / Spark / 搜索）<br>
+      · 素材规范（竖版视频比例/时长/合规要求）<br>
+      · 成人内容在 TK 端的合规边界<br>
+      · HVU &amp; CPHQ 追踪方式<br>
+      · 与 FB 投放的素材复用策略
+    </div>
+  </div>
+</div>
+
+<!-- ===== S21: 北美投放日历 ===== -->
+<div id="s21" class="section">
+  <div class="page-header">
+    <h1>北美投放日历 · 2026</h1>
+    <div class="meta">
+      <span class="tag">适用：美国为主 / 加拿大补充</span>
+      <span class="tag" style="background:rgba(251,191,36,.12);color:#fbbf24;">年更</span>
+    </div>
+  </div>
+
+  <!-- 优先级说明 -->
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(16,185,129,.12);color:#10b981;padding:4px 12px;border-radius:20px;border:1px solid rgba(16,185,129,.2);">● A级主战节点 — 全力投入</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(251,191,36,.12);color:#fbbf24;padding:4px 12px;border-radius:20px;border:1px solid rgba(251,191,36,.2);">● B级增长节点 — 中等强度</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(148,163,184,.1);color:var(--muted);padding:4px 12px;border-radius:20px;border:1px solid var(--border);">● C级内容节点 — 品牌/测试</span>
+  </div>
+
+  <!-- 全年节点总表 -->
+  <h2 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;">全年节点速查表</h2>
+  <div style="overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;font-size:13px;">
+    <thead>
+      <tr style="background:var(--card);border-bottom:1px solid var(--border);">
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:70px;">月份</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;">核心节点</th>
+        <th style="padding:10px 14px;text-align:center;color:var(--muted);font-weight:600;width:80px;">优先级</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;">Crave AI 投放策略</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:100px;">准备启动</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">1 月</td>
+        <td style="padding:10px 14px;color:var(--text);">New Year · MLK Day</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(251,191,36,.12);color:#fbbf24;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">自我升级/关系重启叙事；为2月礼物季蓄水</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">12月中旬</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(16,185,129,.04);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">2 月</td>
+        <td style="padding:10px 14px;color:var(--text);font-weight:600;">Valentine's Day ⭐</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(16,185,129,.15);color:#10b981;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">A</span></td>
+        <td style="padding:10px 14px;color:var(--text);font-size:12px;">礼赠+情绪连接+亲密体验；礼物线主推；月10日后再营销加码</td>
+        <td style="padding:10px 14px;color:#10b981;font-size:11px;font-weight:600;">1月初</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">3 月</td>
+        <td style="padding:10px 14px;color:var(--text);">Women's Day · Spring</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(148,163,184,.1);color:var(--muted);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">C</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">女性向品牌表达；self-care内容素材测试；为5月蓄水</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">2月末</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">4 月</td>
+        <td style="padding:10px 14px;color:var(--text);">Easter · Earth Day</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(148,163,184,.1);color:var(--muted);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">C</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">品牌内容+落地页优化；不宜硬推折扣；为5月热身</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">3月末</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(16,185,129,.04);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">5 月</td>
+        <td style="padding:10px 14px;color:var(--text);font-weight:600;">Mother's Day ⭐ · Memorial Day</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(16,185,129,.15);color:#10b981;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">A</span></td>
+        <td style="padding:10px 14px;color:var(--text);font-size:12px;">care/appreciation/emotional gift（避免字面母亲节）；月末切夏季主题</td>
+        <td style="padding:10px 14px;color:#10b981;font-size:11px;font-weight:600;">4月初</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">6 月</td>
+        <td style="padding:10px 14px;color:var(--text);">Pride Month · Father's Day</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(148,163,184,.1);color:var(--muted);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">C</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">Pride慎做（真支持才入）；夏季情侣/个人探索启动</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">5月末</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">7 月</td>
+        <td style="padding:10px 14px;color:var(--text);">July 4 · Prime Day 窗口</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(251,191,36,.12);color:#fbbf24;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">中促销+再营销提量；夏季 summer deal；折扣不要太深</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">6月末</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">8 月</td>
+        <td style="padding:10px 14px;color:var(--text);">Back-to-School</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(148,163,184,.1);color:var(--muted);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">C</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">Q4新素材+新受众大量测试；避免硬蹭校园语境</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">7月末</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">9 月</td>
+        <td style="padding:10px 14px;color:var(--text);">Labor Day · Q4预热</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(251,191,36,.12);color:#fbbf24;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">B</span></td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:12px;">清夏季；开始测Halloween/BFCM新主题；严格合规白名单</td>
+        <td style="padding:10px 14px;color:var(--muted);font-size:11px;">8月中旬</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(16,185,129,.04);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">10 月</td>
+        <td style="padding:10px 14px;color:var(--text);font-weight:600;">Halloween ⭐</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(16,185,129,.15);color:#10b981;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">A</span></td>
+        <td style="padding:10px 14px;color:var(--text);font-size:12px;">角色扮演/幻想场景；故事化隐喻不露骨；月下旬启动BFCM名单蓄水</td>
+        <td style="padding:10px 14px;color:#10b981;font-size:11px;font-weight:600;">9月初</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(16,185,129,.04);">
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">11 月</td>
+        <td style="padding:10px 14px;color:var(--text);font-weight:600;">Black Friday ⭐ · Cyber Monday ⭐</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(16,185,129,.15);color:#10b981;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">A</span></td>
+        <td style="padding:10px 14px;color:var(--text);font-size:12px;">全年最大转化季；锁offer/页面/追踪；11月1日前准备完毕；FB拉新+再营销双线</td>
+        <td style="padding:10px 14px;color:#10b981;font-size:11px;font-weight:600;">9月底</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 14px;color:var(--muted);font-weight:600;">12 月</td>
+        <td style="padding:10px 14px;color:var(--text);font-weight:600;">Christmas ⭐ · Boxing Day</td>
+        <td style="padding:10px 14px;text-align:center;"><span style="background:rgba(16,185,129,.15);color:#10b981;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">A</span></td>
+        <td style="padding:10px 14px;color:var(--text);font-size:12px;">last-minute gift；发货时效承诺；圣诞后切Boxing Day清仓；月底铺新年焕新</td>
+        <td style="padding:10px 14px;color:#10b981;font-size:11px;font-weight:600;">10月末</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 节点执行节奏模板 -->
+  <h2 style="font-size:15px;font-weight:700;color:var(--text);margin:28px 0 12px;">节点执行节奏（通用模板）</h2>
+  <div style="overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;font-size:13px;">
+    <thead>
+      <tr style="background:var(--card);border-bottom:1px solid var(--border);">
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:120px;">阶段</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:110px;">时间</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;">核心动作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 14px;color:var(--muted);">预研究</td><td style="padding:9px 14px;color:var(--muted);font-size:12px;">T-28 ~ T-21</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">查去年数据 · 竞品分析 · 库存/物流确认</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 14px;color:var(--muted);">预热测试</td><td style="padding:9px 14px;color:var(--muted);font-size:12px;">T-21 ~ T-14</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">测素材角度 · 标题钩子 · 落地页首屏 · UTM命名</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 14px;color:var(--muted);">锁定期</td><td style="padding:9px 14px;color:var(--muted);font-size:12px;">T-14 ~ T-7</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">锁主推品/价格/礼包结构/广告文案/页面版本</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 14px;color:var(--muted);">放量预热</td><td style="padding:9px 14px;color:var(--muted);font-size:12px;">T-7 ~ T-1</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">再营销蓄水 · Google扩词 · FB/TK预热内容上线</td></tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(16,185,129,.04);"><td style="padding:9px 14px;color:#10b981;font-weight:600;">爆发期</td><td style="padding:9px 14px;color:#10b981;font-size:12px;font-weight:600;">节点当周</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">分平台主推 · 实时看 Spend/CTR/HVU/CPHQ</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 14px;color:var(--muted);">收尾</td><td style="padding:9px 14px;color:var(--muted);font-size:12px;">T+1 ~ T+7</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">节后复购 · 购物车召回 · UGC回收</td></tr>
+      <tr><td style="padding:9px 14px;color:var(--muted);">复盘</td><td style="padding:9px 14px;color:var(--muted);font-size:12px;">T+7 ~ T+10</td><td style="padding:9px 14px;color:var(--text);font-size:12px;">写复盘 · 归因 · 回写知识库 · 更新SOP</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 平台分工 -->
+  <h2 style="font-size:15px;font-weight:700;color:var(--text);margin:28px 0 12px;">平台角色分工</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;">Google</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">收割显性需求 · 品牌词防守 · 节庆高意图词承接<br><span style="color:var(--text);">KPI：高意图流量 · 转化率</span></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;">Facebook</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">主拉新 · 主叙事 · 落地页承接测试<br><span style="color:var(--text);">KPI：HVU · CPHQ · 落地页翻页率</span></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;">TikTok</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">测新表达 · 测故事节奏 · 测钩子（验证池）<br><span style="color:var(--text);">KPI：首屏互动 · HVU质量</span></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;">X (Twitter)</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">语义/话题验证 · fantasy-safe词试投（实验池）<br><span style="color:var(--text);">KPI：点击质量 · 话题匹配度</span></div>
+    </div>
+  </div>
+
+  <!-- 预算池 -->
+  <h2 style="font-size:15px;font-weight:700;color:var(--text);margin:28px 0 12px;">预算三池原则</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+    <div style="background:var(--card);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:#10b981;margin-bottom:6px;">主战池</div>
+      <div style="font-size:12px;color:var(--muted);">FB + Google · 年度主节点与稳定拉新 · 优先保障不挪用</div>
+    </div>
+    <div style="background:var(--card);border:1px solid rgba(251,191,36,.3);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:#fbbf24;margin-bottom:6px;">补位池</div>
+      <div style="font-size:12px;color:var(--muted);">Google + FB · 节点高峰再营销 · 仅在页面和库存准备充分时放量</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:var(--muted);margin-bottom:6px;">实验池</div>
+      <div style="font-size:12px;color:var(--muted);">TikTok + X + FB测试组 · 新素材/新平台测试 · 失败不伤主盘</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted);">
+    全年最重资源集中在：<strong style="color:var(--text);">2月 · 5月 · 10月 · 11月 · 12月</strong>。1/3/4/8/9月做测试、调结构、沉淀SOP。
+  </div>
+</div>
+
+</main>
+
+<script>
+// ---- 数据新鲜度 ----
+// 每天录完数据后只需改这一行日期
+const DATA_DATE = '2026-04-20';
+
+function renderDataBanners() {
+  const today = new Date().toISOString().split('T')[0];
+  const daysDiff = Math.floor((new Date(today) - new Date(DATA_DATE)) / 86400000);
+  const nowTime = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  let html, style;
+  if (daysDiff === 0) {
+    html = `⏳ <strong>今日（${DATA_DATE}）数据积累中</strong>，当前 ${nowTime} — 下方数据<strong>不完整</strong>，今日决策请参考前一日完整数据`;
+    style = 'background:rgba(254,129,86,.1);border:1px solid rgba(254,129,86,.35);color:#fcd34d;';
+  } else if (daysDiff === 1) {
+    html = `✅ <strong>数据截止 ${DATA_DATE}（完整）</strong> — 今日（${today}）数据待录入`;
+    style = 'background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:#6ee7b7;';
+  } else if (daysDiff > 1) {
+    html = `🔴 <strong>数据已过期 ${daysDiff} 天！</strong>最后录入：${DATA_DATE}，请立即更新至 ${today}`;
+    style = 'background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.35);color:#fca5a5;';
+  }
+  document.querySelectorAll('.data-status-banner').forEach(el => {
+    el.innerHTML = html;
+    el.style.cssText = style + 'border-radius:8px;padding:10px 16px;font-size:12.5px;line-height:1.7;margin-bottom:20px;';
+  });
+}
+document.addEventListener('DOMContentLoaded', renderDataBanners);
+
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ---- Contribution system ----
+function generateContrib() {
+  const person = document.getElementById('c-person').value;
+  const type = document.getElementById('c-type').value;
+  const content = document.getElementById('c-content').value.trim();
+  if (!person || !type || !content) { alert('请填写代号、类型和内容'); return; }
+  const date = new Date().toLocaleDateString('zh-CN');
+  const text = `【Crave AI 知识库投稿】\n投手：${person}\n类型：${type}\n日期：${date}\n\n${content}`;
+  document.getElementById('c-output').textContent = text;
+  document.getElementById('c-result').style.display = 'block';
+  document.getElementById('c-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function copyContrib() {
+  const text = document.getElementById('c-output').textContent;
+  const btn = document.getElementById('c-copy-btn');
+  navigator.clipboard.writeText(text).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  });
+  btn.textContent = '已复制 ✓';
+  btn.style.background = 'var(--muted)';
+  setTimeout(() => { btn.textContent = '复制'; btn.style.background = 'var(--green)'; }, 2500);
+}
+</script>
+</body>
+</html>
