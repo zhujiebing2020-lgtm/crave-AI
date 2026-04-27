@@ -39,38 +39,80 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #F5F5F7; color: var(--text); font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; display: flex; min-height: 100vh; }
 
-  /* Sidebar */
-  #sidebar {
-    width: 260px; min-width: 260px;
+  /* Three-column layout */
+  body { overflow: hidden; }
+
+  /* Primary nav: domain tabs */
+  #nav-primary {
+    width: 68px; min-width: 68px;
+    background: #E8E8EC;
+    border-right: 1px solid rgba(0,0,0,0.07);
+    height: 100vh; position: fixed; top: 0; left: 0;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 0 16px; overflow-y: auto; z-index: 20;
+  }
+  .nav-brand {
+    width: 100%; padding: 14px 0 12px; margin-bottom: 4px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .nav-brand .brand-icon { font-size: 18px; font-weight: 900;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text; }
+  .domain-tab {
+    width: 52px; min-height: 52px; border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; margin: 2px 0; transition: all .15s;
+    color: var(--muted); text-decoration: none; gap: 2px;
+    border: 1px solid transparent;
+  }
+  .domain-tab:hover { background: rgba(255,255,255,0.6); color: var(--text); }
+  .domain-tab.active { background: var(--card); color: var(--text);
+    border-color: rgba(0,0,0,0.06); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .domain-tab .dt-icon { font-size: 18px; line-height: 1; }
+  .domain-tab .dt-label { font-size: 9px; letter-spacing: .2px; font-weight: 500; }
+
+  /* Secondary nav: page list */
+  #nav-secondary {
+    width: 216px; min-width: 216px;
     background: #F0F0F4;
-    border-right: 1px solid rgba(0, 0, 0, 0.06); height: 100vh;
-    position: fixed; top: 0; left: 0; overflow-y: auto;
+    border-right: 1px solid rgba(0,0,0,0.06);
+    height: 100vh; position: fixed; top: 0; left: 68px;
     display: flex; flex-direction: column;
+    overflow-y: auto; z-index: 19;
   }
-  .sidebar-logo {
-    padding: 24px 20px 16px;
+  .sec-header {
+    padding: 16px 14px 10px;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
   }
-  .sidebar-logo .brand { font-size: 20px; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: .5px; }
-  .sidebar-logo .sub { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: .5px; text-transform: uppercase; }
-  .sidebar-logo img { width: 120px; display: block; margin-bottom: 10px; }
-
-  .sidebar-section { padding: 16px 12px 4px; }
-  .sidebar-section-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; padding: 0 8px 8px; }
-  .nav-item {
-    display: block; padding: 8px 12px; border-radius: 6px;
-    color: var(--muted); text-decoration: none; font-size: 13px;
-    cursor: pointer; transition: all .15s;
+  .sec-header .sec-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .sec-header .sec-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .sec-group { padding: 10px 10px 2px; }
+  .sec-group-label { font-size: 9px; color: var(--muted); letter-spacing: .8px;
+    text-transform: uppercase; padding: 0 6px 5px; }
+  .page-item {
+    display: flex; align-items: center; padding: 6px 8px; border-radius: 6px;
+    color: var(--muted); text-decoration: none; font-size: 12.5px;
+    cursor: pointer; transition: all .12s; gap: 6px; margin-bottom: 1px;
   }
-  .nav-item:hover, .nav-item.active { background: var(--card); color: var(--text); font-weight: 700; }
-  .nav-item.active { color: var(--accent-light); }
-  .nav-item .num { font-size: 11px; background: var(--border); border-radius: 4px; padding: 1px 5px; margin-right: 6px; color: var(--muted); }
+  .page-item:hover { background: rgba(255,255,255,0.55); color: var(--text); }
+  .page-item.active { background: var(--card); color: var(--text); font-weight: 700; }
+  .page-item .pi-badge {
+    font-size: 9px; padding: 1px 4px; border-radius: 3px; margin-left: auto;
+    background: var(--border); color: var(--muted); white-space: nowrap;
+  }
+  .page-item .pi-type {
+    font-size: 9px; width: 14px; height: 14px; border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--border); color: var(--muted); flex-shrink: 0;
+  }
 
-  /* Main */
-  #main {
-    margin-left: 260px; flex: 1;
+  /* Content panel */
+  #content-panel {
+    margin-left: 284px;
+    flex: 1; height: 100vh; overflow-y: auto;
     padding: 40px 60px 80px;
-    max-width: calc(100vw - 260px);
   }
 
   /* Page header */
@@ -205,147 +247,41 @@
 </head>
 <body>
 
-<!-- Sidebar -->
-<nav id="sidebar">
-  <div class="sidebar-logo">
-    <div class="brand">Crave AI</div>
-    <div class="sub">投手知识库 · 内部版</div>
+<!-- Nav Primary: domain tabs -->
+<aside id="nav-primary">
+  <div class="nav-brand">
+    <span class="brand-icon">CA</span>
   </div>
-
-  <!-- 速查 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">速查</div>
-    <a class="nav-item active" onclick="show('s16', this)" style="color:var(--alert-safe);font-weight:600;border:1px solid rgba(15,200,32,.3);">
-      <span class="num" style="background:rgba(15,200,32,.2);color:var(--alert-safe);">📊</span>
-      <span style="flex:1;">广告数据看板</span>
-      <span style="font-size:10px;background:rgba(15,200,32,.15);color:var(--alert-safe);padding:1px 5px;border-radius:3px;">每日</span>
-    </a>
-    <a class="nav-item" onclick="show('s8', this)">
-      <span class="num" style="background:rgba(15,200,32,.1);color:var(--alert-safe);">📖</span>
-      <span style="flex:1;">看板解读指南</span>
-    </a>
+  <a class="domain-tab active" onclick="selectDomain('dashboard',this)" title="数据看板">
+    <span class="dt-icon">📊</span><span class="dt-label">看板</span>
+  </a>
+  <a class="domain-tab" onclick="selectDomain('operations',this)" title="投放操作">
+    <span class="dt-icon">🎯</span><span class="dt-label">投放</span>
+  </a>
+  <a class="domain-tab" onclick="selectDomain('diagnostics',this)" title="数据诊断">
+    <span class="dt-icon">🔬</span><span class="dt-label">诊断</span>
+  </a>
+  <a class="domain-tab" onclick="selectDomain('channel-collab',this)" title="渠道协同">
+    <span class="dt-icon">🌐</span><span class="dt-label">渠道</span>
+  </a>
+  <a class="domain-tab" onclick="selectDomain('org-enable',this)" title="业务总览">
+    <span class="dt-icon">🗺️</span><span class="dt-label">总览</span>
+  </a>
+  <a class="domain-tab" onclick="selectDomain('assets',this)" title="资源速查">
+    <span class="dt-icon">📁</span><span class="dt-label">资源</span>
+  </a>
+  <div style="margin-top:auto;padding-top:12px;border-top:1px solid rgba(0,0,0,.07);width:100%;display:flex;justify-content:center;">
+    <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.5;">4/27<br>W16</div>
   </div>
+</aside>
 
-  <!-- 业务总览层 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">业务总览层</div>
-    <a class="nav-item" onclick="show('s30', this)"><span class="num">A0</span><span style="flex:1;">当前阶段总览</span></a>
-    <a class="nav-item" onclick="show('s31', this)"><span class="num">A1</span><span style="flex:1;">核心矛盾与优先级</span></a>
-    <a class="nav-item" onclick="show('s32', this)"><span class="num">A2</span><span style="flex:1;">指标接力地图</span></a>
-    <a class="nav-item" onclick="show('s33', this)"><span class="num">A3</span><span style="flex:1;">渠道角色地图</span></a>
-    <a class="nav-item" onclick="show('s34', this)"><span class="num">A4</span><span style="flex:1;">团队职责地图</span></a>
-    <a class="nav-item" onclick="show('s35', this)"><span class="num">A5</span><span style="flex:1;">本周期三条主线</span></a>
-  </div>
-
-  <!-- 基础认知 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">基础认知</div>
-    <a class="nav-item" onclick="show('s0', this)">
-      <span class="num">01</span><span style="flex:1;">怎么用这份知识库</span>
-    </a>
-    <a class="nav-item" onclick="show('s1', this)">
-      <span class="num">02</span><span style="flex:1;">核心指标体系</span>
-    </a>
-    <a class="nav-item" onclick="show('s2', this)">
-      <span class="num">03</span><span style="flex:1;">反驳通用FB课程</span>
-    </a>
-  </div>
-
-  <!-- FB 投放操作 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">FB 投放操作</div>
-    <a class="nav-item" onclick="show('s3', this)">
-      <span class="num">04</span><span style="flex:1;">账户结构与分工</span>
-    </a>
-    <a class="nav-item" onclick="show('s4', this)">
-      <span class="num">05</span><span style="flex:1;">学习期管理</span>
-    </a>
-    <a class="nav-item" onclick="show('s5', this)">
-      <span class="num">06</span><span style="flex:1;">落地页 · 素材方向</span>
-      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
-    </a>
-    <a class="nav-item" onclick="show('s6', this)">
-      <span class="num">07</span><span style="flex:1;">素材策略 · 投前清单</span>
-      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
-    </a>
-    <a class="nav-item" onclick="show('s15', this)">
-      <span class="num">08</span><span style="flex:1;">预算·止损决策</span>
-    </a>
-  </div>
-
-  <!-- 数据与分析 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">数据与分析</div>
-    <a class="nav-item" onclick="show('s9', this)">
-      <span class="num">09</span><span style="flex:1;">诊断树：指标异常</span>
-    </a>
-    <a class="nav-item" onclick="show('s10', this)">
-      <span class="num">10</span><span style="flex:1;">竞品研究方法</span>
-      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">月更</span>
-    </a>
-
-  </div>
-
-  <!-- 风控与增长 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">风控与增长</div>
-    <a class="nav-item" onclick="show('s11', this)">
-      <span class="num">12</span><span style="flex:1;">封号防控 SOP</span>
-    </a>
-    <a class="nav-item" onclick="show('s12', this)">
-      <span class="num">13</span><span style="flex:1;">扩量节奏与节点</span>
-    </a>
-    <a class="nav-item" onclick="show('s13', this)">
-      <span class="num">14</span><span style="flex:1;">知识沉淀规范</span>
-    </a>
-  </div>
-
-  <!-- 其他渠道 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">其他渠道</div>
-    <a class="nav-item" onclick="show('s18', this)">
-      <span class="num">G</span><span style="flex:1;">Google Ads</span>
-      <span style="font-size:10px;color:var(--muted);padding:1px 5px;">建设中</span>
-    </a>
-    <a class="nav-item" onclick="show('s19', this)" style="color:var(--muted);">
-      <span class="num">TK</span><span style="flex:1;">TikTok Ads</span>
-      <span style="font-size:10px;padding:1px 5px;">占位</span>
-    </a>
-    <a class="nav-item" onclick="show('s20', this)" style="color:var(--muted);">
-      <span class="num">𝕏</span><span style="flex:1;">Twitter / X Ads</span>
-      <span style="font-size:10px;padding:1px 5px;">占位</span>
-    </a>
-  </div>
-
-  <!-- 营销日历 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">营销日历</div>
-    <a class="nav-item" onclick="show('s21', this)">
-      <span class="num">📅</span><span style="flex:1;">北美投放日历</span>
-      <span style="font-size:10px;background:rgba(255,225,31,.18);color:#FE8156;padding:1px 5px;border-radius:3px;">年更</span>
-    </a>
-  </div>
-
-  <!-- 投手协作 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">投手协作</div>
-    <a class="nav-item" onclick="show('s14', this)" style="color:#B39DDB;">
-      <span class="num" style="background:rgba(179,157,219,.2);color:#B39DDB;">✍</span>
-      <span style="flex:1;">投手投稿</span>
-    </a>
-  </div>
-
-  <div style="padding: 20px 20px 12px; margin-top: auto; border-top: 1px solid var(--border);">
-    <div style="font-size: 11px; color: var(--muted);">最后更新：2026-04-27</div>
-    <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">数据基准：BM-A · W15</div>
-    <div style="font-size: 11px; color: var(--muted); margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px;">
-      📁 存放于桌面，发给投手请将文件<br>放入 <strong style="color:var(--text)">iCloud云盘共享文件夹</strong>
-    </div>
-  </div>
-</nav>
+<!-- Nav Secondary: page list (populated by JS) -->
+<aside id="nav-secondary"></aside>
 
 <!-- Main -->
-<main id="main">
+
+<!-- Main -->
+<main id="content-panel">
 
 <!-- ===== S0: 怎么用 ===== -->
 <div id="s0" class="section">
@@ -2670,44 +2606,206 @@ ORDER BY hvu_v2 DESC
 </main>
 
 <script>
-// ---- 数据新鲜度 ----
-// 每天录完数据后只需改这一行日期
+// ============================================================
+// 数据新鲜度（每日更新这一行）
+// ============================================================
 const DATA_DATE = '2026-04-26';
 
+// ============================================================
+// KB_STRUCTURE: 6 业务域 → 分组 → 页面列表
+// ============================================================
+const KB_STRUCTURE = {
+  dashboard: {
+    label: '数据看板', sub: '每日广告数据 · 投手排名',
+    groups: [
+      { label: '速查',   pages: ['dashboard-main', 'dashboard-guide'] }
+    ]
+  },
+  operations: {
+    label: '投放操作', sub: 'Facebook 核心执行规范',
+    groups: [
+      { label: '账户与风控', pages: ['ops-account'] },
+      { label: '广告组生命周期', pages: ['ops-learning'] },
+      { label: '素材与落地页', pages: ['ops-landing', 'ops-creative'] },
+      { label: '预算决策', pages: ['ops-budget'] }
+    ]
+  },
+  diagnostics: {
+    label: '数据诊断', sub: '指标异常排查 · 竞品研究',
+    groups: [
+      { label: '排查工具', pages: ['diag-tree', 'diag-guide'] },
+      { label: '竞品', pages: ['diag-competitor'] }
+    ]
+  },
+  'channel-collab': {
+    label: '渠道协同', sub: '多平台角色分工',
+    groups: [
+      { label: '其他渠道', pages: ['ch-google', 'ch-tiktok', 'ch-x'] },
+      { label: '营销日历', pages: ['ch-calendar'] }
+    ]
+  },
+  'org-enable': {
+    label: '业务总览', sub: '战略框架 · 指标体系',
+    groups: [
+      { label: '业务总览层', pages: ['biz-a0','biz-a1','biz-a2','biz-a3','biz-a4','biz-a5'] },
+      { label: '基础认知',   pages: ['biz-howto','biz-kpis','biz-rebuttal'] }
+    ]
+  },
+  assets: {
+    label: '资源速查', sub: '风控 · 沉淀 · 投稿',
+    groups: [
+      { label: '风控与增长', pages: ['assets-ban','assets-scale','assets-sop'] },
+      { label: '投手协作',   pages: ['assets-contrib'] }
+    ]
+  }
+};
 
-function show(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const target = document.getElementById(id);
-  if (target) target.classList.add('active');
-  if (el) el.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'auto' });
+// ============================================================
+// KB_PAGES: 页面注册表
+//   type: overview | hub | atomic | template
+//   sectionId: 对应 HTML 中 <div id="sXX"> 的 id
+// ============================================================
+const KB_PAGES = {
+  // --- dashboard ---
+  'dashboard-main':  { title:'广告数据看板',    type:'overview', badge:'每日',  sectionId:'s16' },
+  'dashboard-guide': { title:'看板解读指南',    type:'atomic',              sectionId:'s8'  },
+  // --- operations ---
+  'ops-account':   { title:'账户结构与风控',  type:'hub',                  sectionId:'s3'  },
+  'ops-learning':  { title:'学习期 · 生命周期管理', type:'hub',              sectionId:'s4'  },
+  'ops-landing':   { title:'落地页 · 素材方向', type:'hub',   badge:'周更', sectionId:'s5'  },
+  'ops-creative':  { title:'素材策略与合规',  type:'atomic', badge:'周更', sectionId:'s6'  },
+  'ops-budget':    { title:'预算·止损决策',   type:'atomic',               sectionId:'s15' },
+  // --- diagnostics ---
+  'diag-tree':     { title:'诊断树：指标异常', type:'hub',                 sectionId:'s9'  },
+  'diag-guide':    { title:'数据看板解读',    type:'atomic',               sectionId:'s8'  },
+  'diag-competitor':{ title:'竞品研究方法',   type:'atomic', badge:'月更', sectionId:'s10' },
+  // --- channel-collab ---
+  'ch-google':     { title:'Google Ads',     type:'atomic', badge:'建设中', sectionId:'s18' },
+  'ch-tiktok':     { title:'TikTok Ads',     type:'atomic', badge:'占位',   sectionId:'s19' },
+  'ch-x':          { title:'Twitter / X',    type:'atomic', badge:'占位',   sectionId:'s20' },
+  'ch-calendar':   { title:'北美投放日历',   type:'atomic', badge:'年更',   sectionId:'s21' },
+  // --- org-enable ---
+  'biz-a0': { title:'A0 当前阶段总览',     type:'overview',              sectionId:'s30' },
+  'biz-a1': { title:'A1 核心矛盾与优先级', type:'overview',              sectionId:'s31' },
+  'biz-a2': { title:'A2 指标接力地图',     type:'overview',              sectionId:'s32' },
+  'biz-a3': { title:'A3 渠道角色地图',     type:'overview',              sectionId:'s33' },
+  'biz-a4': { title:'A4 团队职责地图',     type:'overview',              sectionId:'s34' },
+  'biz-a5': { title:'A5 本周期三条主线',   type:'overview', badge:'每周', sectionId:'s35' },
+  'biz-howto':     { title:'怎么用这份知识库', type:'atomic',             sectionId:'s0'  },
+  'biz-kpis':      { title:'核心指标体系',  type:'atomic',               sectionId:'s1'  },
+  'biz-rebuttal':  { title:'反驳通用FB课程', type:'atomic',              sectionId:'s2'  },
+  // --- assets ---
+  'assets-ban':    { title:'封号防控 SOP',  type:'atomic',               sectionId:'s11' },
+  'assets-scale':  { title:'扩量节奏与节点', type:'atomic',              sectionId:'s12' },
+  'assets-sop':    { title:'知识沉淀规范',  type:'atomic',               sectionId:'s13' },
+  'assets-contrib':{ title:'投手投稿',      type:'template',             sectionId:'s14' }
+};
+
+// Type icons for page-item display
+const PAGE_TYPE_ICON = { overview:'◈', hub:'◉', atomic:'○', template:'✎' };
+
+// ============================================================
+// selectDomain: render nav-secondary for a domain
+// ============================================================
+let _currentDomain = null;
+let _currentPageId = null;
+
+function selectDomain(domainId, tabEl) {
+  _currentDomain = domainId;
+  // update tab highlight
+  document.querySelectorAll('.domain-tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+
+  const domain = KB_STRUCTURE[domainId];
+  if (!domain) return;
+
+  // render secondary nav
+  const sec = document.getElementById('nav-secondary');
+  let html = `<div class="sec-header"><div class="sec-title">${domain.label}</div><div class="sec-sub">${domain.sub}</div></div>`;
+
+  domain.groups.forEach(group => {
+    html += `<div class="sec-group"><div class="sec-group-label">${group.label}</div>`;
+    group.pages.forEach(pageId => {
+      const page = KB_PAGES[pageId];
+      if (!page) return;
+      const icon = PAGE_TYPE_ICON[page.type] || '○';
+      const badge = page.badge ? `<span class="pi-badge">${page.badge}</span>` : '';
+      html += `<a class="page-item" data-page="${pageId}" onclick="selectPage('${pageId}',this)">
+        <span class="pi-type">${icon}</span>
+        <span style="flex:1;">${page.title}</span>
+        ${badge}
+      </a>`;
+    });
+    html += `</div>`;
+  });
+
+  sec.innerHTML = html;
+
+  // auto-select first page
+  const firstPage = domain.groups[0]?.pages[0];
+  if (firstPage) selectPage(firstPage);
 }
 
-// ---- Contribution system ----
+// ============================================================
+// selectPage: show section, highlight page-item
+// ============================================================
+function selectPage(pageId, itemEl) {
+  _currentPageId = pageId;
+  const page = KB_PAGES[pageId];
+  if (!page) return;
+
+  // update page-item highlight
+  document.querySelectorAll('.page-item').forEach(i => i.classList.remove('active'));
+  // if itemEl passed use it; otherwise find by data-page
+  const el = itemEl || document.querySelector(`.page-item[data-page="${pageId}"]`);
+  if (el) el.classList.add('active');
+
+  // show section
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(page.sectionId);
+  if (target) target.classList.add('active');
+
+  // scroll content panel to top
+  const panel = document.getElementById('content-panel');
+  if (panel) panel.scrollTop = 0;
+}
+
+// legacy: keep show() for any remaining onclick references
+function show(id, el) { selectPage(Object.keys(KB_PAGES).find(k => KB_PAGES[k].sectionId === id) || id, el); }
+
+// ============================================================
+// Contribution system
+// ============================================================
 function generateContrib() {
   const person = document.getElementById('c-person').value;
-  const type = document.getElementById('c-type').value;
-  const content = document.getElementById('c-content').value.trim();
+  const type   = document.getElementById('c-type').value;
+  const content= document.getElementById('c-content').value.trim();
   if (!person || !type || !content) { alert('请填写代号、类型和内容'); return; }
   const date = new Date().toLocaleDateString('zh-CN');
   const text = `【Crave AI 知识库投稿】\n投手：${person}\n类型：${type}\n日期：${date}\n\n${content}`;
   document.getElementById('c-output').textContent = text;
   document.getElementById('c-result').style.display = 'block';
-  document.getElementById('c-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('c-result').scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 function copyContrib() {
   const text = document.getElementById('c-output').textContent;
-  const btn = document.getElementById('c-copy-btn');
+  const btn  = document.getElementById('c-copy-btn');
   navigator.clipboard.writeText(text).catch(() => {
     const ta = document.createElement('textarea');
     ta.value = text; document.body.appendChild(ta); ta.select();
     document.execCommand('copy'); document.body.removeChild(ta);
   });
-  btn.textContent = '已复制 ✓';
-  btn.style.background = 'var(--muted)';
+  btn.textContent = '已复制 ✓'; btn.style.background = 'var(--muted)';
   setTimeout(() => { btn.textContent = '复制'; btn.style.background = 'var(--green)'; }, 2500);
 }
+
+// ============================================================
+// Init: load dashboard domain on page load
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  const firstTab = document.querySelector('.domain-tab[onclick*="dashboard"]');
+  selectDomain('dashboard', firstTab);
+});
 </script>
 </body>
 </html>
