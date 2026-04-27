@@ -2602,6 +2602,349 @@ ORDER BY hvu_v2 DESC
   </div>
 </div>
 
+<!-- ===== S22: 跨渠道接力 · 链式判断表 ===== -->
+<div id="s22" class="section">
+  <div class="page-header">
+    <h1>跨渠道接力 · 链式判断表</h1>
+    <div class="meta">
+      <span class="tag" style="background:rgba(240,112,80,.15);color:#F07050;">FB 为首 → 接力扩散</span>
+      <span class="tag">先看 FB 当前结果，再决定其他平台是否启动</span>
+    </div>
+  </div>
+
+  <!-- 核心原则 -->
+  <div style="background:rgba(240,112,80,.07);border:1px solid rgba(240,112,80,.25);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.9;">
+    <strong>当前阶段协作主线：</strong><br>
+    Facebook 先定义有效方向 → Google 承接显性意图 → TikTok 放大内容表达 → X 验证语义与话题 → 全平台结果回流 FB 和知识库<br>
+    <span style="color:var(--muted);">其他平台是否启动，不取决于"想不想多平台"，而取决于 Facebook 是否已先跑出值得迁移的高质量信号。</span>
+  </div>
+
+  <!-- 链式判断总表 -->
+  <h2>链式判断总表</h2>
+  <div style="overflow-x:auto;margin-bottom:24px;">
+  <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:800px;">
+    <thead>
+      <tr style="background:var(--card);border-bottom:2px solid var(--border);">
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:22%;">FB 当前状态</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:14%;">Google</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:14%;">TikTok</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;width:10%;">X</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--muted);font-weight:600;">管理动作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(0,200,83,.04);">
+        <td style="padding:10px 14px;font-weight:600;color:var(--green);">高 HVU、低 CPHQ、可稳定复现</td>
+        <td style="padding:10px 14px;color:var(--text);">承接品牌词 / 核心词 / 场景词 / 再营销</td>
+        <td style="padding:10px 14px;color:var(--text);">改编主题做视频实验</td>
+        <td style="padding:10px 14px;color:var(--text);">扩语义词和话题词</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(0,200,83,.12);color:var(--green);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">允许协作扩散</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(232,64,32,.03);">
+        <td style="padding:10px 14px;font-weight:600;color:var(--red);">CTR 高但 HVU 低</td>
+        <td style="padding:10px 14px;color:var(--muted);">仅小规模验证意图，不放量</td>
+        <td style="padding:10px 14px;color:var(--muted);">暂不扩散</td>
+        <td style="padding:10px 14px;color:var(--muted);">暂不扩散</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(232,64,32,.12);color:var(--red);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">回 FB 修正表达</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(255,225,31,.04);">
+        <td style="padding:10px 14px;font-weight:600;color:#FE8156;">高 HVU 但购买弱</td>
+        <td style="padding:10px 14px;color:var(--text);">优先验证品牌词 / 搜索意图 / 再营销</td>
+        <td style="padding:10px 14px;color:var(--muted);">不优先</td>
+        <td style="padding:10px 14px;color:var(--muted);">不优先</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(255,225,31,.18);color:#FE8156;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">查页面 / 信任 / 支付</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;font-weight:600;color:var(--blue);">主题有效但素材疲劳</td>
+        <td style="padding:10px 14px;color:var(--muted);">暂无优先动作</td>
+        <td style="padding:10px 14px;color:var(--text);">重新包装表达</td>
+        <td style="padding:10px 14px;color:var(--text);">重新包装语义</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(74,171,255,.12);color:var(--blue);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">外平台为 FB 续命</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;font-weight:600;color:var(--text);">页面承接有效但流量单一</td>
+        <td style="padding:10px 14px;color:var(--text);">扩搜索入口</td>
+        <td style="padding:10px 14px;color:var(--text);">扩视频入口</td>
+        <td style="padding:10px 14px;color:var(--text);">扩语义入口</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(74,171,255,.12);color:var(--blue);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">多入口测试</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(107,107,128,.05);">
+        <td style="padding:10px 14px;font-weight:600;color:var(--muted);">点击弱、HVU 弱、CPHQ 高</td>
+        <td style="padding:10px 14px;color:var(--muted);">不启动</td>
+        <td style="padding:10px 14px;color:var(--muted);">不启动</td>
+        <td style="padding:10px 14px;color:var(--muted);">不启动</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(107,107,128,.12);color:var(--muted);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">FB 内部继续找方向</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(232,64,32,.03);">
+        <td style="padding:10px 14px;font-weight:600;color:var(--red);">高互动/高播放，站内行为弱</td>
+        <td style="padding:10px 14px;color:var(--muted);">只观察，不接广泛词</td>
+        <td style="padding:10px 14px;color:var(--muted);">不把高播放当有效主题</td>
+        <td style="padding:10px 14px;color:var(--muted);">不把高互动当高意图语义</td>
+        <td style="padding:10px 14px;"><span style="background:rgba(232,64,32,.12);color:var(--red);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;">禁止直接升级为协作依据</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 平台职责 -->
+  <h2>各平台接棒职责边界</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-bottom:24px;">
+    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid #4AABFF;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:13px;font-weight:700;color:#4AABFF;margin-bottom:6px;">🔍 Google Ads — 承接显性意图</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+        · 接棒条件：FB 已有稳定高 HVU 主题<br>
+        · 动作：拆成品牌词/核心词/场景词/再营销<br>
+        · 回流：高意图词 → FB 词库/标题优化
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid #FE2D55;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:13px;font-weight:700;color:#FE2D55;margin-bottom:6px;">🎵 TikTok Ads — 放大内容表达</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+        · 接棒条件：FB 已验证主题成立<br>
+        · 动作：改编视频脚本/首秒钩子（迁移主题，不迁移形式）<br>
+        · 回流：高停留钩子 → FB 素材组
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid #1DA1F2;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:13px;font-weight:700;color:#1DA1F2;margin-bottom:6px;">𝕏 Twitter / X — 验证语义与话题</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+        · 接棒条件：FB 已验证主题，需深化语言<br>
+        · 动作：测话题词/欲望词/痛点句式<br>
+        · 回流：高语义词 → FB+Google+内容团队词库
+      </div>
+    </div>
+  </div>
+
+  <!-- 断链规则 -->
+  <h2>⛔ 断链规则（低质量信号禁止扩散）</h2>
+  <div style="background:rgba(232,64,32,.05);border:1px solid rgba(232,64,32,.2);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.9;">
+    · FB CTR 高但 HVU 低 → 不扩 TikTok / X，Google 仅小样本验证<br>
+    · FB 点击后不翻页 → 先修落地页表达，不扩平台<br>
+    · TikTok 高播放但站内 HVU 弱 → 不回灌为 FB 主题<br>
+    · X 高互动但转化弱 → 只作语义参考，不作扩量依据<br>
+    <strong style="color:var(--red);">核心判断：低质量信号越协作，浪费越大。</strong>
+  </div>
+
+  <!-- 回灌机制 -->
+  <h2>♻️ 回灌机制（各平台结论必须写回）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:8px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>
+        <tr style="background:rgba(0,0,0,.03);border-bottom:1px solid var(--border);">
+          <th style="padding:8px 14px;text-align:left;color:var(--muted);">信号来源</th>
+          <th style="padding:8px 14px;text-align:left;color:var(--muted);">可回灌内容</th>
+          <th style="padding:8px 14px;text-align:left;color:var(--muted);">去向</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;">Google</td>
+          <td style="padding:9px 14px;color:var(--muted);">高意图关键词 / 有效搜索结构 / 品牌防守信号</td>
+          <td style="padding:9px 14px;">FB 词库 + 知识库</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(0,0,0,.02);">
+          <td style="padding:9px 14px;font-weight:600;">TikTok</td>
+          <td style="padding:9px 14px;color:var(--muted);">高停留首秒钩子 / 有效叙事方式</td>
+          <td style="padding:9px 14px;">FB 素材组 + 知识库</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:9px 14px;font-weight:600;">X</td>
+          <td style="padding:9px 14px;color:var(--muted);">高语义词 / 话题切口 / 痛点句式</td>
+          <td style="padding:9px 14px;">FB + Google + 内容团队</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);background:rgba(0,0,0,.02);">
+          <td style="padding:9px 14px;font-weight:600;">全平台</td>
+          <td style="padding:9px 14px;color:var(--muted);">共通反例 / 断链案例</td>
+          <td style="padding:9px 14px;">命题库（证伪命题）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== S23: 接力推荐 · 当前绿灯广告组 ===== -->
+<div id="s23" class="section">
+  <div class="page-header">
+    <h1>接力推荐 · 当前绿灯广告组</h1>
+    <div class="meta">
+      <span class="tag" style="background:rgba(0,200,83,.12);color:var(--green);">CPHQ ≤ $3 · 已验证方向</span>
+      <span class="tag">数据：4月27日</span>
+    </div>
+  </div>
+
+  <!-- 当前阶段判断 -->
+  <div style="background:rgba(0,200,83,.06);border:1px solid rgba(0,200,83,.2);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:13px;line-height:1.9;">
+    <strong>当前阶段（4/27）判断：</strong> FB 已有 5+ 组 CPHQ confirmed ≤$3，日均 HVU ≈147 ✅<br>
+    → <strong>已触发 Google 接棒条件</strong>（等待账号审核通过即可行动）<br>
+    → TikTok / X 待命：FB 主战场进一步稳定后启动<br>
+    <span style="color:var(--muted);">今日全站 CPHQ 趋势：$4.23 (4/20) → $3.49 (4/23) → $2.82 (4/27) · 持续下降</span>
+  </div>
+
+  <!-- 绿灯组卡片 -->
+  <h2>绿灯广告组 · Google 接棒建议</h2>
+
+  <!-- 组17 -->
+  <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:16px 18px;margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <div>
+        <span style="font-size:14px;font-weight:700;">组17 · Sensual / 感官亲密</span>
+        <span style="margin-left:10px;font-size:11px;background:rgba(0,200,83,.12);color:var(--green);padding:2px 8px;border-radius:10px;font-weight:600;">CHJ</span>
+      </div>
+      <div style="display:flex;gap:12px;font-size:13px;">
+        <span>CPHQ <strong style="color:var(--green);">$0.73</strong></span>
+        <span style="color:var(--muted);">239 访问</span>
+        <span style="color:var(--muted);">落地页：文章页</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;font-size:12px;">
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#4AABFF;margin-bottom:6px;">🔍 Google 接棒</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          搜索词：sensual ai toy · sensory intimacy toy · ai-powered vibrator<br>
+          再营销：文章页浏览者 → 商品页引导<br>
+          落地页：/multisensory 文章页
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#FE2D55;margin-bottom:6px;">🎵 TikTok 脚本方向</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          首秒钩子：感官场景描述（"第一次感受到..."）<br>
+          叙事方式：亲密体验的主观视角<br>
+          不要改选题，只改表达形式
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#1DA1F2;margin-bottom:6px;">𝕏 语义验证词</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          话题词：#SensoryPleasure #IntimacyTech #AIToy<br>
+          欲望词：sensory connection · multisensory intimacy<br>
+          回灌 FB 文案词库
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 组5 -->
+  <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:16px 18px;margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <div>
+        <span style="font-size:14px;font-weight:700;">组5 · 具体动作感受类</span>
+        <span style="margin-left:10px;font-size:11px;background:rgba(0,200,83,.12);color:var(--green);padding:2px 8px;border-radius:10px;font-weight:600;">CHJ</span>
+      </div>
+      <div style="display:flex;gap:12px;font-size:13px;">
+        <span>CPHQ <strong style="color:var(--green);">$1.42</strong></span>
+        <span style="color:var(--muted);">166 访问</span>
+        <span style="color:var(--muted);">落地页：文章页</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;font-size:12px;">
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#4AABFF;margin-bottom:6px;">🔍 Google 接棒</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          搜索词：specific sensation toy · targeted stimulation ai · body response toy<br>
+          落地页：与 FB 文章页主题一致
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#FE2D55;margin-bottom:6px;">🎵 TikTok 脚本方向</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          首秒切入：具体身体感受描述<br>
+          节奏：短促 + 反应镜头<br>
+          复用组5已验证的"动作感受"叙事角度
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#1DA1F2;margin-bottom:6px;">𝕏 语义验证词</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          话题词：#BodyResponse #SmartToy #AIIntimacy<br>
+          痛点词：targeted pleasure · responsive vibration
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 组4 -->
+  <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:16px 18px;margin-bottom:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <div>
+        <span style="font-size:14px;font-weight:700;">组4 · 高潮/体验类</span>
+        <span style="margin-left:10px;font-size:11px;background:rgba(0,200,83,.12);color:var(--green);padding:2px 8px;border-radius:10px;font-weight:600;">CHJ</span>
+      </div>
+      <div style="display:flex;gap:12px;font-size:13px;">
+        <span>CPHQ <strong style="color:var(--green);">$1.68</strong></span>
+        <span style="color:var(--muted);">140 访问</span>
+        <span style="color:var(--muted);">落地页：文章页</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;font-size:12px;">
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#4AABFF;margin-bottom:6px;">🔍 Google 接棒</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          搜索词：orgasm enhancement toy · ai pleasure device · intense stimulation vibrator<br>
+          落地页：对应文章页 → 商品页再营销
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#FE2D55;margin-bottom:6px;">🎵 TikTok 脚本方向</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          首秒钩子：体验高潮前/后的情绪转变<br>
+          叙事：第一人称体验叙述<br>
+          这个角度 FB 已验证有效，TikTok 改包装不改方向
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:6px;padding:10px 12px;">
+        <div style="font-weight:600;color:#1DA1F2;margin-bottom:6px;">𝕏 语义验证词</div>
+        <div style="color:var(--muted);line-height:1.8;">
+          话题词：#PleasureTech #OrgasmEnhancement<br>
+          欲望词：intensified experience · peak pleasure ai<br>
+          可跨回灌给 Google 标题
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google 优先动作汇总 -->
+  <h2>Google 优先动作汇总（账号审核通过后立即执行）</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:rgba(74,171,255,.06);border-bottom:1px solid var(--border);">
+          <th style="padding:9px 16px;text-align:left;color:var(--muted);">广告系列</th>
+          <th style="padding:9px 16px;text-align:left;color:var(--muted);">预算占比</th>
+          <th style="padding:9px 16px;text-align:left;color:var(--muted);">关键词来源</th>
+          <th style="padding:9px 16px;text-align:left;color:var(--muted);">落地页</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border);background:rgba(255,80,32,.04);">
+          <td style="padding:10px 16px;font-weight:600;color:#FF5020;">① 品牌保护伞</td>
+          <td style="padding:10px 16px;">15%</td>
+          <td style="padding:10px 16px;color:var(--muted);">crave ai · creviatech · crave ai app</td>
+          <td style="padding:10px 16px;color:var(--muted);">首页</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;font-weight:600;color:#4AABFF;">② 绿灯主题收割机</td>
+          <td style="padding:10px 16px;">50%</td>
+          <td style="padding:10px 16px;color:var(--muted);">感官 / 具体动作 / 高潮类（来自组4/5/17）</td>
+          <td style="padding:10px 16px;color:var(--muted);">对应文章页 → 再营销进商品页</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border);">
+          <td style="padding:10px 16px;font-weight:600;color:#FE8156;">③ 再营销收割</td>
+          <td style="padding:10px 16px;">35%</td>
+          <td style="padding:10px 16px;color:var(--muted);">FB 文章页浏览者 / 商品页浏览未购者</td>
+          <td style="padding:10px 16px;color:var(--muted);">商品详情页</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 断链预警 -->
+  <div style="background:rgba(232,64,32,.05);border:1px solid rgba(232,64,32,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--muted);line-height:1.8;">
+    <strong style="color:var(--red);">断链预警：HZM 组47-51</strong> 落地页为商品页，弹窗通过率 0~1.3%，已拉低全站指标。这批流量不符合接棒条件，不应作为 Google 的关键词或 TikTok 的选题依据。
+  </div>
+</div>
+
+
 
 </main>
 
@@ -2638,8 +2981,9 @@ const KB_STRUCTURE = {
     ]
   },
   'channel-collab': {
-    label: '渠道协同', sub: '多平台角色分工',
+    label: '渠道协同', sub: 'FB为首 · 链式接力',
     groups: [
+      { label: '接力系统', pages: ['ch-relay', 'ch-relay-now'] },
       { label: '其他渠道', pages: ['ch-google', 'ch-tiktok', 'ch-x'] },
       { label: '营销日历', pages: ['ch-calendar'] }
     ]
@@ -2680,6 +3024,8 @@ const KB_PAGES = {
   'diag-guide':    { title:'数据看板解读',    type:'atomic',               sectionId:'s8'  },
   'diag-competitor':{ title:'竞品研究方法',   type:'atomic', badge:'月更', sectionId:'s10' },
   // --- channel-collab ---
+  'ch-relay':     { title:'链式判断表',      type:'hub',      badge:'核心', sectionId:'s22' },
+  'ch-relay-now': { title:'接力推荐·绿灯组', type:'overview', badge:'每日', sectionId:'s23' },
   'ch-google':     { title:'Google Ads',     type:'atomic', badge:'建设中', sectionId:'s18' },
   'ch-tiktok':     { title:'TikTok Ads',     type:'atomic', badge:'占位',   sectionId:'s19' },
   'ch-x':          { title:'Twitter / X',    type:'atomic', badge:'占位',   sectionId:'s20' },
