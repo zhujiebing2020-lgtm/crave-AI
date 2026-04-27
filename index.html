@@ -176,6 +176,31 @@
     background: linear-gradient(135deg, rgba(255,160,100,0.25), rgba(200,130,80,0.15));
     border: 1px solid rgba(220,150,100,0.5);
   }
+
+/* Overview layer */
+.overview-banner {
+  background: linear-gradient(135deg, rgba(99,102,241,.14), rgba(59,130,246,.10));
+  border: 1px solid rgba(99,102,241,.28);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+}
+.overview-banner p { margin: 0; color: #dbe7ff; }
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 18px 0 24px;
+}
+.overview-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.overview-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.overview-card .value { font-size: 18px; font-weight: 700; margin-top: 6px; color: var(--text); }
+.overview-card .desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.7; }
 </style>
 </head>
 <body>
@@ -190,27 +215,38 @@
   <!-- 速查 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">速查</div>
-    <a class="nav-item active" onclick="show('s16')" style="color:var(--alert-safe);font-weight:600;border:1px solid rgba(15,200,32,.3);">
+    <a class="nav-item active" onclick=\"show('s16', this)\"" style="color:var(--alert-safe);font-weight:600;border:1px solid rgba(15,200,32,.3);">
       <span class="num" style="background:rgba(15,200,32,.2);color:var(--alert-safe);">📊</span>
       <span style="flex:1;">广告数据看板</span>
       <span style="font-size:10px;background:rgba(15,200,32,.15);color:var(--alert-safe);padding:1px 5px;border-radius:3px;">每日</span>
     </a>
-    <a class="nav-item" onclick="show('s8')">
+    <a class="nav-item" onclick=\"show('s8', this)\"">
       <span class="num" style="background:rgba(15,200,32,.1);color:var(--alert-safe);">📖</span>
       <span style="flex:1;">看板解读指南</span>
     </a>
   </div>
 
+  <!-- 业务总览层 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">业务总览层</div>
+    <a class="nav-item" onclick="show('s30', this)"><span class="num">A0</span><span style="flex:1;">当前阶段总览</span></a>
+    <a class="nav-item" onclick="show('s31', this)"><span class="num">A1</span><span style="flex:1;">核心矛盾与优先级</span></a>
+    <a class="nav-item" onclick="show('s32', this)"><span class="num">A2</span><span style="flex:1;">指标接力地图</span></a>
+    <a class="nav-item" onclick="show('s33', this)"><span class="num">A3</span><span style="flex:1;">渠道角色地图</span></a>
+    <a class="nav-item" onclick="show('s34', this)"><span class="num">A4</span><span style="flex:1;">团队职责地图</span></a>
+    <a class="nav-item" onclick="show('s35', this)"><span class="num">A5</span><span style="flex:1;">本周期三条主线</span></a>
+  </div>
+
   <!-- 基础认知 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">基础认知</div>
-    <a class="nav-item" onclick="show('s0')">
+    <a class="nav-item" onclick=\"show('s0', this)\"">
       <span class="num">01</span><span style="flex:1;">怎么用这份知识库</span>
     </a>
-    <a class="nav-item" onclick="show('s1')">
+    <a class="nav-item" onclick=\"show('s1', this)\"">
       <span class="num">02</span><span style="flex:1;">核心指标体系</span>
     </a>
-    <a class="nav-item" onclick="show('s2')">
+    <a class="nav-item" onclick=\"show('s2', this)\"">
       <span class="num">03</span><span style="flex:1;">反驳通用FB课程</span>
     </a>
   </div>
@@ -218,21 +254,21 @@
   <!-- FB 投放操作 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">FB 投放操作</div>
-    <a class="nav-item" onclick="show('s3')">
+    <a class="nav-item" onclick=\"show('s3', this)\"">
       <span class="num">04</span><span style="flex:1;">账户结构与分工</span>
     </a>
-    <a class="nav-item" onclick="show('s4')">
+    <a class="nav-item" onclick=\"show('s4', this)\"">
       <span class="num">05</span><span style="flex:1;">学习期管理</span>
     </a>
-    <a class="nav-item" onclick="show('s5')">
+    <a class="nav-item" onclick=\"show('s5', this)\"">
       <span class="num">06</span><span style="flex:1;">落地页 · 素材方向</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
     </a>
-    <a class="nav-item" onclick="show('s6')">
+    <a class="nav-item" onclick=\"show('s6', this)\"">
       <span class="num">07</span><span style="flex:1;">素材策略 · 投前清单</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">周更</span>
     </a>
-    <a class="nav-item" onclick="show('s15')">
+    <a class="nav-item" onclick=\"show('s15', this)\"">
       <span class="num">08</span><span style="flex:1;">预算·止损决策</span>
     </a>
   </div>
@@ -240,10 +276,10 @@
   <!-- 数据与分析 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">数据与分析</div>
-    <a class="nav-item" onclick="show('s9')">
+    <a class="nav-item" onclick=\"show('s9', this)\"">
       <span class="num">09</span><span style="flex:1;">诊断树：指标异常</span>
     </a>
-    <a class="nav-item" onclick="show('s10')">
+    <a class="nav-item" onclick=\"show('s10', this)\"">
       <span class="num">10</span><span style="flex:1;">竞品研究方法</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">月更</span>
     </a>
@@ -253,13 +289,13 @@
   <!-- 风控与增长 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">风控与增长</div>
-    <a class="nav-item" onclick="show('s11')">
+    <a class="nav-item" onclick=\"show('s11', this)\"">
       <span class="num">12</span><span style="flex:1;">封号防控 SOP</span>
     </a>
-    <a class="nav-item" onclick="show('s12')">
+    <a class="nav-item" onclick=\"show('s12', this)\"">
       <span class="num">13</span><span style="flex:1;">扩量节奏与节点</span>
     </a>
-    <a class="nav-item" onclick="show('s13')">
+    <a class="nav-item" onclick=\"show('s13', this)\"">
       <span class="num">14</span><span style="flex:1;">知识沉淀规范</span>
     </a>
   </div>
@@ -267,15 +303,15 @@
   <!-- 其他渠道 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">其他渠道</div>
-    <a class="nav-item" onclick="show('s18')">
+    <a class="nav-item" onclick=\"show('s18', this)\"">
       <span class="num">G</span><span style="flex:1;">Google Ads</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">建设中</span>
     </a>
-    <a class="nav-item" onclick="show('s19')" style="color:var(--muted);">
+    <a class="nav-item" onclick=\"show('s19', this)\"" style="color:var(--muted);">
       <span class="num">TK</span><span style="flex:1;">TikTok Ads</span>
       <span style="font-size:10px;padding:1px 5px;">占位</span>
     </a>
-    <a class="nav-item" onclick="show('s20')" style="color:var(--muted);">
+    <a class="nav-item" onclick=\"show('s20', this)\"" style="color:var(--muted);">
       <span class="num">𝕏</span><span style="flex:1;">Twitter / X Ads</span>
       <span style="font-size:10px;padding:1px 5px;">占位</span>
     </a>
@@ -284,7 +320,7 @@
   <!-- 营销日历 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">营销日历</div>
-    <a class="nav-item" onclick="show('s21')">
+    <a class="nav-item" onclick=\"show('s21', this)\"">
       <span class="num">📅</span><span style="flex:1;">北美投放日历</span>
       <span style="font-size:10px;background:rgba(255,225,31,.18);color:#FE8156;padding:1px 5px;border-radius:3px;">年更</span>
     </a>
@@ -293,7 +329,7 @@
   <!-- 投手协作 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">投手协作</div>
-    <a class="nav-item" onclick="show('s14')" style="color:#B39DDB;">
+    <a class="nav-item" onclick=\"show('s14', this)\"" style="color:#B39DDB;">
       <span class="num" style="background:rgba(179,157,219,.2);color:#B39DDB;">✍</span>
       <span style="flex:1;">投手投稿</span>
     </a>
@@ -327,19 +363,32 @@
   <h2>知识库地图</h2>
   <div class="table-wrap">
   <table>
-    <tr><th>模块</th><th>解决什么问题</th><th>谁最需要看</th><th>更新频率</th></tr>
-    <tr><td>01 核心指标体系</td><td>统一语言，人人用同一套指标讨论</td><td>所有投手</td><td>季度</td></tr>
-    <tr><td>02 反驳通用课程</td><td>避免用错误方法论指导Crave业务</td><td>新入职投手</td><td>不定期</td></tr>
-    <tr><td>03 账户结构与风控</td><td>搞清楚谁用什么账号，怎么不互相污染</td><td>所有投手</td><td>有结构变化时</td></tr>
-    <tr><td>04 学习期管理</td><td>新广告组头30美元怎么操作</td><td>所有投手</td><td>季度</td></tr>
-    <tr><td>05 落地页类型</td><td>剧情页 vs 文章页，什么场景选哪个</td><td>CHJ / HNN</td><td>有新数据时</td></tr>
-    <tr><td>06 素材策略与合规</td><td>成人内容怎么过审，A级素材标准</td><td>所有投手 + 素材组</td><td>有新封号经验时</td></tr>
-    <tr><td>07 广告组决策标准</td><td>什么时候加量 / 暂停 / 关停</td><td>所有投手</td><td>每月根据实际调整</td></tr>
-    <tr><td>08 数据看板解读</td><td>CPHQ看板怎么看，AdClaw怎么用</td><td>所有投手</td><td>工具变化时</td></tr>
-    <tr><td>09 诊断树</td><td>数据变差了从哪里查起</td><td>所有投手</td><td>有新案例时</td></tr>
-    <tr><td>10 竞品研究</td><td>广告库怎么用，怎么看同类品牌</td><td>HZM / CHJ</td><td>季度</td></tr>
-    <tr><td>11 域名与账号风控</td><td>域名被封、账号被封的判断和应对</td><td>所有投手</td><td>有风控事件时立即更新</td></tr>
-    <tr><td>12 扩量节奏</td><td>什么条件下可以加量，判断节点是什么</td><td>所有投手</td><td>月度</td></tr>
+    <tr><th>分区</th><th>模块</th><th>解决什么问题</th><th>谁最需要看</th><th>更新频率</th></tr>
+    <tr><td>业务总览层</td><td>A0 当前阶段总览</td><td>统一当前业务阶段与主判断口径</td><td>创始人 / 投放负责人 / 新人</td><td>每周</td></tr>
+    <tr><td>业务总览层</td><td>A1 核心矛盾与优先级</td><td>统一当前最重要的问题与资源顺序</td><td>管理层 / 投放负责人</td><td>每周</td></tr>
+    <tr><td>业务总览层</td><td>A2 指标接力地图</td><td>统一不同阶段该看什么指标</td><td>所有投手 / 数据协同</td><td>双周或指标变化时</td></tr>
+    <tr><td>业务总览层</td><td>A3 渠道角色地图</td><td>明确 FB / Google / TikTok / X 分工</td><td>所有跨部门成员</td><td>月度</td></tr>
+    <tr><td>业务总览层</td><td>A4 团队职责地图</td><td>明确角色边界、交接与协同关系</td><td>管理层 / 运营统筹</td><td>月度</td></tr>
+    <tr><td>业务总览层</td><td>A5 本周期三条主线</td><td>统一当前周期最重要的三件事</td><td>全员</td><td>每周</td></tr>
+    <tr><td>基础认知</td><td>01 核心指标体系</td><td>统一语言，人人用同一套指标讨论</td><td>所有投手</td><td>季度</td></tr>
+    <tr><td>基础认知</td><td>02 反驳通用课程</td><td>避免用错误方法论指导 Crave 业务</td><td>新入职投手</td><td>不定期</td></tr>
+    <tr><td>投放操作</td><td>03 账户结构与风控</td><td>搞清谁用什么账号，如何避免污染</td><td>所有投手</td><td>有结构变化时</td></tr>
+    <tr><td>投放操作</td><td>04 学习期管理</td><td>新广告组前 30 美元怎么操作</td><td>所有投手</td><td>季度</td></tr>
+    <tr><td>投放操作</td><td>05 落地页类型</td><td>剧情页 vs 文章页，什么场景选哪个</td><td>CHJ / HNN</td><td>有新数据时</td></tr>
+    <tr><td>投放操作</td><td>06 素材策略与合规</td><td>成人内容怎么过审，A级素材标准</td><td>所有投手 + 素材组</td><td>有新封号经验时</td></tr>
+    <tr><td>工具速查</td><td>07 投前检查清单</td><td>上线前避免低级错误</td><td>所有投手</td><td>随流程变化</td></tr>
+    <tr><td>工具速查</td><td>15 预算·止损决策</td><td>预算、止损、素材判断联动</td><td>投放负责人 / 所有投手</td><td>月度</td></tr>
+    <tr><td>工具速查</td><td>16 广告数据看板</td><td>快速查看广告表现与摘要</td><td>所有投手 / 管理层</td><td>数据更新时</td></tr>
+    <tr><td>数据与分析</td><td>08 数据看板解读</td><td>CPHQ 看板怎么看，AdClaw 怎么用</td><td>所有投手</td><td>工具变化时</td></tr>
+    <tr><td>数据与分析</td><td>09 诊断树</td><td>数据变差了从哪里查起</td><td>所有投手</td><td>有新案例时</td></tr>
+    <tr><td>数据与分析</td><td>10 竞品研究</td><td>广告库怎么用，怎么看同类品牌</td><td>HZM / CHJ</td><td>季度</td></tr>
+    <tr><td>风控与增长</td><td>11 封号防控 SOP</td><td>域名被封、账号被封后的判断与应对</td><td>所有投手</td><td>有风控事件时</td></tr>
+    <tr><td>风控与增长</td><td>12 扩量节奏</td><td>什么条件下可以加量，判断节点是什么</td><td>所有投手</td><td>月度</td></tr>
+    <tr><td>风控与增长</td><td>13 知识沉淀规范</td><td>让经验进入知识库、变成组织规则</td><td>运营统筹</td><td>持续追加</td></tr>
+    <tr><td>其他渠道</td><td>Google Ads</td><td>承接高意图流量，做品牌防守与搜索收割</td><td>投放负责人 / Google 投手</td><td>有新进展时</td></tr>
+    <tr><td>其他渠道</td><td>TikTok Ads</td><td>创意表达与语义实验池</td><td>素材组 / 投手</td><td>模块建设中</td></tr>
+    <tr><td>其他渠道</td><td>Twitter / X Ads</td><td>话题与文化讨论实验池</td><td>投手 / 内容团队</td><td>模块建设中</td></tr>
+    <tr><td>投手协作</td><td>投手投稿</td><td>记录经验、踩坑与可升级规则</td><td>所有投手</td><td>持续追加</td></tr>
   </table>
   </div>
 
@@ -2359,6 +2408,265 @@ ORDER BY hvu_v2 DESC
   </div>
 </div>
 
+<!-- ===== S30: A0 当前阶段总览 ===== -->
+<div id="s30" class="section">
+  <div class="page-header">
+    <h1>A0 · 当前阶段总览</h1>
+    <div class="meta">
+      <span class="tag tag-crave">业务总览层</span>
+      <span class="tag tag-rule">顶层判断页</span>
+      当前处于哪个业务阶段；为什么这样判断；当前该用什么指标，不该用什么指标
+    </div>
+  </div>
+  <div class="overview-banner">
+    <p><strong>这一页的作用不是做背景介绍，而是统一全团队的阶段判断口径。</strong> 同样是"没有购买"，在不同阶段里含义完全不同。若当前仍处于需求验证或漏斗打通阶段，购买不足并不自动等于投放无效；若已进入稳定放量阶段，购买结果就必须重新成为核心判断层。</p>
+  </div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="label">当前阶段</div>
+      <div class="value">S1 需求验证期</div>
+      <div class="desc">向 S2 漏斗打通期过渡</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">当前主指标</div>
+      <div class="value">HVU / CPHQ</div>
+      <div class="desc">页面深度、ATC / begin_checkout 信号同步观察</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">当前不宜过度依赖</div>
+      <div class="value">ROAS / 稳定 CPA</div>
+      <div class="desc">购买路径尚未充分稳定前，不作为唯一主判断</div>
+    </div>
+    <div class="overview-card">
+      <div class="label">进入下一阶段条件</div>
+      <div class="value">稳定购买路径</div>
+      <div class="desc">连续 7-14 天可复现，且站点无重大技术断点</div>
+    </div>
+  </div>
+  <h2>阶段判断表</h2>
+  <div class="table-wrap"><table>
+    <tr><th>阶段</th><th>业务定义</th><th>核心目标</th><th>主判断指标</th><th>不应过度依赖</th></tr>
+    <tr><td>S0 基础搭建期</td><td>追踪、页面、支付、归因尚未稳定</td><td>确认链路能跑通</td><td>页面可达、事件触发、HVU</td><td>ROAS、稳定 CPA</td></tr>
+    <tr><td><strong>S1 需求验证期 ← 当前</strong></td><td>已有流量与兴趣，但购买未稳定</td><td>验证真实需求与内容匹配</td><td>HVU、CPHQ、页面深度、ATC 信号</td><td>ROAS、规模化预算结论</td></tr>
+    <tr><td>S2 漏斗打通期</td><td>已有更深层意向行为，购买开始出现</td><td>找出稳定转化路径</td><td>HVU、ATC、begin_checkout、purchase path</td><td>过早追求极致低 CPA</td></tr>
+    <tr><td>S3 放量验证期</td><td>已有稳定购买路径</td><td>找到可复制放量模型</td><td>CPA、AOV、CPHQ、分渠道质量</td><td>单日波动结论</td></tr>
+    <tr><td>S4 规模增长期</td><td>多渠道协同、承接稳定</td><td>提升经营效率与组织效率</td><td>CPA、MER、AOV、LTV、复购结构</td><td>单平台孤立判断</td></tr>
+  </table></div>
+  <h2>当前阶段下的判断原则</h2>
+  <div class="table-wrap"><table>
+    <tr><th>问题</th><th>当前判断原则</th></tr>
+    <tr><td>没有购买</td><td>先判断是阶段性预期，还是链路 / 页面 / 支付断点</td></tr>
+    <tr><td>CTR 高但 HVU 低</td><td>不判定为优质广告，优先看素材与承接错配</td></tr>
+    <tr><td>HVU 好但购买弱</td><td>先排站内漏斗，而不是先否定投手</td></tr>
+    <tr><td>Google 是否加速推进</td><td>仅在页面承接和高意图词落地页具备基础时推进</td></tr>
+    <tr><td>TikTok / X 是否大投</td><td>当前仅适合作为表达与语义实验池，不承担主收入任务</td></tr>
+  </table></div>
+  <div class="callout warn">
+    <div class="callout-title">反方提醒</div>
+    不要把阶段判断做成口号。如果阶段只是写在页面上，却没有真正改变指标解释口径、预算分配和协同优先级，这一页就没有存在价值。
+  </div>
+</div>
+
+<!-- ===== S31: A1 核心矛盾与优先级 ===== -->
+<div id="s31" class="section">
+  <div class="page-header">
+    <h1>A1 · 核心矛盾与优先级</h1>
+    <div class="meta">
+      <span class="tag tag-crave">业务总览层</span>
+      <span class="tag tag-warn">每周更新</span>
+      当前最值得解决的业务矛盾是什么；哪些问题暂时不能抢优先级
+    </div>
+  </div>
+  <div class="module-intro"><p>很多团队不是因为不会做，而是因为同时想解决太多问题。Crave AI 需要一个固定的核心矛盾面板，让所有人对当前主问题形成统一理解。次级问题可以存在，但不能与最大矛盾并列抢资源。</p></div>
+  <h2>当前核心矛盾面板</h2>
+  <div class="table-wrap"><table>
+    <tr><th>维度</th><th>当前内容</th></tr>
+    <tr><td>当前最大矛盾</td><td>广告已能带来真实兴趣流量，但站内承接路径和页面角色边界不够清晰，导致高质量兴趣难以稳定转成更深层意向或购买</td></tr>
+    <tr><td>次级矛盾</td><td>素材与页面匹配度不稳定，部分页面承担了不属于自己的教育任务或转化任务</td></tr>
+    <tr><td>暂缓问题</td><td>TikTok / X 目前不作为主收入渠道；不以"多平台同时铺开"为当前目标</td></tr>
+    <tr><td>本周期主判断原则</td><td>优先修承接，不用 ROAS 否定投手质量；优先解决路径问题，不急于放大预算</td></tr>
+  </table></div>
+  <h2>优先级表</h2>
+  <div class="table-wrap"><table>
+    <tr><th>优先级</th><th>当前问题</th><th>为什么排这个优先级</th><th>责任归属</th></tr>
+    <tr><td class="td-bad">P0</td><td>内容页 / 产品页 / 测验页角色不清</td><td>这是广告质量与购买结果之间的核心断层</td><td>站点负责人 + 投放负责人</td></tr>
+    <tr><td class="td-bad">P0</td><td>页面承接与素材表达错配</td><td>直接影响 HVU、页面深度和意向形成</td><td>投手 + 内容 / 素材团队</td></tr>
+    <tr><td class="td-warn">P1</td><td>Google 高意图承接页不足</td><td>会限制搜索流量的真实承接效率</td><td>投放负责人 + 站点负责人</td></tr>
+    <tr><td class="td-warn">P1</td><td>复盘结构尚未统一</td><td>经验无法升级为组织规则</td><td>运营统筹</td></tr>
+    <tr><td>P2</td><td>TikTok / X 扩大预算</td><td>当前不是最重要矛盾，过早推进只会分散资源</td><td>投放负责人</td></tr>
+  </table></div>
+  <h2>本周不做清单</h2>
+  <div class="table-wrap"><table>
+    <tr><th>不做什么</th><th>原因</th></tr>
+    <tr><td>不因单日购买波动重写整体投放逻辑</td><td>当前阶段仍以路径验证为主</td></tr>
+    <tr><td>不把 TikTok / X 提前纳入主收入责任</td><td>当前成熟度不支持</td></tr>
+    <tr><td>不用 ROAS 一票否决素材或投手质量</td><td>会错误归因</td></tr>
+    <tr><td>不把所有页面都同时改版</td><td>会破坏问题定位</td></tr>
+  </table></div>
+  <div class="callout warn">
+    <div class="callout-title">反方提醒</div>
+    核心矛盾不是"当前最烦的问题"，而是"解决后最能释放全局效率的问题"。如果这一页只是情绪板，而不是优先级板，它会迅速失效。
+  </div>
+</div>
+
+<!-- ===== S32: A2 指标接力地图 ===== -->
+<div id="s32" class="section">
+  <div class="page-header">
+    <h1>A2 · 指标接力地图</h1>
+    <div class="meta">
+      <span class="tag tag-crave">业务总览层</span>
+      <span class="tag tag-rule">指标解释页</span>
+      为什么当前用 HVU / CPHQ，而不是直接用 ROAS；什么时候把更下游指标接进来
+    </div>
+  </div>
+  <div class="module-intro"><p>如果没有这张接力地图，团队很容易产生两类误解：一类误以为 HVU 永远是最终目标；另一类误以为一旦出现 purchase，上游质量指标就全部失效。两种理解都会导致错误判断。</p></div>
+  <h2>指标接力总表</h2>
+  <div class="table-wrap"><table>
+    <tr><th>指标层</th><th>代表指标</th><th>回答的问题</th><th>当前作用</th><th>何时成为主判断</th></tr>
+    <tr><td>交付层</td><td>Spend、CPM、Frequency</td><td>广告有没有正常投出去</td><td>基础检查层</td><td>所有阶段都看，但不单独决定好坏</td></tr>
+    <tr><td>点击层</td><td>CTR、CPC、首屏互动</td><td>素材有没有拿到注意力</td><td>素材优化参考层</td><td>早期测试与换素材时重要</td></tr>
+    <tr><td class="td-good"><strong>兴趣层 ← 当前主判断</strong></td><td><strong>HVU、CPHQ、页面深度</strong></td><td>来的是否是真实感兴趣用户</td><td>当前主判断层</td><td>S0-S2</td></tr>
+    <tr><td class="td-warn">意向层</td><td>ATC、begin_checkout、quiz completion、sign_up</td><td>用户是否形成更深意向</td><td>当前承接判断层</td><td>S1-S3</td></tr>
+    <tr><td>结果层</td><td>Purchase、CPA、AOV、ROAS</td><td>是否形成商业结果</td><td>逐步接管层</td><td>S2 之后</td></tr>
+    <tr><td>经营层</td><td>MER、LTV、复购率、内容复用效率</td><td>系统是否真正可持续</td><td>长期经营层</td><td>S4</td></tr>
+  </table></div>
+  <h2>当前指标使用规则</h2>
+  <div class="table-wrap"><table>
+    <tr><th>场景</th><th>当前应该优先看什么</th><th>不应该先看什么</th></tr>
+    <tr><td>新广告组刚上线</td><td>Spend、CTR、HVU、CPHQ</td><td>ROAS</td></tr>
+    <tr><td>点击多但停留浅</td><td>HVU、页面深度、首屏承接</td><td>单看 CTR</td></tr>
+    <tr><td>HVU 好但购买少</td><td>ATC、begin_checkout、支付完成路径</td><td>直接怪素材</td></tr>
+    <tr><td>购买开始出现</td><td>CPA、AOV、路径复现率，同时保留 HVU 作为前置质量指标</td><td>完全丢弃 CPHQ</td></tr>
+    <tr><td>多渠道协同时</td><td>分渠道的 HVU / ATC / purchase path 对比</td><td>只用单一 ROAS 横向粗暴比较</td></tr>
+  </table></div>
+  <div class="callout rule">
+    <div class="callout-title">当前推荐写法</div>
+    当前阶段，<strong>HVU / CPHQ 仍然是主判断层，ATC / begin_checkout 是关键承接层，purchase 是逐步接管中的结果层。</strong><br><br>
+    这意味着：当 purchase 尚不稳定时，不使用 ROAS 和稳定 CPA 一票否决投放质量；当 purchase 开始稳定后，也不抛弃 HVU，而是把它降级为前置质量指标。
+  </div>
+  <div class="callout warn">
+    <div class="callout-title">反方提醒</div>
+    任何一个指标一旦脱离阶段，就会变成误导。指标接力地图的核心，不是发明更多指标，而是防止团队在错误阶段用错误指标做错误决策。
+  </div>
+</div>
+
+<!-- ===== S33: A3 渠道角色地图 ===== -->
+<div id="s33" class="section">
+  <div class="page-header">
+    <h1>A3 · 渠道角色地图</h1>
+    <div class="meta">
+      <span class="tag tag-crave">业务总览层</span>
+      <span class="tag tag-rule">协同分工页</span>
+      不同渠道不是平行关系，而是阶段性协同关系。谁是主战渠道，谁是补位渠道，谁是实验渠道
+    </div>
+  </div>
+  <div class="module-intro"><p>Crave AI 当前不适合把所有平台都写成同等级主战渠道。正确做法，是根据当前阶段给渠道定义不同角色。这样做的目的，不是压制某个平台，而是让每个平台承担适合自己的任务。</p></div>
+  <h2>渠道角色总表</h2>
+  <div class="table-wrap"><table>
+    <tr><th>渠道</th><th>当前角色</th><th>核心任务</th><th>当前 KPI 重点</th><th>当前不承担的责任</th></tr>
+    <tr><td>Facebook</td><td>主冷启动、主拉新、主素材与承接验证渠道</td><td>找到真实兴趣用户，验证素材与页面匹配</td><td>HVU、CPHQ、页面深度、分广告组质量</td><td>不独自背支付故障责任</td></tr>
+    <tr><td>Google Ads</td><td>高意图收割、品牌词防守渠道</td><td>承接主动搜索需求，补位高意图词与品牌词</td><td>高意图流量质量、ATC、purchase path</td><td>不负责大规模冷启动教育</td></tr>
+    <tr><td>TikTok Ads</td><td>创意表达实验池（L1）</td><td>测故事节奏、女性向表达、情绪钩子、轻剧情</td><td>首屏互动、低成本表达测试、HVU 参考</td><td>不承担主收入目标</td></tr>
+    <tr><td>X Ads</td><td>语义与话题实验池（L1）</td><td>测关键词语义、文化讨论、观点型承接</td><td>语义匹配质量、点击质量、话题反馈</td><td>不承担稳定转化量级</td></tr>
+    <tr><td>SEO / 内容页</td><td>长周期认知与自然流量层</td><td>建内容资产，承接搜索需求，辅助 Google</td><td>页面停留、自然入口、内容复用价值</td><td>不承担短期 ROI 证明</td></tr>
+    <tr><td>产品页</td><td>强转化承接层</td><td>承接明确购买意图</td><td>add_to_cart、begin_checkout、purchase</td><td>不负责复杂教育任务</td></tr>
+    <tr><td>测验 / 人格页</td><td>分流与识别层</td><td>识别用户偏好，做路径分发</td><td>quiz completion、分流质量、后续行为</td><td>不要求直接承担主出单任务</td></tr>
+  </table></div>
+  <h2>当前渠道优先级</h2>
+  <div class="table-wrap"><table>
+    <tr><th>级别</th><th>渠道</th><th>当前定位</th></tr>
+    <tr><td class="td-bad">P0 主战</td><td>Facebook</td><td>核心拉新与验证</td></tr>
+    <tr><td class="td-bad">P0 补位</td><td>Google Ads</td><td>高意图承接与品牌防守</td></tr>
+    <tr><td class="td-warn">P1 支撑</td><td>SEO / 内容页、产品页、测验页</td><td>承接与长期资产</td></tr>
+    <tr><td>P2 实验</td><td>TikTok Ads、X Ads</td><td>表达与语义实验</td></tr>
+  </table></div>
+  <div class="callout rule">
+    <div class="callout-title">当前平台协同结论</div>
+    <strong>Facebook 主验证兴趣与承接；Google 主承接高意图需求；TikTok 与 X 主实验表达和语义；SEO / 内容页提供长期支撑；产品页和测验页分别承担转化与分流职责。</strong>
+  </div>
+  <div class="callout warn">
+    <div class="callout-title">反方提醒</div>
+    有入口不代表有成熟度，有测试价值不代表要背收入目标。如果把所有渠道都写成同等级主战渠道，只会造成预算分散和组织错配。
+  </div>
+</div>
+
+<!-- ===== S34: A4 团队职责地图 ===== -->
+<div id="s34" class="section">
+  <div class="page-header">
+    <h1>A4 · 团队职责地图</h1>
+    <div class="meta">
+      <span class="tag tag-crave">业务总览层</span>
+      <span class="tag tag-rule">组织协同页</span>
+      每个角色的输入、输出与边界；防止"所有人都在帮忙，但没人对结果负责"
+    </div>
+  </div>
+  <div class="module-intro"><p>Crave AI 的知识库如果要真正成为组织系统，而不是投手工具箱，就必须把团队职责写清楚。职责地图的意义，不是为了分锅，而是为了防止"所有人都在帮忙，但没人对结果负责"。</p></div>
+  <h2>团队角色总表</h2>
+  <div class="table-wrap"><table>
+    <tr><th>角色</th><th>核心职责</th><th>主要输出</th><th>与谁高频协作</th><th>最不该做的事</th></tr>
+    <tr><td>创始人 / 总负责人</td><td>定义阶段目标、业务优先级、资源分配</td><td>阶段判断、主线确认、重大拍板</td><td>投放负责人、站点负责人、运营统筹</td><td>深入日常广告组微操</td></tr>
+    <tr><td>投放负责人</td><td>统一渠道协同、预算结构与判断标准</td><td>投放优先级、渠道角色、加量节奏</td><td>创始人、平台投手、站点负责人</td><td>让每个投手各自定义规则</td></tr>
+    <tr><td>平台投手</td><td>负责平台内测试、执行与异常反馈</td><td>广告测试结果、周复盘、异常上报</td><td>投放负责人、内容团队、运营统筹</td><td>单独定义公司级指标口径</td></tr>
+    <tr><td>运营统筹</td><td>负责跨模块推进与知识库维护</td><td>周节奏、项目跟踪、知识回写</td><td>所有人</td><td>只做记录，不推动闭环</td></tr>
+    <tr><td>站点 / 产品</td><td>负责承接路径、页面角色与转化修复</td><td>页面改版、路径定义、事件稳定性</td><td>投放负责人、内容团队</td><td>把所有问题都归因为广告质量</td></tr>
+    <tr><td>内容 / 素材团队</td><td>负责叙事表达、素材供给与页面内容方向</td><td>素材池、页面表达、钩子库</td><td>平台投手、站点团队</td><td>只追求点击而忽略承接一致性</td></tr>
+    <tr><td>数据 / 分析</td><td>负责解释数据、识别路径断点、形成摘要</td><td>看板、路径诊断、摘要判断</td><td>投放负责人、运营统筹、站点团队</td><td>只输出数字，不转成可执行判断</td></tr>
+  </table></div>
+  <h2>交接规则</h2>
+  <div class="table-wrap"><table>
+    <tr><th>交接场景</th><th>谁发起</th><th>谁接收</th><th>必须输出什么</th></tr>
+    <tr><td>广告质量异常</td><td>平台投手</td><td>投放负责人 / 站点负责人</td><td>异常描述、时间、广告组、关键指标</td></tr>
+    <tr><td>页面承接异常</td><td>站点负责人</td><td>投放负责人 / 数据协同</td><td>页面路径、异常点、受影响页面</td></tr>
+    <tr><td>素材与页面错配</td><td>投手 / 内容团队</td><td>双方同步</td><td>素材主题、落地页、错配表现</td></tr>
+    <tr><td>周复盘回写</td><td>平台投手</td><td>运营统筹</td><td>标准化复盘内容</td></tr>
+    <tr><td>阶段判断调整</td><td>创始人 / 投放负责人</td><td>全员</td><td>新阶段定义、指标口径变化、优先级变化</td></tr>
+  </table></div>
+  <div class="callout warn">
+    <div class="callout-title">反方提醒</div>
+    职责地图不是岗位说明书，而是业务协同图。如果只是把每个人"应该做什么"写一遍，却没有写清输入、输出和交接点，这一页就会失去实际价值。
+  </div>
+</div>
+
+<!-- ===== S35: A5 本周期三条主线 ===== -->
+<div id="s35" class="section">
+  <div class="page-header">
+    <h1>A5 · 本周期三条主线</h1>
+    <div class="meta">
+      <span class="tag tag-crave">业务总览层</span>
+      <span class="tag tag-warn">每周更新</span>
+      当前周期最重要的三件事；所有模块和协作动作都要能挂到其中一条主线上
+    </div>
+  </div>
+  <div class="module-intro"><p>Crave AI 不适合把所有目标并列推进。业务总览层必须用"三条主线"强制压缩当前周期的战略重点。这样做不是为了简化世界，而是为了防止知识库越做越大、团队越做越散。</p></div>
+  <h2>当前三条主线（4/27-5/2）</h2>
+  <div class="table-wrap"><table>
+    <tr><th>主线</th><th>当前目标</th><th>责任人</th><th>服务哪些模块</th></tr>
+    <tr><td>增长主线</td><td>稳定 Facebook 的高质量流量获取，并为 Google 的高意图承接提供关键词和页面依据</td><td>投放负责人</td><td>FB 模块、Google 模块、素材策略模块</td></tr>
+    <tr><td>承接主线</td><td>明确文章页、产品页、测验页的角色边界，修复广告进入站点后的关键断点</td><td>站点负责人</td><td>站点承接层、落地页模块、诊断树</td></tr>
+    <tr><td>组织主线</td><td>统一复盘格式、知识升级路径和跨部门同步节奏</td><td>运营统筹</td><td>投手协作、周复盘、知识沉淀规范</td></tr>
+  </table></div>
+  <h2>当前周期资源分配逻辑</h2>
+  <div class="table-wrap"><table>
+    <tr><th>主线</th><th>当前资源倾斜方式</th></tr>
+    <tr><td>增长主线</td><td>优先保障主战渠道测试和 Google 前置准备</td></tr>
+    <tr><td>承接主线</td><td>优先保障页面角色梳理、关键路径修复与站内诊断</td></tr>
+    <tr><td>组织主线</td><td>优先保障统一复盘与知识回写，而不是临时经验口头流动</td></tr>
+  </table></div>
+  <h2>当前周期不纳入主线的事项</h2>
+  <div class="table-wrap"><table>
+    <tr><th>事项</th><th>暂不纳入原因</th></tr>
+    <tr><td>TikTok / X 主战预算放大</td><td>当前成熟度不足（L1）</td></tr>
+    <tr><td>复杂品牌叙事重构</td><td>当前不是主要矛盾</td></tr>
+    <tr><td>所有页面同时大改版</td><td>不利于问题定位</td></tr>
+    <tr><td>以单次活动替代阶段建设</td><td>容易扰乱长期判断</td></tr>
+  </table></div>
+  <div class="callout warn">
+    <div class="callout-title">反方提醒</div>
+    三条主线不是三个愿望，而是三个会争资源的真实任务。如果每条主线都没有对应责任人、模块映射和资源倾斜方式，这一页就会沦为会议口号。
+  </div>
+</div>
+
+
 </main>
 
 <script>
@@ -2367,12 +2675,13 @@ ORDER BY hvu_v2 DESC
 const DATA_DATE = '2026-04-26';
 
 
-function show(id) {
+function show(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  window.scrollTo(0, 0);
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 // ---- Contribution system ----
