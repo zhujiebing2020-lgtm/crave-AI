@@ -247,10 +247,7 @@
       <span class="num">10</span><span style="flex:1;">竞品研究方法</span>
       <span style="font-size:10px;color:var(--muted);padding:1px 5px;">月更</span>
     </a>
-    <a class="nav-item" onclick="show('s22')" style="color:#FE8156;">
-      <span class="num">11</span><span style="flex:1;">HVU 流失原因</span>
-      <span style="font-size:10px;background:rgba(255,225,31,.20);color:#FE8156;padding:1px 5px;border-radius:3px;">4/26</span>
-    </a>
+
   </div>
 
   <!-- 风控与增长 -->
@@ -373,8 +370,8 @@
     </div>
     <div class="kpi-card">
       <div class="kpi-label">当前最优 CPHQ</div>
-      <div class="kpi-value" style="color:var(--green)">$1.76</div>
-      <div class="kpi-desc">组1 Library · 4/8<br>目标降至 ~$1</div>
+      <div class="kpi-value" style="color:var(--green)">$0.14</div>
+      <div class="kpi-desc">组17 Sensual · 4/26<br>目标：v2 &lt; $3</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">盈亏平衡 CPA</div>
@@ -400,36 +397,6 @@
   </table>
   </div>
 
-  <h2>三阶段成本基准（学习期 / 跑量期 / 衰退期）</h2>
-  <div class="table-wrap">
-  <table>
-    <tr><th>阶段</th><th>进入条件</th><th>CPHQ目标</th><th>操作原则</th></tr>
-    <tr>
-      <td><span class="badge badge-learn">学习期</span> $0~$30</td>
-      <td>新广告组上线起</td>
-      <td>$5~$15 可接受，不作判断</td>
-      <td>不动预算，不换素材，等跑满$30再看</td>
-    </tr>
-    <tr>
-      <td><span class="badge badge-scale">跑量期</span> $30后</td>
-      <td>跑满$30且数据稳定</td>
-      <td>新账号≤$5，成熟账号≤$2</td>
-      <td>可以小幅调整预算（每次≤20%）</td>
-    </tr>
-    <tr>
-      <td><span class="badge badge-decay">衰退期</span></td>
-      <td>CTR连续3天低于峰值70%</td>
-      <td>CPA≤$77</td>
-      <td>48小时内换素材，不停计划不重建</td>
-    </tr>
-  </table>
-  </div>
-
-  <div class="callout rule">
-    <div class="callout-title">Crave AI 规则：学习期内绝对不动</div>
-    学习期内预算调整幅度不得超过20%。不提前换素材。等跑满$30再做判断。
-    违反此规则会重置学习期，等于白白浪费预算。
-  </div>
 
   <h2>指标关系图</h2>
   <div class="code">
@@ -439,17 +406,19 @@
   └─ ÷ 转化数 = CPA  ← 漏斗打通后才有意义
 
 HVU v1（对外汇报口径）= page_count ≥ 2 的Sessions
-HVU v2（内部决策口径）= 以下三条同时满足：
+
+HVU v2（内部决策口径）= 三条同时满足：
   ① 停留时长 ≥ 60秒
   ② page_count ≥ 2
-  ③ 至少1个商业意图信号（见下）
-     · 浏览商品页（conv_group = product_interest）
-     · 点击 Buy Now / Add to Cart（conv_group = cart）
-     · 进入结算页（conv_group = checkout）
+  ③ 类型化商业意图信号（按落地页类型，至少1个）
+     场景类（/exp-app/scene/ 或 /scenarios/）→ Connected 进入房间
+     商品类（/ai-sex-toys/）           → Browse任一（Video Play / Page Scroll / Watch Demo / Tab Kink）
+     专栏类（/multisensory/）           → session内跳商品页或场景页
+
   └─ HVU / 总Sessions = HQ率（高质量率）
 
 目标：CPHQ ↓  HVU ↑  HQ率 ↑
-注：看板日报使用 v1 口径；内部复盘和加量决策参考 v2 口径
+注：v1 用于对外汇报；v2 用于内部加量/暂停决策（4/27 双标准并行启动）
   </div>
 </div>
 
@@ -889,65 +858,6 @@ HVU v2（内部决策口径）= 以下三条同时满足：
 
 
 
-<!-- ===== S22: HVU流失原因 ===== -->
-<div id="s22" class="section">
-  <div class="page-header">
-    <h1>高质量用户流失原因</h1>
-    <div class="meta">
-      <span class="tag tag-warn">4/21 Clarity人工回放</span>
-      <span class="tag">534个Session · 30个典型样本 · 成交0</span>
-    </div>
-  </div>
-
-  <div class="callout rule">
-    <div class="callout-title">核心发现：HVU 停留久、互动多，但 534 个 Session 成交 0</div>
-    高质量用户进站后的真实流失原因不是"没兴趣"，是<strong>内容与商品割裂 + 技术障碍 + 缺乏决策支持</strong>。
-  </div>
-
-  <div class="table-wrap">
-  <table>
-    <tr><th>流失原因</th><th>占比</th><th>涉及落地页</th><th>对投手的指令</th></tr>
-    <tr>
-      <td><strong>内容沉迷型</strong>——广告吸引的是"读者"不是"买家"，全程不进商品页</td>
-      <td class="td-bad">40%</td>
-      <td>文章详情页（组5 30 Positions、组24 Dom）</td>
-      <td>素材钩子从「知识/姿势科普」→ 「欲望/感受」，目标人群要有购买意图</td>
-    </tr>
-    <tr>
-      <td><strong>商品研究后犹豫</strong>——看遍所有单品但无法做决策，最长停留 45 分钟未下单</td>
-      <td class="td-warn">23%</td>
-      <td>文章详情页（组4/7）</td>
-      <td>对曾浏览商品详情页 &gt;2min 的人群做<strong>再营销</strong>，落地页直打商品页+优惠，不走文章页</td>
-    </tr>
-    <tr>
-      <td><strong>Scene Room 替代购买</strong>——把网站当 AI 故事平台，从不进商品页</td>
-      <td class="td-warn">13%</td>
-      <td>剧情体验页（组2 Tonight、组8 山间）</td>
-      <td>Room 方向<strong>暂缓扩量</strong>，承接端加上硬件联动引导前不值得继续加预算</td>
-    </tr>
-    <tr>
-      <td><strong>技术/交互障碍</strong>——JS 报错、Dead Click、视频加载失败，数据看不出来</td>
-      <td class="td-bad">10%</td>
-      <td>剧情体验页（组6 冰块、组28）</td>
-      <td>已提技术需求单（P0），等研发修复；此类用户是真实高意向，不是素材问题</td>
-    </tr>
-    <tr>
-      <td><strong>购买流程卡点</strong>——结算页停留 5min 零挽留；登录墙阻断内容→购买路径</td>
-      <td class="td-warn">7%</td>
-      <td>所有落地页</td>
-      <td>承接端问题，已提给技术项目负责人，投手无需操作</td>
-    </tr>
-  </table>
-  </div>
-
-  <div class="callout warn">
-    <div class="callout-title">⚠️ 技术问题待修复（P0，已提单）</div>
-    · 商品详情页→结算页 JS 脚本报错 + 死链（session 181261a7，高意向用户被逼走）<br>
-    · AI Room 多次 Dead Click，无效点击打断体验（session 56b224c9）<br>
-    · 视频无法加载（session 5f0a7ebb）
-  </div>
-</div>
-
 <!-- ===== S6: 素材策略与合规 ===== -->
 <div id="s6" class="section">
   <div class="page-header">
@@ -1147,67 +1057,6 @@ HVU v2（内部决策口径）= 以下三条同时满足：
 
 </div>
 
-<!-- ===== S7: 广告组决策标准 ===== -->
-<div id="s7" class="section">
-  <div class="page-header">
-    <h1>07 · 广告组决策标准</h1>
-    <div class="meta"><span class="tag tag-crave">操作规范</span> 加量 / 保留 / 暂停 / 关停的判断依据</div>
-  </div>
-
-  <h2>决策树</h2>
-  <div class="decision">
-    <div class="decision-step">
-      <div class="q">第一步：判断阶段</div>
-      <div class="a">花费 &lt; $30 → <span class="badge badge-learn">学习期</span>，不做任何判断，只观察</div>
-    </div>
-    <div class="decision-step go">
-      <div class="q">花费 ≥ $30，CPHQ ≤ $3</div>
-      <div class="a">✅ <strong>加量</strong>：每次预算调整 ≤ 20%，观察2天确认稳定后再加下一次</div>
-    </div>
-    <div class="decision-step wait">
-      <div class="q">花费 ≥ $30，CPHQ $3~$5</div>
-      <div class="a">⏸ <strong>保留观察</strong>：不加量，不减量，看趋势（连续改善则加量，连续恶化则暂停）</div>
-    </div>
-    <div class="decision-step wait">
-      <div class="q">花费 ≥ $30，CPHQ &gt; $5</div>
-      <div class="a">⚠️ <strong>观察一天</strong>：连续2天&gt;$5 → 暂停；单天偶尔&gt;$5 → 继续观察</div>
-    </div>
-    <div class="decision-step stop">
-      <div class="q">连续2天有花费 / HVU=0</div>
-      <div class="a">🔴 <strong>立即暂停</strong>：不管是否在学习期。先检查落地页是否正常，再检查素材是否被降权</div>
-    </div>
-    <div class="decision-step stop">
-      <div class="q">CPHQ持续恶化 + CTR低于峰值70%</div>
-      <div class="a">🔴 <strong>关停</strong>：素材已死，继续跑是浪费。在同样的落地页方向上新建广告组</div>
-    </div>
-  </div>
-
-  <h2 id="s7-date-header">4/19 各广告组当前状态</h2>
-  <div class="table-wrap">
-  <table>
-    <tr><th>广告组</th><th>投手</th><th>4/19 花费 / HVU / CPHQ</th><th>建议操作</th></tr>
-    <!-- 优秀 CPHQ ≤ $3 -->
-    <tr><td>组17 18 Sensual</td><td>CHJ</td><td class="td-good">$9.84 / 12HVU / $0.82</td><td class="td-good">加量≤20%</td></tr>
-    <tr><td>组4 Viennese Oyster</td><td>CHJ</td><td class="td-good">$10.08 / 9HVU / $1.12</td><td class="td-good">加量≤20%</td></tr>
-    <tr><td>组32 confidence</td><td>CHJ</td><td class="td-good">$13.66 / 8HVU / $1.71</td><td class="td-good">加量≤20%</td></tr>
-    <tr><td>组5 30 Positions</td><td>CHJ</td><td class="td-good">$9.38 / 5HVU / $1.88</td><td class="td-good">加量≤20%</td></tr>
-    <tr><td>组28 牛角</td><td>HNN</td><td class="td-good">$8.81 / 4HVU / $2.20</td><td class="td-good">加量≤20%</td></tr>
-    <tr><td>组20 A Softer</td><td>CHJ</td><td class="td-good">$18.84 / 7HVU / $2.69</td><td class="td-good">加量≤20%</td></tr>
-    <!-- 观察 $3~$5 -->
-    <tr><td>组21 职场</td><td>HNN</td><td class="td-warn">$6.29 / 2HVU / $3.15</td><td class="td-warn">保留观察</td></tr>
-    <tr><td>组23 工作室</td><td>HNN</td><td class="td-warn">$6.54 / 2HVU / $3.27</td><td class="td-warn">保留观察</td></tr>
-    <!-- 偏贵 >$5 -->
-    <tr><td>组29 性爱疗愈</td><td>HZM</td><td class="td-bad">$12.87 / 2HVU / $6.43</td><td class="td-warn">连续>$5→暂停</td></tr>
-    <tr><td>组31 天使</td><td>HZM</td><td class="td-bad">$13.49 / 2HVU / $6.75</td><td class="td-warn">连续>$5→暂停</td></tr>
-    <!-- 0 HVU - CHJ -->
-    <tr><td>组7 best intimacy / 组24 Dom / 组27 performance</td><td>CHJ</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">先查落地页LCP，再决策</td></tr>
-    <!-- 0 HVU - HNN -->
-    <tr><td>组8 山间 / 组9 金项圈 / 组16 敲门 / 组18 红玫瑰 / 组25 强迫休息 / 组30 流汗男</td><td>HNN</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">查LCP（>2500ms通知研发），暂停花费</td></tr>
-    <!-- 0 HVU - HZM -->
-    <tr><td>组15 Power Shift / 组19 Top Predator's / 组26 Surrender</td><td>HZM</td><td class="td-bad">— / 0HVU / —</td><td class="td-bad">建议暂停，集中预算到有产出方向</td></tr>
-  </table>
-  </div>
-</div>
 
 <!-- ===== S8: 数据看板解读 ===== -->
 <div id="s8" class="section">
@@ -1216,7 +1065,7 @@ HVU v2（内部决策口径）= 以下三条同时满足：
     <div class="meta"><span class="tag tag-crave">工具使用</span> 怎么读CPHQ看板，AdClaw怎么查数据</div>
   </div>
 
-  <h2>桌面CPHQ看板（广告组数据看板0414.xlsx）</h2>
+  <h2>桌面CPHQ看板（广告组数据看板.xlsx）</h2>
   <div class="callout tip">
     <div class="callout-title">看板格式说明</div>
     每格格式：<strong>花费 / 高质量用户数 / 单价（CPHQ）</strong><br>
@@ -1288,7 +1137,10 @@ WHERE s.first_seen_at >= '2026-04-26'
   AND EXISTS (
     SELECT 1 FROM conversion c
     WHERE c.session_id = s.session_id
-      AND c.conv_group IN ('product_interest', 'cart', 'checkout', 'purchase')
+      -- 类型化信号：场景类=Connected / 商品类=Browse事件 / 专栏类=由看板URL序列判断
+      AND c.event_name IN ('room_connected','livekit_connected',
+                           'product_video_play','product_page_scroll',
+                           'product_watch_demo_click','product_tab_kink_click')
   )
 GROUP BY t.task_name
 ORDER BY hvu_v2 DESC
@@ -1355,10 +1207,47 @@ ORDER BY hvu_v2 DESC
     <div class="decision-step go"><div class="q">LCP正常，内容方向对，HVU率仍低</div><div class="a">→ 素材问题。更换视觉钩子（前3帧画面/标题），让点击用户与剧情内容调性更匹配。</div></div>
   </div>
 
-  <h2>CTR正常但转化为0</h2>
-  <div class="decision">
-    <div class="decision-step go"><div class="q">当前阶段（2026-04-15）</div><div class="a">0购买是已知问题，漏斗卡在"加购→支付完成"。观测节点：4/17。在研发修复结算页之前，这是预期内状态，不是广告问题。</div></div>
-    <div class="decision-step wait"><div class="q">检查路径</div><div class="a">用AdClaw查看：有HVU的session是否有到达购物车/加购事件。如果有加购但无购买，说明结算页有断点，非广告问题。</div></div>
+
+  <h2>HVU 流失原因（4/21 Clarity 人工回放 · 534 Sessions）</h2>
+  <div class="callout rule">
+    <div class="callout-title">核心发现：HVU 停留久、互动多，但 534 个 Session 成交 0</div>
+    高质量用户进站后的真实流失原因不是"没兴趣"，是<strong>内容与商品割裂 + 技术障碍 + 缺乏决策支持</strong>。
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>流失原因</th><th>占比</th><th>涉及落地页</th><th>对投手的指令</th></tr>
+    <tr>
+      <td><strong>内容沉迷型</strong>——广告吸引的是"读者"不是"买家"，全程不进商品页</td>
+      <td class="td-bad">40%</td>
+      <td>文章详情页（组5 30 Positions、组24 Dom）</td>
+      <td>素材钩子从「知识/姿势科普」→ 「欲望/感受」，目标人群要有购买意图</td>
+    </tr>
+    <tr>
+      <td><strong>商品研究后犹豫</strong>——看遍所有单品但无法做决策，最长停留 45 分钟未下单</td>
+      <td class="td-warn">23%</td>
+      <td>文章详情页（组4/7）</td>
+      <td>对曾浏览商品详情页 &gt;2min 的人群做<strong>再营销</strong>，落地页直打商品页+优惠，不走文章页</td>
+    </tr>
+    <tr>
+      <td><strong>Scene Room 替代购买</strong>——把网站当 AI 故事平台，从不进商品页</td>
+      <td class="td-warn">13%</td>
+      <td>剧情体验页（组2 Tonight、组8 山间）</td>
+      <td>Room 方向<strong>暂缓扩量</strong>，承接端加上硬件联动引导前不值得继续加预算</td>
+    </tr>
+    <tr>
+      <td><strong>技术/交互障碍</strong>——JS 报错、Dead Click、视频加载失败，数据看不出来</td>
+      <td class="td-bad">10%</td>
+      <td>剧情体验页（组6 冰块、组28）</td>
+      <td>已提技术需求单（P0），等研发修复；此类用户是真实高意向，不是素材问题</td>
+    </tr>
+    <tr>
+      <td><strong>购买流程卡点</strong>——结算页停留 5min 零挽留；登录墙阻断内容→购买路径</td>
+      <td class="td-warn">7%</td>
+      <td>所有落地页</td>
+      <td>承接端问题，已提给技术项目负责人，投手无需操作</td>
+    </tr>
+  </table>
   </div>
 </div>
 
@@ -1525,7 +1414,7 @@ ORDER BY hvu_v2 DESC
     <tr><td>交付层</td><td>Spend、CPM、Frequency</td><td>广告有没有正常投出去</td><td>正常，BM-A 日消耗 ~$140</td></tr>
     <tr><td>点击层</td><td>CTR、CPC</td><td>素材是否拿到注意力</td><td>目标 CTR ≥ 2%</td></tr>
     <tr><td class="td-good"><strong>站内层 ← 核心</strong></td><td><strong>HVU、CPHQ</strong></td><td>点进来的是不是真实有兴趣用户</td><td class="td-good">当前唯一优化层</td></tr>
-    <tr><td class="td-bad">结果层（暂不可用）</td><td class="td-bad">Purchase、CPA、ROAS</td><td>广告最终有没有赚到钱</td><td class="td-bad">漏斗卡点，4/17 观测</td></tr>
+    <tr><td class="td-bad">结果层（暂不可用）</td><td class="td-bad">Purchase、CPA、ROAS</td><td>广告最终有没有赚到钱</td><td class="td-bad">漏斗未打通，暂不可用</td></tr>
   </table></div>
 
   <hr>
