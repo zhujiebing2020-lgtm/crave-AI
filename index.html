@@ -772,63 +772,116 @@ HVU v2（内部决策口径）= 以下三条同时满足：
 <div id="s5" class="section">
   <div class="page-header">
     <h1>05 · 落地页 · 素材方向</h1>
-    <div class="meta"><span class="tag tag-crave">已验证结论</span> 文章页胜率更高；剧情页非必输，LCP+素材力双达标可突破 · 4/21 更新</div>
+    <div class="meta"><span class="tag tag-crave">已验证结论</span> 文章页胜率71% vs 剧情页8%，差距已是碾压性 · 4/27 更新（43组全量）</div>
   </div>
 
-  <h2>两种落地页的性能对比（4/5~4/19，BM-A实测，29个广告组）</h2>
+  <h2>落地页类型全量对比（4/5~4/26，43个广告组）</h2>
   <div class="table-wrap">
   <table>
-    <tr><th>维度</th><th>文章详情页</th><th>剧情体验页</th></tr>
-    <tr><td>代表广告组（优秀）</td><td>组4/5/17/20/32（CHJ）</td><td>组28 牛角（HNN）</td></tr>
-    <tr><td>综合CPHQ（优秀组）</td><td class="td-good">$0.82~$2.69</td><td class="td-good">$2.20（4/19单日）</td></tr>
-    <tr><td>整体分布</td><td class="td-good">多数绿色，偶有橙色</td><td class="td-bad">多数0HVU，少数突破</td></tr>
-    <tr><td>稳定性</td><td class="td-good">高，可预期</td><td class="td-warn">依赖素材力，波动大</td></tr>
-    <tr><td>0HVU原因</td><td class="td-warn">素材方向与页面内容不匹配</td><td class="td-bad">LCP慢（>2500ms）+ 素材力不足</td></tr>
+    <tr><th>维度</th><th>文章详情页（17组）</th><th>剧情体验页（26组）</th></tr>
+    <tr><td>总花费</td><td>$1,662</td><td>$1,591</td></tr>
+    <tr><td>总 HVU</td><td class="td-good">903</td><td class="td-bad">237</td></tr>
+    <tr><td>综合 CPHQ</td><td class="td-good">$1.84</td><td class="td-bad">$6.71</td></tr>
+    <tr><td>绿灯组（CPHQ≤$3）</td><td class="td-good">12组 · 胜率 <strong>71%</strong></td><td class="td-bad">2组 · 胜率 <strong>8%</strong></td></tr>
+    <tr><td>黄灯组（$3~$5）</td><td class="td-warn">1组</td><td class="td-warn">5组</td></tr>
+    <tr><td>红灯/0HVU</td><td class="td-bad">4组</td><td class="td-bad">19组</td></tr>
+    <tr><td>CPHQ 区间（绿灯组）</td><td class="td-good">$0.73 ~ $2.62</td><td class="td-good">$1.71 ~ $2.13（仅2组）</td></tr>
+    <tr><td>红灯原因</td><td class="td-warn">素材选题方向偏（抽象概念/身份标签）</td><td class="td-bad">LCP慢 + 素材力不足（双杀）</td></tr>
   </table>
   </div>
 
   <div class="callout rule">
-    <div class="callout-title">当前结论（2026-04-19 更新）</div>
-    <strong>文章详情页整体效率仍优于剧情体验页，但结论比4/14更复杂：</strong><br><br>
-    ① <strong>剧情页也能跑出好成绩</strong>——组28 牛角（HNN）4/19 CPHQ $2.20，说明剧情页并非必输，素材力强时可以突破 LCP 限制。<br>
-    ② <strong>文章页出现 0HVU</strong>——组7/24/27（CHJ）LCP 均在 1400~1800ms（技术正常），但 0HVU，根因是素材主题与落地页内容方向不匹配，不是技术问题。<br><br>
-    → 落地页类型只是一个变量，<strong>素材与页面的内容匹配度</strong>才是首要因子。
+    <div class="callout-title">当前结论（2026-04-27 更新，43组全量）</div>
+    ① <strong>文章页碾压剧情页</strong>：花费相当（$1662 vs $1591），但HVU产出差4倍（903 vs 237），CPHQ差3.6倍（$1.84 vs $6.71）。这不是"略好"，是系统性差距。<br><br>
+    ② <strong>文章页不再是CHJ专属</strong>：HNN（组39 解锁高潮 $2.08）、HZM（组36 女性高潮 $2.21）均在文章页跑出绿灯。投手只要选对选题，文章页是可复制的。<br><br>
+    ③ <strong>剧情页仅2组绿灯</strong>（组34银发男$1.71、组33黑男$2.13），且均为特定外形/受众定向，样本量极小，不构成可复制公式。<br><br>
+    → <strong>核心结论</strong>：不要再把预算压在剧情页上试运气。新组默认文章页，剧情页需要有特别理由才开。
   </div>
 
+  <h2>素材方向：什么选题有效，什么选题无效</h2>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:12px;">基于文章页17组数据，归纳选题成败规律</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>选题类型</th><th>代表广告组</th><th>CPHQ</th><th>结论</th></tr>
+    <tr>
+      <td><strong>体位类</strong>（具体动作描述）</td>
+      <td>组5 30 Positions · 组4 Viennese · 组41 Most positions</td>
+      <td class="td-good">$1.42 / $1.68 / $1.61</td>
+      <td class="td-good">✅ 稳定绿灯，可复制</td>
+    </tr>
+    <tr>
+      <td><strong>感官/情感类</strong>（具体感受描述）</td>
+      <td>组17 Sensual · 组20 A Softer · 组7 best intimacy</td>
+      <td class="td-good">$0.73 / $1.85 / $2.35</td>
+      <td class="td-good">✅ 全场最优，需感受具体</td>
+    </tr>
+    <tr>
+      <td><strong>高潮类</strong>（女性视角）</td>
+      <td>组36 女性高潮 · 组39 解锁高潮 · 组43 hands-free</td>
+      <td class="td-good">$2.21 / $2.08 / $1.56</td>
+      <td class="td-good">✅ 新验证方向，绿灯稳定</td>
+    </tr>
+    <tr>
+      <td><strong>技巧/能力类</strong>（方法论型）</td>
+      <td>组27 performance · 组32 confidence · 组35 15 Ideas</td>
+      <td class="td-good">$2.62 / $2.50 / $1.63</td>
+      <td class="td-good">✅ 稳定绿灯</td>
+    </tr>
+    <tr>
+      <td><strong>高潮类</strong>（身体部位聚焦）</td>
+      <td>组37 胸部高潮</td>
+      <td class="td-warn">$4.27</td>
+      <td class="td-warn">🟡 黄灯，过于聚焦单一部位</td>
+    </tr>
+    <tr>
+      <td><strong>抽象概念/身份标签</strong></td>
+      <td>组24 Dom · 组22 Voyeurism · 组29 性爱疗愈</td>
+      <td class="td-bad">$32.91 / $19.12 / $9.37</td>
+      <td class="td-bad">🔴 系统性失败，避开此类选题</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout rule">
+    <div class="callout-title">选题判断规则（一句话版）</div>
+    <strong>能让用户在标题里看到"具体动作/感受/方法"的 → 选；只能看到"身份/概念/类型"的 → 不选。</strong><br><br>
+    · ✅ "30种体位" "Sensual Couch" "解锁高潮" → 用户知道进去能学到什么<br>
+    · ❌ "Dom/Sub关系" "Voyeurism" "性爱疗愈" → 用户不确定进去能得到什么，点击但跳出
+  </div>
+
+  <h2>LCP 技术基准（4/15~4/19 实测，仍有效）</h2>
   <div class="callout warn">
-    <div class="callout-title">⚠️ LCP 数据实证（AdClaw web_vitals，4/15~4/19）</div>
+    <div class="callout-title">⚠️ LCP 数据实证（AdClaw web_vitals）</div>
     <div class="table-wrap" style="margin:12px 0;">
     <table>
-      <tr><th>广告组</th><th>类型</th><th>LCP p50</th><th>LCP差率</th><th>4/19表现</th><th>结论</th></tr>
-      <tr><td>组27 performance</td><td>文章页</td><td class="td-good">1356ms</td><td class="td-good">8.3%</td><td class="td-bad">0HVU</td><td>LCP没问题→素材方向偏了</td></tr>
-      <tr><td>组32 confidence</td><td>文章页</td><td class="td-good">1432ms</td><td class="td-good">6.1%</td><td class="td-good">CPHQ $1.71</td><td>LCP好+方向对=稳定优秀</td></tr>
-      <tr><td>组4 Viennese</td><td>文章页</td><td class="td-good">1512ms</td><td class="td-good">9.1%</td><td class="td-good">CPHQ $1.12</td><td>LCP好+方向对=稳定优秀</td></tr>
-      <tr><td>组17 18 Sensual</td><td>文章页</td><td class="td-good">1569ms</td><td class="td-good">7.9%</td><td class="td-good">CPHQ $0.82</td><td>最优组，LCP+方向双优</td></tr>
-      <tr><td>组24 Dom</td><td>文章页</td><td class="td-good">1592ms</td><td class="td-good">11.5%</td><td class="td-bad">0HVU</td><td>LCP没问题→素材方向偏了</td></tr>
-      <tr><td>组7 best intimacy</td><td>文章页</td><td class="td-good">1782ms</td><td class="td-warn">11.7%</td><td class="td-bad">0HVU</td><td>LCP稍慢但不是根因</td></tr>
-      <tr><td>组28 牛角</td><td>剧情页</td><td class="td-bad">2998ms</td><td class="td-bad">37.5%</td><td class="td-good">CPHQ $2.20</td><td>LCP超阈值仍跑出，素材力强</td></tr>
-      <tr><td>组6/8/9/16（HNN）</td><td>剧情页</td><td class="td-bad">&gt;3800ms</td><td class="td-bad">&gt;43%</td><td class="td-bad">持续0HVU</td><td>LCP技术瓶颈+素材力弱，双杀</td></tr>
+      <tr><th>广告组</th><th>类型</th><th>LCP p50</th><th>LCP差率</th><th>表现</th><th>结论</th></tr>
+      <tr><td>组27 performance</td><td>文章页</td><td class="td-good">1356ms</td><td class="td-good">8.3%</td><td class="td-bad">初期0HVU</td><td>LCP正常→素材方向偏，后改善</td></tr>
+      <tr><td>组32 confidence</td><td>文章页</td><td class="td-good">1432ms</td><td class="td-good">6.1%</td><td class="td-good">CPHQ $2.50</td><td>LCP好+方向对=稳定</td></tr>
+      <tr><td>组4 Viennese</td><td>文章页</td><td class="td-good">1512ms</td><td class="td-good">9.1%</td><td class="td-good">CPHQ $1.68</td><td>LCP好+方向对=稳定</td></tr>
+      <tr><td>组17 Sensual</td><td>文章页</td><td class="td-good">1569ms</td><td class="td-good">7.9%</td><td class="td-good">CPHQ $0.73</td><td>最优，LCP+方向双优</td></tr>
+      <tr><td>组24 Dom</td><td>文章页</td><td class="td-good">1592ms</td><td class="td-good">11.5%</td><td class="td-bad">CPHQ $32.91</td><td>LCP正常→选题是根因</td></tr>
+      <tr><td>组6/8/9/16（HNN）</td><td>剧情页</td><td class="td-bad">&gt;3800ms</td><td class="td-bad">&gt;43%</td><td class="td-bad">持续0HVU</td><td>LCP+素材双杀</td></tr>
     </table>
     </div>
-    <strong>修正后的 LCP 规则：</strong><br>
-    · 剧情页 LCP &gt;2500ms → <strong>高风险</strong>，先修技术；但素材力极强时可短期突破（见组28）<br>
-    · 文章页 LCP &gt;2500ms → 查技术；LCP 正常但 0HVU → <strong>查素材方向，不是技术问题</strong><br>
-    · 遇到 0HVU 的排查顺序：① 查 LCP → ② 查素材与落地页内容匹配度 → ③ 再考虑换素材
+    <strong>LCP 规则：</strong><br>
+    · 文章页 LCP 天然 &lt;2000ms，技术瓶颈概率极低<br>
+    · 剧情页 LCP &gt;2500ms → 先修技术，换素材无效<br>
+    · 文章页0HVU但LCP正常 → 100%是选题方向问题，不是技术问题
   </div>
 
-  <h2>选择落地页类型的决策逻辑（4/19 版）</h2>
+  <h2>选择落地页类型的决策逻辑（4/27 版）</h2>
   <div class="decision">
     <div class="decision-step go">
-      <div class="q">默认选择：文章详情页</div>
-      <div class="a">胜率高、稳定性强、LCP天然优于剧情页。<strong>图片素材首选</strong>，视频素材也可用。关键：素材主题必须与文章内容方向匹配（性爱技巧/知识类）</div>
+      <div class="q">默认选择：文章详情页 + 具体选题</div>
+      <div class="a">胜率71%，CPHQ综合$1.84。<strong>优先体位类/感官类/高潮类/技巧类选题</strong>，避开抽象概念和身份标签。图片素材首选，视频也可用。</div>
     </div>
     <div class="decision-step wait">
       <div class="q">谨慎使用：剧情体验页</div>
-      <div class="a">适合<strong>叙事感极强的视频素材</strong>。前提：① 确认 LCP &lt;2500ms；② 素材与剧情场景强匹配。不满足任意一条，切换到文章页</div>
+      <div class="a">胜率仅8%。需同时满足：① LCP &lt;2500ms（先技术验证）；② 有明确的外形/受众特征（如银发/黑人等视觉锚点）；③ 素材叙事感极强。三条缺一即换文章页。</div>
     </div>
     <div class="decision-step stop">
-      <div class="q">0HVU 时的排查顺序</div>
-      <div class="a">① 查落地页 LCP（AdClaw → session_overview 按 utm_campaign 筛选）<br>② 若 LCP 正常（&lt;2500ms）→ 是素材方向问题，换内容角度，不换页面类型<br>③ 若 LCP 超标 → 通知研发，暂停花费，LCP 修复前换素材无效</div>
+      <div class="q">文章页 0HVU 时的排查</div>
+      <div class="a">LCP通常正常，直接查选题：<br>① 标题里有没有具体动作/感受/方法？没有 → 换选题<br>② 素材画面与文章内容方向是否一致？不一致 → 换素材或换文章<br>③ 两次调整后仍0HVU → 暂停，复盘选题逻辑</div>
     </div>
   </div>
 </div>
