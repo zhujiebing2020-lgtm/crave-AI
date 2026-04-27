@@ -1146,8 +1146,8 @@ HVU v2（内部决策口径）= 以下三条同时满足：
     Session 数量 / HVU数 / 用户行为路径 / 广告组按日明细 / 转化事件明细
   </div>
 
+  <p style="margin:8px 0 4px;font-weight:600;color:var(--muted);font-size:13px;">HVU v1 · 对外汇报口径（page_count ≥ 2）</p>
   <div class="code">
--- HVU v1 查询（对外汇报口径）
 SELECT t.task_name, COUNT(*) FILTER (WHERE s.page_count >= 2) AS hvu_v1
 FROM session s
 JOIN task t ON s.utm_campaign = t.utm_campaign
@@ -1156,8 +1156,10 @@ WHERE s.first_seen_at >= '2026-04-26'
   AND lower(s.utm_source) = 'facebook'
 GROUP BY t.task_name
 ORDER BY hvu_v1 DESC
+  </div>
 
--- HVU v2 查询（内部决策口径：停留≥60s + PV≥2 + 商业意图信号）
+  <p style="margin:16px 0 4px;font-weight:600;color:var(--muted);font-size:13px;">HVU v2 · 内部决策口径（停留≥60s + PV≥2 + 商业意图信号）</p>
+  <div class="code">
 SELECT t.task_name, COUNT(DISTINCT s.session_id) AS hvu_v2
 FROM session s
 JOIN task t ON s.utm_campaign = t.utm_campaign
