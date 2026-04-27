@@ -702,6 +702,70 @@ HVU v2（内部决策口径）= 以下三条同时满足：
     <div class="callout-title">最常见错误：学习期内提前换素材</div>
     看到前两天数据差，马上换素材或关掉重开。这不是优化，这是让预算永远在学习期里转圈。新开一个广告组就是重新开始学习，之前积累的数据全部清零。
   </div>
+
+  <h2>广告组完整生命周期（4阶段）</h2>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">基于 4/5~4/26 实战数据，43个广告组归纳</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>阶段</th><th>花费区间</th><th>天数参考</th><th>核心动作</th><th>退出信号</th></tr>
+    <tr>
+      <td><span class="badge badge-learn">① 学习期</span></td>
+      <td>$0 ~ $30</td>
+      <td>约 3~4 天</td>
+      <td>❌ 不动预算 ❌ 不换素材 ✅ 只看有没有 session</td>
+      <td>连续2天 HVU=0 → 直接跳到止损；花费满$30 → 进入②</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-scale">② 观察期</span></td>
+      <td>$30 ~ $80</td>
+      <td>约 4~6 天</td>
+      <td>开始看 CPHQ 趋势。不加量，等数据稳定</td>
+      <td>CPHQ 连续2天 &gt;$5 → 进入止损；CPHQ ≤$3 稳定 → 进入③</td>
+    </tr>
+    <tr>
+      <td><span class="badge" style="background:var(--green);color:#000;">③ 跑量期</span></td>
+      <td>$80+</td>
+      <td>持续至衰退</td>
+      <td>CPHQ 持续绿灯（≤$3）→ 每次加量 ≤20%，可多次叠加</td>
+      <td>CTR 连续3天低于峰值70%，或 CPHQ 反弹至黄灯 → 进入④</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-decay">④ 衰退/止损</span></td>
+      <td>—</td>
+      <td>—</td>
+      <td>不重开广告组，先换素材观察一个周期（3天）</td>
+      <td>换素材后仍无改善 → 暂停整组，复盘原因</td>
+    </tr>
+  </table>
+  </div>
+
+  <h2>实战数据验证（4/5~4/26）</h2>
+  <div class="callout rule">
+    <div class="callout-title">✅ 教科书案例：快速过学习期 → 长期跑量</div>
+    <strong>组17 18 Sensual（CHJ）</strong>：上线14天，花费$174 / 239 HVU / CPHQ $0.73（全场最优）<br>
+    · 学习期（$0~$30）：约3天，无异常，正常不动<br>
+    · 观察期（$30~$80）：CPHQ 持续≤$3，快速晋级<br>
+    · 跑量期（$80+）：多次加量，CPHQ 始终保持绿灯，越跑越稳<br><br>
+    <strong>同样模式</strong>：组4 Viennese（21天/$235/$1.68）、组5 30 Positions（20天/$237/$1.42）、组7 best intimacy（19天/$207/$2.35）
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 典型教训：学习期后应止损，却拖了19天</div>
+    <strong>组8 山间（HNN）</strong>：运行19天，花费$148 / 9 HVU / CPHQ $16.41<br>
+    · 学习期结束（$30）时 CPHQ 已偏高，但未止损<br>
+    · 观察期内连续多天 HVU 极低，仍在继续花费<br>
+    · 结果：$148 换来9个 HVU，平均每个 HVU 成本$16，严重超标<br><br>
+    <strong>同类浪费</strong>：组30 流汗男（10天/$65/0HVU）、组15 Power Shift（10天/$83/$20.81）<br>
+    <strong>教训</strong>：观察期 CPHQ 连续2天 &gt;$5，必须止损，不能因为"再等等"而拖延。
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">快速止损案例：及时砍掉，节省预算</div>
+    <strong>组3 Elevator（HNN）</strong>：4天/$21/3HVU/$7.09 → 学习期内止损，损失可控<br>
+    <strong>组14 女性专栏（HNN）</strong>：3天/$23/2HVU/$11.71 → 3天即止，未进入烧钱阶段<br>
+    <strong>组13 college secrecy（CHJ）</strong>：4天/$28/4HVU/$7.00 → 学习期结束即止<br><br>
+    止损越早，节省越多。学习期$30以内止损 vs 拖到$100+止损，差距是3~5倍浪费。
+  </div>
 </div>
 
 <!-- ===== S5: 落地页类型 ===== -->
