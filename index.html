@@ -379,27 +379,62 @@
 
 
   <h2>指标关系图</h2>
-  <div class="code">
-花费
-  └─ ÷ 高质量用户数(HVU) = CPHQ  ← 我们当前核心指标
+  <div class="code">花费
+  └─ ÷ HVU数 = CPHQ  ← 当前核心指标
   └─ ÷ 总Sessions = CPS（每访客成本）
-  └─ ÷ 转化数 = CPA  ← 漏斗打通后才有意义
+  └─ ÷ 转化数 = CPA  ← 漏斗打通后接入
+  └─ HVU / 总Sessions = HQ率（高质量率）</div>
 
-HVU v1（对外汇报口径）= page_count ≥ 2 的Sessions
-
-HVU v2（内部决策口径）= 三条同时满足：
-  ① 停留时长 ≥ 60秒
-  ② page_count ≥ 2
-  ③ 类型化商业意图信号（按落地页类型，至少1个）
-     场景类（/exp-app/scene/ 或 /scenarios/）→ Connected 进入房间
-     商品类（/ai-sex-toys/）           → Browse任一（Video Play / Page Scroll / Watch Demo / Tab Kink）
-     专栏类（/multisensory/）           → session内跳商品页或场景页
-
-  └─ HVU / 总Sessions = HQ率（高质量率）
-
-目标：CPHQ ↓  HVU ↑  HQ率 ↑
-注：v1 用于对外汇报；v2 用于内部加量/暂停决策（4/27 双标准并行启动）
+  <h3>HVU 双口径对照</h3>
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th style="width:120px;">口径</th>
+      <th>判断条件</th>
+      <th>适用场景</th>
+    </tr>
+    <tr>
+      <td><strong>v1 · 对外</strong></td>
+      <td>page_count ≥ 2</td>
+      <td>日报汇报 / CPHQ 计算（FB花费 ÷ HVU v1）</td>
+    </tr>
+    <tr>
+      <td><strong>v2 · 内部</strong></td>
+      <td>
+        ① 停留 ≥ 60s<br>
+        ② page_count ≥ 2<br>
+        ③ 类型化商业意图信号（下表，按落地页类型至少1个）
+      </td>
+      <td>加量 / 暂停 / 内部决策</td>
+    </tr>
+  </table>
   </div>
+
+  <div class="table-wrap" style="margin-top:0;">
+  <table>
+    <tr>
+      <th style="width:160px;">v2 落地页类型</th>
+      <th>URL 特征</th>
+      <th>所需信号（至少1个）</th>
+    </tr>
+    <tr>
+      <td>场景类</td>
+      <td>/exp-app/scene/ 或 /scenarios/</td>
+      <td>Connected（进入房间）</td>
+    </tr>
+    <tr>
+      <td>商品类</td>
+      <td>/ai-sex-toys/</td>
+      <td>Video Play / Page Scroll / Watch Demo / Tab Kink</td>
+    </tr>
+    <tr>
+      <td>专栏类</td>
+      <td>/multisensory/</td>
+      <td>session 内跳转至商品页或场景页</td>
+    </tr>
+  </table>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:4px;">双标准并行启动 2026-04-27。目标：CPHQ ↓ · HVU ↑ · HQ率 ↑</p>
 </div>
 
 <!-- ===== S2: 反驳通用课程 ===== -->
@@ -1092,21 +1127,41 @@ HVU v2（内部决策口径）= 三条同时满足：
     Session 数量 / HVU数 / 用户行为路径 / 广告组按日明细 / 转化事件明细
   </div>
 
-  <p style="margin:8px 0 4px;font-weight:600;color:var(--muted);font-size:13px;">HVU v1 · 对外汇报口径（page_count ≥ 2）</p>
-  <div class="code">
-SELECT t.task_name, COUNT(*) FILTER (WHERE s.page_count >= 2) AS hvu_v1
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th style="width:100px;">口径</th>
+      <th>条件</th>
+      <th>用途</th>
+      <th>CPHQ 计算</th>
+    </tr>
+    <tr>
+      <td><strong>v1 · 对外</strong></td>
+      <td>page_count ≥ 2</td>
+      <td>日报汇报</td>
+      <td class="td-good">FB花费 ÷ HVU v1</td>
+    </tr>
+    <tr>
+      <td><strong>v2 · 内部</strong></td>
+      <td>停留≥60s + PV≥2 + 商业意图信号</td>
+      <td>加量 / 暂停决策</td>
+      <td class="td-blue">内部参考，不对外</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>SQL · HVU v1（对外汇报）</h3>
+  <div class="code">SELECT t.task_name, COUNT(*) FILTER (WHERE s.page_count >= 2) AS hvu_v1
 FROM session s
 JOIN task t ON s.utm_campaign = t.utm_campaign
 WHERE s.first_seen_at >= '2026-04-26'
   AND s.first_seen_at &lt; '2026-04-27'
   AND lower(s.utm_source) = 'facebook'
 GROUP BY t.task_name
-ORDER BY hvu_v1 DESC
-  </div>
+ORDER BY hvu_v1 DESC</div>
 
-  <p style="margin:16px 0 4px;font-weight:600;color:var(--muted);font-size:13px;">HVU v2 · 内部决策口径（停留≥60s + PV≥2 + 商业意图信号）</p>
-  <div class="code">
-SELECT t.task_name, COUNT(DISTINCT s.session_id) AS hvu_v2
+  <h3>SQL · HVU v2（内部决策）</h3>
+  <div class="code">SELECT t.task_name, COUNT(DISTINCT s.session_id) AS hvu_v2
 FROM session s
 JOIN task t ON s.utm_campaign = t.utm_campaign
 WHERE s.first_seen_at >= '2026-04-26'
@@ -1117,21 +1172,20 @@ WHERE s.first_seen_at >= '2026-04-26'
   AND EXISTS (
     SELECT 1 FROM conversion c
     WHERE c.session_id = s.session_id
-      -- 类型化信号：场景类=Connected / 商品类=Browse事件 / 专栏类=由看板URL序列判断
-      AND c.event_name IN ('room_connected','livekit_connected',
-                           'product_video_play','product_page_scroll',
-                           'product_watch_demo_click','product_tab_kink_click')
+      AND c.event_name IN (
+        'room_connected','livekit_connected',          -- 场景类
+        'product_video_play','product_page_scroll',    -- 商品类
+        'product_watch_demo_click','product_tab_kink_click'
+      )
   )
 GROUP BY t.task_name
-ORDER BY hvu_v2 DESC
-  </div>
+ORDER BY hvu_v2 DESC</div>
 
   <div class="callout rule">
     <div class="callout-title">数据来源优先级</div>
-    1. <strong>AdClaw</strong>（站内实际行为数据）&gt; FB后台数据<br>
-    2. HVU v1（page_count ≥ 2）用于日报和对外汇报；HVU v2（停留≥60s + PV≥2 + 商业意图信号）用于内部加量/暂停决策<br>
-    3. 花费以 FB 投手导出截图为准<br>
-    4. CPHQ = FB花费 ÷ AdClaw HVU v1（跨平台计算）
+    1. <strong>AdClaw</strong>（站内实际行为）&gt; FB 后台（参考）<br>
+    2. 花费以 FB 投手导出截图为准<br>
+    3. CPHQ = FB花费 ÷ AdClaw HVU v1（跨平台计算）
   </div>
 
   <h2>两个常见误判陷阱（4月实战验证）</h2>
