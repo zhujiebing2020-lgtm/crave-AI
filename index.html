@@ -368,8 +368,8 @@
     </div>
     <div class="kpi-card">
       <div class="kpi-label">高质量用户 HVU</div>
-      <div class="kpi-value" style="color:var(--green)">page_count &gt; 1</div>
-      <div class="kpi-desc">进入超过1个页面<br>= 没有跳出的真实访客</div>
+      <div class="kpi-value" style="color:var(--green);font-size:14px;">v1 / v2 双标准</div>
+      <div class="kpi-desc"><strong>v1（对外汇报）</strong>：page_count ≥ 2<br><strong>v2（内部决策）</strong>：停留≥60s + PV≥2 + 商业意图信号</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">当前最优 CPHQ</div>
@@ -438,11 +438,18 @@
   └─ ÷ 总Sessions = CPS（每访客成本）
   └─ ÷ 转化数 = CPA  ← 漏斗打通后才有意义
 
-HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
+HVU v1（对外汇报口径）= page_count ≥ 2 的Sessions
+HVU v2（内部决策口径）= 以下三条同时满足：
+  ① 停留时长 ≥ 60秒
+  ② page_count ≥ 2
+  ③ 至少1个商业意图信号（见下）
+     · 浏览商品页（conv_group = product_interest）
+     · 点击 Buy Now / Add to Cart（conv_group = cart）
+     · 进入结算页（conv_group = checkout）
   └─ HVU / 总Sessions = HQ率（高质量率）
 
 目标：CPHQ ↓  HVU ↑  HQ率 ↑
-当前卡点：HVU → 加购 → 支付完成（转化漏斗4/17继续观测）
+注：看板日报使用 v1 口径；内部复盘和加量决策参考 v2 口径
   </div>
 </div>
 
@@ -860,7 +867,7 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
   <div class="callout rebuke">
     <div class="callout-title">反驳：通用课程说"好素材=高CTR素材"</div>
     在Crave AI的业务里，高CTR≠好素材。我们见过CTR高但HVU=0的广告组（用户点进来就跳出），也见过CTR一般但CPHQ极低的广告组。<br><br>
-    <strong>Crave AI的好素材定义</strong>：能帮系统找到真正有兴趣的用户（page_count&gt;1），而不是只能吸引好奇点击的用户。
+    <strong>Crave AI的好素材定义</strong>：能帮系统找到真正有兴趣的用户（v1：page_count≥2；v2：停留≥60s+有商业意图行为），而不是只能吸引好奇点击的用户。
   </div>
 
   <div class="callout rule">
@@ -1140,22 +1147,40 @@ HVU = page_count &gt; 1 的Sessions（AdClaw 埋点定义）
   </div>
 
   <div class="code">
--- 查询某广告组某日HVU示例
-SELECT t.task_name, COUNT(*) FILTER (WHERE s.page_count > 1) AS hvu
+-- HVU v1 查询（对外汇报口径）
+SELECT t.task_name, COUNT(*) FILTER (WHERE s.page_count >= 2) AS hvu_v1
 FROM session s
 JOIN task t ON s.utm_campaign = t.utm_campaign
-WHERE s.first_seen_at >= '2026-04-14'
-  AND s.first_seen_at &lt; '2026-04-15'
-  AND t.task_name LIKE '%30 Positions%'
+WHERE s.first_seen_at >= '2026-04-26'
+  AND s.first_seen_at &lt; '2026-04-27'
+  AND lower(s.utm_source) = 'facebook'
 GROUP BY t.task_name
+ORDER BY hvu_v1 DESC
+
+-- HVU v2 查询（内部决策口径：停留≥60s + PV≥2 + 商业意图信号）
+SELECT t.task_name, COUNT(DISTINCT s.session_id) AS hvu_v2
+FROM session s
+JOIN task t ON s.utm_campaign = t.utm_campaign
+WHERE s.first_seen_at >= '2026-04-26'
+  AND s.first_seen_at &lt; '2026-04-27'
+  AND lower(s.utm_source) = 'facebook'
+  AND s.total_duration_sec >= 60
+  AND s.page_count >= 2
+  AND EXISTS (
+    SELECT 1 FROM conversion c
+    WHERE c.session_id = s.session_id
+      AND c.conv_group IN ('product_interest', 'cart', 'checkout', 'purchase')
+  )
+GROUP BY t.task_name
+ORDER BY hvu_v2 DESC
   </div>
 
   <div class="callout rule">
     <div class="callout-title">数据来源优先级</div>
     1. <strong>AdClaw</strong>（站内实际行为数据）&gt; FB后台数据<br>
-    2. HVU 以 AdClaw 的 page_count &gt; 1 为准<br>
+    2. HVU v1（page_count ≥ 2）用于日报和对外汇报；HVU v2（停留≥60s + PV≥2 + 商业意图信号）用于内部加量/暂停决策<br>
     3. 花费以 FB 投手导出截图为准<br>
-    4. CPHQ = FB花费 ÷ AdClaw HVU（跨平台计算）
+    4. CPHQ = FB花费 ÷ AdClaw HVU v1（跨平台计算）
   </div>
 
   <h2>两个常见误判陷阱（4月实战验证）</h2>
@@ -1199,6 +1224,7 @@ GROUP BY t.task_name
     <div class="decision-step stop"><div class="q">落地页报错/打不开</div><div class="a">🔴 立即通知研发，同时暂停该广告组，切换到备用落地页</div></div>
     <div class="decision-step wait"><div class="q">落地页正常打开</div><div class="a">检查AdClaw是否有session但page_count=1（大量跳出）</div></div>
     <div class="decision-step stop"><div class="q">有session，但全部page_count=1</div><div class="a">→ 首屏承接断层。广告承诺的内容与落地页首屏不一致，用户点进来立刻失望跳出。换落地页或换素材方向。</div></div>
+    <div class="decision-step wait"><div class="q">v1 有HVU（page_count≥2），但 v2 HVU=0</div><div class="a">→ 内容沉浸但无商业意图。用户翻了页但没有触达商品页/购物车/结算页。落地页缺乏产品信息前置，制造不了付费缺口。反馈给产品团队优化承接端。</div></div>
     <div class="decision-step stop"><div class="q">AdClaw里完全没有session</div><div class="a">→ Pixel/UTM追踪问题，或广告虽然扣费但实际没有带来真实点击。联系运营统筹核查。</div></div>
   </div>
 
